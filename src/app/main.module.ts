@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { WycieczkiComponent } from './wycieczki.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {HeaderComponent} from "./components/header.component";
 
 @NgModule({
   providers: [
@@ -10,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   declarations: [
     WycieczkiComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
