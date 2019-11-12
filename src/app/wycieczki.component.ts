@@ -9,6 +9,7 @@ export class WycieczkiComponent {
   items;
   maxElement;
   minElement;
+  sum = 0;
 
   constructor () {
     this.items = [
@@ -119,6 +120,8 @@ export class WycieczkiComponent {
     } else {
       console.log(`Max ilosc miejsc na wycieczkę ${item.nazwa} zostala osiagnieta`);
     }
+
+    this.calculateSumOfReservedTrips();
   }
 
   onClickMinusButton(item) {
@@ -128,5 +131,13 @@ export class WycieczkiComponent {
     } else {
       console.log(`Nie mozna zrezygnowac z wycieczki ${item.nazwa}`);
     }
+
+    this.calculateSumOfReservedTrips();
+  }
+
+  calculateSumOfReservedTrips() {
+    this.sum = this.items.reduce((a, b) => {
+      return a + b.ileZarezerwowano;
+    }, 0);
   }
 }
