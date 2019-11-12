@@ -14,9 +14,18 @@
     visibility: hidden;
   }
 
-  .low-available-places {
-    outline: 4px solid #ff6b6d;
+  .low-available-places h5 {
+    color: #ff7b3d;
   }
+
+  .cheapest {
+    outline: 4px solid #24ff82;
+  }
+
+  .most-expensive {
+    outline: 4px solid #ff5153;
+  }
+
 </style>
 
 <div class="container">
@@ -25,28 +34,38 @@
 <!--    <ng-template ngFor let-item [ngForOf]="items" let-i="index">-->
         <div class="card mb-4" style="width: 18rem;"
              *ngFor="let item of items"
-             [ngClass]="{'low-available-places': (item.maxIloscMiejsc - item.ileZarezerwowano) <= 3}"
+             [ngClass]="{
+                'low-available-places': (item.maxIloscMiejsc - item.ileZarezerwowano) <= 3,
+                'cheapest': (item==minElement),
+                'most-expensive': (item==maxElement)
+             }"
         >
 <!--          <img src="..." class="card-img-top" alt="...">-->
           <img src={{item.linkDoZdj}} class="rounded-circle card-img"/>
           <div class="card-body">
-            <h5 class="card-title">{{item.nazwa}}</h5>
+            <h5 class="card-title">{{item.nazwa | uppercase}}</h5>
             <p class="card-text">{{item.opis}}</p>
           </div>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">Kraj docelowy: {{item.docelowyKrajWycieczki}}</li>
+            <li class="list-group-item">Kraj docelowy: {{item.docelowyKrajWycieczki | uppercase}}</li>
             <li class="list-group-item">
               <i class="fas fa-clock"></i> {{item.dataRozpoczecia}} - {{item.dataZakonczenia}}
               <i class="fas fa-clock"></i>
             </li>
             <li class="list-group-item">
-              <i class="fas fa-dollar-sign"></i> Cena: {{item.cenaJednostkowa}}
+              <i class="fas fa-dollar-sign"></i> Cena: {{item.cenaJednostkowa | currency: 'EUR'}}
             </li>
             <li class="list-group-item">
               <i class="far fa-arrow-alt-circle-down"></i> Max ilość miejsc: {{item.maxIloscMiejsc}}
             </li>
             <li class="list-group-item">
-              Ile rezerwacji: {{item.ileZarezerwowano}}
+              <div *ngIf="item.ileZarezerwowano == item.maxIloscMiejsc; else availablePlaces">
+                Brak dostępnych miejsc!
+              </div>
+
+              <ng-template #availablePlaces>
+                Ile zarezerwowano: {{item.ileZarezerwowano}}
+              </ng-template>
             </li>
           </ul>
           <div class="card-body">
