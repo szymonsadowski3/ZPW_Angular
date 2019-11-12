@@ -1,0 +1,41 @@
+<style>
+  .card-img {
+    width: 100px;
+    height: 100px;
+    display: block;
+    margin: 1rem auto 0;
+  }
+</style>
+
+<div class="container">
+  <h1 class="mt-4 mb-4">Wycieczki</h1>
+
+<!--    <ng-template ngFor let-item [ngForOf]="items" let-i="index">-->
+        <div class="card mb-4" style="width: 18rem;"
+             *ngFor="let item of items"
+        >
+<!--          <img src="..." class="card-img-top" alt="...">-->
+          <img src={{item.linkDoZdj}} class="rounded-circle card-img"/>
+          <div class="card-body">
+            <h5 class="card-title">{{item.nazwa}}</h5>
+            <p class="card-text">{{item.opis}}</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Kraj docelowy: {{item.docelowyKrajWycieczki}}</li>
+            <li class="list-group-item">
+              <i class="fas fa-clock"></i> {{item.dataRozpoczecia}} - {{item.dataZakonczenia}}
+              <i class="fas fa-clock"></i>
+            </li>
+            <li class="list-group-item">
+              <i class="fas fa-dollar-sign"></i> Cena: {{item.cenaJednostkowa}}
+            </li>
+            <li class="list-group-item">
+              <i class="far fa-arrow-alt-circle-down"></i> Max ilość mieljsc: {{item.maxIloscMiejsc}}
+            </li>
+          </ul>
+        </div>
+<!--    </ng-template>-->
+</div>
+
+
+
