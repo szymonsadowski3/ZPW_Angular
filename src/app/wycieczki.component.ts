@@ -15,7 +15,8 @@ export class WycieczkiComponent {
       cenaJednostkowa: "3000zł",
       maxIloscMiejsc: 10,
       opis: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel velit nulla. Nam malesuada efficitur maximus. Vestibulum eu maximus dolor. Cras commodo tortor aliquam lobortis pellentesque.",
-      linkDoZdj: "https://via.placeholder.com/100/09f/fff.png"
+      linkDoZdj: "https://via.placeholder.com/100/09f/fff.png",
+      ileZarezerwowano: 0,
     },
     {
       nazwa: "Dwutygodniowa wycieczka do Rosji",
@@ -25,7 +26,8 @@ export class WycieczkiComponent {
       cenaJednostkowa: "3000zł",
       maxIloscMiejsc: 20,
       opis: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel velit nulla. Nam malesuada efficitur maximus. Vestibulum eu maximus dolor. Cras commodo tortor aliquam lobortis pellentesque.",
-      linkDoZdj: "https://via.placeholder.com/100/09f/fff.png"
+      linkDoZdj: "https://via.placeholder.com/100/09f/fff.png",
+      ileZarezerwowano: 0,
     },
     {
       nazwa: "Dwutygodniowa wycieczka do USA",
@@ -35,7 +37,8 @@ export class WycieczkiComponent {
       cenaJednostkowa: "3000zł",
       maxIloscMiejsc: 30,
       opis: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel velit nulla. Nam malesuada efficitur maximus. Vestibulum eu maximus dolor. Cras commodo tortor aliquam lobortis pellentesque.",
-      linkDoZdj: "https://via.placeholder.com/100/09f/fff.png"
+      linkDoZdj: "https://via.placeholder.com/100/09f/fff.png",
+      ileZarezerwowano: 0,
     },
     {
       nazwa: "Tygodniowa wycieczka do Egiptu",
@@ -45,7 +48,8 @@ export class WycieczkiComponent {
       cenaJednostkowa: "3000zł",
       maxIloscMiejsc: 100,
       opis: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel velit nulla. Nam malesuada efficitur maximus. Vestibulum eu maximus dolor. Cras commodo tortor aliquam lobortis pellentesque.",
-      linkDoZdj: "https://via.placeholder.com/100/09f/fff.png"
+      linkDoZdj: "https://via.placeholder.com/100/09f/fff.png",
+      ileZarezerwowano: 0,
     },
     {
       nazwa: "Tygodniowa wycieczka do Rosji",
@@ -55,7 +59,8 @@ export class WycieczkiComponent {
       cenaJednostkowa: "3000zł",
       maxIloscMiejsc: 100,
       opis: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel velit nulla. Nam malesuada efficitur maximus. Vestibulum eu maximus dolor. Cras commodo tortor aliquam lobortis pellentesque.",
-      linkDoZdj: "https://via.placeholder.com/100/09f/fff.png"
+      linkDoZdj: "https://via.placeholder.com/100/09f/fff.png",
+      ileZarezerwowano: 0,
     },
     {
       nazwa: "Tygodniowa wycieczka do USA",
@@ -65,7 +70,8 @@ export class WycieczkiComponent {
       cenaJednostkowa: "3000zł",
       maxIloscMiejsc: 100,
       opis: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel velit nulla. Nam malesuada efficitur maximus. Vestibulum eu maximus dolor. Cras commodo tortor aliquam lobortis pellentesque.",
-      linkDoZdj: "https://via.placeholder.com/100/09f/fff.png"
+      linkDoZdj: "https://via.placeholder.com/100/09f/fff.png",
+      ileZarezerwowano: 0,
     },
 
     {
@@ -76,7 +82,8 @@ export class WycieczkiComponent {
       cenaJednostkowa: "3000zł",
       maxIloscMiejsc: 100,
       opis: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel velit nulla. Nam malesuada efficitur maximus. Vestibulum eu maximus dolor. Cras commodo tortor aliquam lobortis pellentesque.",
-      linkDoZdj: "https://via.placeholder.com/100/09f/fff.png"
+      linkDoZdj: "https://via.placeholder.com/100/09f/fff.png",
+      ileZarezerwowano: 0,
     },
     {
       nazwa: "Dwudniowa wycieczka do Czech",
@@ -86,7 +93,26 @@ export class WycieczkiComponent {
       cenaJednostkowa: "3000zł",
       maxIloscMiejsc: 100,
       opis: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel velit nulla. Nam malesuada efficitur maximus. Vestibulum eu maximus dolor. Cras commodo tortor aliquam lobortis pellentesque.",
-      linkDoZdj: "https://via.placeholder.com/100/09f/fff.png"
+      linkDoZdj: "https://via.placeholder.com/100/09f/fff.png",
+      ileZarezerwowano: 0,
     },
   ];
+
+  onClickPlusButton(item) {
+    if(item.ileZarezerwowano < item.maxIloscMiejsc) {
+      item.ileZarezerwowano += 1;
+      console.log(`Zarezerwowano miejsce na wycieczkę ${item.nazwa}`);
+    } else {
+      console.log(`Max ilosc miejsc na wycieczkę ${item.nazwa} zostala osiagnieta`);
+    }
+  }
+
+  onClickMinusButton(item) {
+    if(item.ileZarezerwowano > 0) {
+      item.ileZarezerwowano -= 1;
+      console.log(`Zrezygnowano z miejsca na wycieczkę ${item.nazwa}`);
+    } else {
+      console.log(`Nie mozna zrezygnowac z wycieczki ${item.nazwa}`);
+    }
+  }
 }

@@ -5,6 +5,10 @@
     display: block;
     margin: 1rem auto 0;
   }
+
+  .plus-button, .minus-button {
+    width: 50%;
+  }
 </style>
 
 <div class="container">
@@ -30,9 +34,27 @@
               <i class="fas fa-dollar-sign"></i> Cena: {{item.cenaJednostkowa}}
             </li>
             <li class="list-group-item">
-              <i class="far fa-arrow-alt-circle-down"></i> Max ilość mieljsc: {{item.maxIloscMiejsc}}
+              <i class="far fa-arrow-alt-circle-down"></i> Max ilość miejsc: {{item.maxIloscMiejsc}}
+            </li>
+            <li class="list-group-item">
+              Ile rezerwacji: {{item.ileZarezerwowano}}
             </li>
           </ul>
+          <div class="card-body">
+            <button
+              class="btn btn-primary plus-button"
+              (click)="onClickPlusButton(item)"
+            >
+              <i class="fa fa-plus"></i>
+            </button>
+
+            <button
+              class="btn btn-warning minus-button"
+              (click)="onClickMinusButton(item)"
+            >
+              <i class="fa fa-minus"></i>
+            </button>
+          </div>
         </div>
 <!--    </ng-template>-->
 </div>
