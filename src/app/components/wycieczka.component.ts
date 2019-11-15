@@ -63,8 +63,6 @@ export class WycieczkaComponent {
   @Input() wycieczka: any; // TODO: introduce type of wycieczka
   @Input() isCheapest: boolean;
   @Input() isMostExpensive: boolean;
-  // @Input() onClickPlusButton: Function;
-  // @Input() onClickMinusButton: Function;
 
   onClickPlusButton(item) {
     if(item.ileZarezerwowano < item.maxIloscMiejsc) {

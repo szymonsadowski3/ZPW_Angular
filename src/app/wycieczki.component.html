@@ -22,69 +22,14 @@
     [maxElement]="maxElement"
   ></lista-wycieczek-component>
 
-<!--  <h1 class="mt-4 mb-4">Wycieczki</h1>-->
-
-<!--  <div class="card mb-4" style="width: 18rem;"-->
-<!--       *ngFor="let item of items"-->
-<!--       [ngClass]="{-->
-<!--                'low-available-places': (item.maxIloscMiejsc - item.ileZarezerwowano) <= 3,-->
-<!--                'cheapest': (item==minElement),-->
-<!--                'most-expensive': (item==maxElement)-->
-<!--             }"-->
-<!--  >-->
-<!--    <img src={{item.linkDoZdj}} class="rounded-circle card-img"/>-->
-<!--    <div class="card-body">-->
-<!--      <h5 class="card-title">{{item.nazwa | uppercase}}</h5>-->
-<!--      <p class="card-text">{{item.opis}}</p>-->
-<!--    </div>-->
-<!--    <ul class="list-group list-group-flush">-->
-<!--      <li class="list-group-item">Kraj docelowy: {{item.docelowyKrajWycieczki | uppercase}}</li>-->
-<!--      <li class="list-group-item">-->
-<!--        <i class="fas fa-clock"></i> {{item.dataRozpoczecia}} - {{item.dataZakonczenia}}-->
-<!--        <i class="fas fa-clock"></i>-->
-<!--      </li>-->
-<!--      <li class="list-group-item">-->
-<!--        <i class="fas fa-dollar-sign"></i> Cena: {{item.cenaJednostkowa | currency: 'EUR'}}-->
-<!--      </li>-->
-<!--      <li class="list-group-item">-->
-<!--        <i class="far fa-arrow-alt-circle-down"></i> Max ilość miejsc: {{item.maxIloscMiejsc}}-->
-<!--      </li>-->
-<!--      <li class="list-group-item">-->
-<!--        <div *ngIf="item.ileZarezerwowano == item.maxIloscMiejsc; else availablePlaces">-->
-<!--          Brak dostępnych miejsc!-->
-<!--        </div>-->
-
-<!--        <ng-template #availablePlaces>-->
-<!--          Ile zarezerwowano: {{item.ileZarezerwowano}}-->
-<!--        </ng-template>-->
-<!--      </li>-->
-<!--    </ul>-->
-<!--    <div class="card-body">-->
-<!--      <button-->
-<!--        class="btn btn-primary plus-button"-->
-<!--        [ngClass]="{'hidden-button': item.ileZarezerwowano == item.maxIloscMiejsc}"-->
-<!--        (click)="onClickPlusButton(item)"-->
-<!--      >-->
-<!--        <i class="fa fa-plus"></i>-->
-<!--      </button>-->
-
-<!--      <button-->
-<!--        class="btn btn-warning minus-button"-->
-<!--        [ngClass]="{'hidden-button': item.ileZarezerwowano == 0}"-->
-<!--        (click)="onClickMinusButton(item)"-->
-<!--      >-->
-<!--        <i class="fa fa-minus"></i>-->
-<!--      </button>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <div>-->
-<!--    <p-->
-<!--      [ngClass]="{-->
-<!--        'low-sum': (sum <10),-->
-<!--        'high-sum': (sum >=10)-->
-<!--      }"-->
-<!--    >Suma zarezerwowanych wycieczek: {{sum}}</p>-->
-<!--  </div>-->
+  <div>
+    <p
+      [ngClass]="{
+        'low-sum': (calculateSumOfReservedTrips() <10),
+        'high-sum': (calculateSumOfReservedTrips() >=10)
+      }"
+    >Suma zarezerwowanych wycieczek: {{calculateSumOfReservedTrips()}}</p>
+  </div>
 </div>
 
 

@@ -9,7 +9,6 @@ export class WycieczkiComponent {
   items;
   maxElement;
   minElement;
-  sum = 0;
 
   constructor () {
     this.items = [
@@ -114,7 +113,7 @@ export class WycieczkiComponent {
   }
 
   calculateSumOfReservedTrips() {
-    this.sum = this.items.reduce((a, b) => {
+    return this.items.reduce((a, b) => {
       return a + b.ileZarezerwowano;
     }, 0);
   }
