@@ -4,6 +4,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
   selector: 'wycieczka-component',
   styleUrls: ['./wycieczka.component.css'],
   template: `
+
     
     <div class="card mb-4" style="width: 18rem;"
          [ngClass]="{
@@ -12,6 +13,12 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
                 'most-expensive': isMostExpensive
              }"
     >
+      <button
+        class="btn remove-button"
+        (click)="onTripRemoved(wycieczka)"
+      >
+        <i class="fa fa-times"></i>
+      </button>
       <img src={{wycieczka.linkDoZdj}} class="rounded-circle card-img"/>
       <div class="card-body">
         <h5 class="card-title">{{wycieczka.nazwa | uppercase}}</h5>
@@ -65,6 +72,7 @@ export class WycieczkaComponent {
   @Input() isMostExpensive: boolean;
 
   @Output() reservationChanged = new EventEmitter<string>();
+  @Output() tripRemoved = new EventEmitter<any>();
 
   onClickPlusButton(item) {
     if(item.ileZarezerwowano < item.maxIloscMiejsc) {
@@ -86,5 +94,9 @@ export class WycieczkaComponent {
     }
 
     this.reservationChanged.emit("removed");
+  }
+
+  onTripRemoved(trip) {
+    this.tripRemoved.emit(trip);
   }
 }

@@ -12,6 +12,7 @@ import {Component, Input} from '@angular/core';
          [isCheapest]="(item==minElement)"
          [isMostExpensive]="(item==maxElement)"
          (reservationChanged)="calculateSumOfReservedTrips($event)"
+         (tripRemoved)="removeTrip($event)"
     ></wycieczka-component>
 
     <div>
@@ -36,5 +37,9 @@ export class ListaWycieczekComponent {
     this.sum = this.wycieczki.reduce((a, b) => {
       return a + b.ileZarezerwowano;
     }, 0);
+  }
+
+  removeTrip(trip) {
+    this.wycieczki = this.wycieczki.filter(item => item !== trip); // TODO: recalculate min and max element when removed
   }
 }
