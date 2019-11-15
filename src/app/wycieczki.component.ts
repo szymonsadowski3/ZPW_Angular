@@ -1,5 +1,4 @@
-import {Component, Output} from '@angular/core';
-import {EventEmitter} from "events";
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'wycieczki',
@@ -8,8 +7,6 @@ import {EventEmitter} from "events";
 })
 export class WycieczkiComponent {
   items;
-  maxElement;
-  minElement;
 
   constructor () {
     this.items = [
@@ -103,14 +100,6 @@ export class WycieczkiComponent {
         ileZarezerwowano: 0,
       },
     ];
-
-    this.maxElement = this.items.reduce((prev, current) => {
-      return (prev.cenaJednostkowa > current.cenaJednostkowa) ? prev : current
-    });
-
-    this.minElement = this.items.reduce((prev, current) => {
-      return (prev.cenaJednostkowa < current.cenaJednostkowa) ? prev : current
-    });
   }
 
 }

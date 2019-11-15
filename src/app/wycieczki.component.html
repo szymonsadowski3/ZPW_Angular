@@ -1,25 +1,8 @@
-<style>
-  .low-available-places h5 {
-    color: #ff7b3d;
-  }
-
-  .low-sum {
-    background-color: #ff5153;
-  }
-
-  .high-sum {
-    background-color: #24ff82;
-  }
-
-</style>
-
 <div class="container">
   <header-component></header-component>
 
   <lista-wycieczek-component
     [wycieczki]="items"
-    [minElement]="minElement"
-    [maxElement]="maxElement"
   ></lista-wycieczek-component>
 </div>
 

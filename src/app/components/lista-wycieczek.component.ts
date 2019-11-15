@@ -1,18 +1,19 @@
 import {Component, Input} from '@angular/core';
 
 @Component({
+  styleUrls: ['./lista-wycieczek.component.css'],
   selector: 'lista-wycieczek-component',
   template: `
     <h1 class="mt-4 mb-4">Wycieczki</h1>
 
-    
+
     <wycieczka-component
-         *ngFor="let item of wycieczki"
-         [wycieczka]="item"
-         [isCheapest]="(item==minElement)"
-         [isMostExpensive]="(item==maxElement)"
-         (reservationChanged)="calculateSumOfReservedTrips($event)"
-         (tripRemoved)="removeTrip($event)"
+      *ngFor="let item of wycieczki"
+      [wycieczka]="item"
+      [isCheapest]="(item==minElement)"
+      [isMostExpensive]="(item==maxElement)"
+      (reservationChanged)="calculateSumOfReservedTrips($event)"
+      (tripRemoved)="removeTrip($event)"
     ></wycieczka-component>
 
     <div>
@@ -27,9 +28,15 @@ import {Component, Input} from '@angular/core';
 })
 export class ListaWycieczekComponent {
   @Input() wycieczki;
-  @Input() minElement: any;
-  @Input() maxElement: any;
+
+  minElement: any;
+  maxElement: any;
   sum = 0;
+
+  ngOnInit() {
+    this.findMinElement();
+    this.findMaxElement();
+  }
 
   calculateSumOfReservedTrips(message) {
     console.log(message);
@@ -40,6 +47,20 @@ export class ListaWycieczekComponent {
   }
 
   removeTrip(trip) {
-    this.wycieczki = this.wycieczki.filter(item => item !== trip); // TODO: recalculate min and max element when removed
+    this.wycieczki = this.wycieczki.filter(item => item !== trip);
+    this.findMinElement();
+    this.findMaxElement();
+  }
+
+  findMinElement() {
+    this.minElement = this.wycieczki.reduce((prev, current) => {
+      return (prev.cenaJednostkowa < current.cenaJednostkowa) ? prev : current
+    });
+  }
+
+  findMaxElement() {
+    this.maxElement = this.wycieczki.reduce((prev, current) => {
+      return (prev.cenaJednostkowa > current.cenaJednostkowa) ? prev : current
+    });
   }
 }
