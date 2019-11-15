@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, Output} from '@angular/core';
+import {EventEmitter} from "events";
 
 @Component({
   selector: 'wycieczki',
@@ -112,9 +113,4 @@ export class WycieczkiComponent {
     });
   }
 
-  calculateSumOfReservedTrips() {
-    return this.items.reduce((a, b) => {
-      return a + b.ileZarezerwowano;
-    }, 0);
-  }
 }

@@ -11,11 +11,30 @@ import {Component, Input} from '@angular/core';
          [wycieczka]="item"
          [isCheapest]="(item==minElement)"
          [isMostExpensive]="(item==maxElement)"
+         (reservationChanged)="calculateSumOfReservedTrips($event)"
     ></wycieczka-component>
+
+    <div>
+      <p
+        [ngClass]="{
+        'low-sum': (sum <10),
+        'high-sum': (sum >=10)
+      }"
+      >Suma zarezerwowanych wycieczek: {{sum}}</p>
+    </div>
   `,
 })
 export class ListaWycieczekComponent {
   @Input() wycieczki;
   @Input() minElement: any;
   @Input() maxElement: any;
+  sum = 0;
+
+  calculateSumOfReservedTrips(message) {
+    console.log(message);
+
+    this.sum = this.wycieczki.reduce((a, b) => {
+      return a + b.ileZarezerwowano;
+    }, 0);
+  }
 }

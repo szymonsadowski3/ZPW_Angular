@@ -21,15 +21,6 @@
     [minElement]="minElement"
     [maxElement]="maxElement"
   ></lista-wycieczek-component>
-
-  <div>
-    <p
-      [ngClass]="{
-        'low-sum': (calculateSumOfReservedTrips() <10),
-        'high-sum': (calculateSumOfReservedTrips() >=10)
-      }"
-    >Suma zarezerwowanych wycieczek: {{calculateSumOfReservedTrips()}}</p>
-  </div>
 </div>
 
 

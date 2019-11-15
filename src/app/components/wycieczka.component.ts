@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'wycieczka-component',
@@ -64,6 +64,8 @@ export class WycieczkaComponent {
   @Input() isCheapest: boolean;
   @Input() isMostExpensive: boolean;
 
+  @Output() reservationChanged = new EventEmitter<string>();
+
   onClickPlusButton(item) {
     if(item.ileZarezerwowano < item.maxIloscMiejsc) {
       item.ileZarezerwowano += 1;
@@ -71,6 +73,8 @@ export class WycieczkaComponent {
     } else {
       console.log(`Max ilosc miejsc na wycieczkę ${item.nazwa} zostala osiagnieta`);
     }
+
+    this.reservationChanged.emit("added");
   }
 
   onClickMinusButton(item) {
@@ -80,5 +84,7 @@ export class WycieczkaComponent {
     } else {
       console.log(`Nie mozna zrezygnowac z wycieczki ${item.nazwa}`);
     }
+
+    this.reservationChanged.emit("removed");
   }
 }
