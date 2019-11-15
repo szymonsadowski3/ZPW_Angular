@@ -113,28 +113,6 @@ export class WycieczkiComponent {
     });
   }
 
-  onClickPlusButton(item) {
-    if(item.ileZarezerwowano < item.maxIloscMiejsc) {
-      item.ileZarezerwowano += 1;
-      console.log(`Zarezerwowano miejsce na wycieczkę ${item.nazwa}`);
-    } else {
-      console.log(`Max ilosc miejsc na wycieczkę ${item.nazwa} zostala osiagnieta`);
-    }
-
-    this.calculateSumOfReservedTrips();
-  }
-
-  onClickMinusButton(item) {
-    if(item.ileZarezerwowano > 0) {
-      item.ileZarezerwowano -= 1;
-      console.log(`Zrezygnowano z miejsca na wycieczkę ${item.nazwa}`);
-    } else {
-      console.log(`Nie mozna zrezygnowac z wycieczki ${item.nazwa}`);
-    }
-
-    this.calculateSumOfReservedTrips();
-  }
-
   calculateSumOfReservedTrips() {
     this.sum = this.items.reduce((a, b) => {
       return a + b.ileZarezerwowano;

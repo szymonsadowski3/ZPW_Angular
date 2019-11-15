@@ -1,0 +1,22 @@
+.cheapest {
+  outline: 4px solid #24ff82;
+}
+
+.most-expensive {
+  outline: 4px solid #ff5153;
+}
+
+.plus-button, .minus-button {
+  width: 50%;
+}
+
+.hidden-button {
+  visibility: hidden;
+}
+
+.card-img {
+  width: 100px;
+  height: 100px;
+  display: block;
+  margin: 1rem auto 0;
+}
