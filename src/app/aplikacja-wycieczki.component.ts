@@ -3,11 +3,11 @@ import {WycieczkiSerwisService} from './services/wycieczki-serwis.service';
 import {Wycieczka} from './models/wycieczka.model';
 
 @Component({
-  selector: 'wycieczki',
-  templateUrl: './wycieczki.component.html',
-  styleUrls: ['./wycieczki.component.css']
+  selector: 'aplikacja-wycieczki',
+  templateUrl: './aplikacja-wycieczki.component.html',
+  styleUrls: ['./aplikacja-wycieczki.component.css']
 })
-export class WycieczkiComponent implements OnInit {
+export class AplikacjaWycieczkiComponent implements OnInit {
   items: Wycieczka[];
   wycieczkiService: WycieczkiSerwisService;
 

@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   styleUrls: ['./lista-wycieczek.component.css'],
@@ -26,7 +26,7 @@ import {Component, Input} from '@angular/core';
     </div>
   `,
 })
-export class ListaWycieczekComponent {
+export class ListaWycieczekComponent implements OnInit {
   @Input() wycieczki;
 
   minElement: any;
