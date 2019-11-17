@@ -5,7 +5,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
   styleUrls: ['./wycieczka.component.css'],
   template: `
 
-    
+
     <div class="card mb-4" style="width: 18rem;"
          [ngClass]="{
                 'low-available-places': (wycieczka.maxIloscMiejsc - wycieczka.ileZarezerwowano) <= 3,
@@ -63,6 +63,13 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
           <i class="fa fa-minus"></i>
         </button>
       </div>
+      <div class="card-body">
+        <ocena-component
+          (ratingAdded)="addRating($event)"
+        ></ocena-component>
+        
+        {{countRatings() | json}}
+      </div>
     </div>
   `,
 })
@@ -75,28 +82,46 @@ export class WycieczkaComponent {
   @Output() tripRemoved = new EventEmitter<any>();
 
   onClickPlusButton(item) {
-    if(item.ileZarezerwowano < item.maxIloscMiejsc) {
+    if (item.ileZarezerwowano < item.maxIloscMiejsc) {
       item.ileZarezerwowano += 1;
       console.log(`Zarezerwowano miejsce na wycieczkę ${item.nazwa}`);
     } else {
       console.log(`Max ilosc miejsc na wycieczkę ${item.nazwa} zostala osiagnieta`);
     }
 
-    this.reservationChanged.emit("added");
+    this.reservationChanged.emit('added');
   }
 
   onClickMinusButton(item) {
-    if(item.ileZarezerwowano > 0) {
+    if (item.ileZarezerwowano > 0) {
       item.ileZarezerwowano -= 1;
       console.log(`Zrezygnowano z miejsca na wycieczkę ${item.nazwa}`);
     } else {
       console.log(`Nie mozna zrezygnowac z wycieczki ${item.nazwa}`);
     }
 
-    this.reservationChanged.emit("removed");
+    this.reservationChanged.emit('removed');
   }
 
   onTripRemoved(trip) {
     this.tripRemoved.emit(trip);
+  }
+
+  addRating(newRating) {
+    console.dir(newRating);
+
+    this.wycieczka.oceny.push(newRating);
+  }
+
+  countRatings() {
+    return this.wycieczka.oceny.reduce(function (acc, curr) {
+      if (typeof acc[curr] == 'undefined') {
+        acc[curr] = 1;
+      } else {
+        acc[curr] += 1;
+      }
+
+      return acc;
+    }, {});
   }
 }

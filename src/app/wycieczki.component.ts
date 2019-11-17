@@ -20,6 +20,7 @@ export class WycieczkiComponent {
         opis: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel velit nulla. Nam malesuada efficitur maximus. Vestibulum eu maximus dolor. Cras commodo tortor aliquam lobortis pellentesque.",
         linkDoZdj: "https://via.placeholder.com/100/09f/fff.png",
         ileZarezerwowano: 0,
+        oceny: [],
       },
       {
         nazwa: "Dwutygodniowa wycieczka do Rosji",
@@ -31,6 +32,7 @@ export class WycieczkiComponent {
         opis: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel velit nulla. Nam malesuada efficitur maximus. Vestibulum eu maximus dolor. Cras commodo tortor aliquam lobortis pellentesque.",
         linkDoZdj: "https://via.placeholder.com/100/09f/fff.png",
         ileZarezerwowano: 0,
+        oceny: [],
       },
       {
         nazwa: "Dwutygodniowa wycieczka do USA",
@@ -42,6 +44,7 @@ export class WycieczkiComponent {
         opis: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel velit nulla. Nam malesuada efficitur maximus. Vestibulum eu maximus dolor. Cras commodo tortor aliquam lobortis pellentesque.",
         linkDoZdj: "https://via.placeholder.com/100/09f/fff.png",
         ileZarezerwowano: 0,
+        oceny: [],
       },
       {
         nazwa: "Tygodniowa wycieczka do Egiptu",
@@ -53,6 +56,7 @@ export class WycieczkiComponent {
         opis: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel velit nulla. Nam malesuada efficitur maximus. Vestibulum eu maximus dolor. Cras commodo tortor aliquam lobortis pellentesque.",
         linkDoZdj: "https://via.placeholder.com/100/09f/fff.png",
         ileZarezerwowano: 0,
+        oceny: [],
       },
       {
         nazwa: "Tygodniowa wycieczka do Rosji",
@@ -64,6 +68,7 @@ export class WycieczkiComponent {
         opis: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel velit nulla. Nam malesuada efficitur maximus. Vestibulum eu maximus dolor. Cras commodo tortor aliquam lobortis pellentesque.",
         linkDoZdj: "https://via.placeholder.com/100/09f/fff.png",
         ileZarezerwowano: 0,
+        oceny: [],
       },
       {
         nazwa: "Tygodniowa wycieczka do USA",
@@ -75,6 +80,7 @@ export class WycieczkiComponent {
         opis: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel velit nulla. Nam malesuada efficitur maximus. Vestibulum eu maximus dolor. Cras commodo tortor aliquam lobortis pellentesque.",
         linkDoZdj: "https://via.placeholder.com/100/09f/fff.png",
         ileZarezerwowano: 0,
+        oceny: [],
       },
 
       {
@@ -87,6 +93,7 @@ export class WycieczkiComponent {
         opis: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel velit nulla. Nam malesuada efficitur maximus. Vestibulum eu maximus dolor. Cras commodo tortor aliquam lobortis pellentesque.",
         linkDoZdj: "https://via.placeholder.com/100/09f/fff.png",
         ileZarezerwowano: 0,
+        oceny: [],
       },
       {
         nazwa: "Dwudniowa wycieczka do Czech",
@@ -98,6 +105,7 @@ export class WycieczkiComponent {
         opis: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel velit nulla. Nam malesuada efficitur maximus. Vestibulum eu maximus dolor. Cras commodo tortor aliquam lobortis pellentesque.",
         linkDoZdj: "https://via.placeholder.com/100/09f/fff.png",
         ileZarezerwowano: 0,
+        oceny: [],
       },
     ];
   }
