@@ -10,6 +10,7 @@ import {WycieczkaComponent} from './components/wycieczka/wycieczka.component';
 import {OcenaComponent} from './components/ocena/ocena.component';
 import {RatingModule} from 'ng-starrating';
 import {NewWycieczkaComponent} from './components/new-wycieczka/new-wycieczka.component';
+import { TooltipModule } from 'ng2-tooltip-directive';
 
 @NgModule({
   providers: [
@@ -28,7 +29,8 @@ import {NewWycieczkaComponent} from './components/new-wycieczka/new-wycieczka.co
     FormsModule,
     ReactiveFormsModule,
     RatingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TooltipModule
   ],
   bootstrap: [AplikacjaWycieczkiComponent]
 })
