@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {WycieczkiSerwisService} from './services/wycieczki-serwis.service';
 import {Wycieczka} from './models/wycieczka.model';
 
@@ -7,11 +7,20 @@ import {Wycieczka} from './models/wycieczka.model';
   templateUrl: './wycieczki.component.html',
   styleUrls: ['./wycieczki.component.css']
 })
-export class WycieczkiComponent {
+export class WycieczkiComponent implements OnInit {
   items: Wycieczka[];
+  wycieczkiService: WycieczkiSerwisService;
 
   constructor(wycieczkiService: WycieczkiSerwisService) {
-    this.items = wycieczkiService.getProducts();
+    this.wycieczkiService = wycieczkiService;
+  }
+
+  ngOnInit() {
+    this.getProducts();
+  }
+
+  getProducts() {
+    this.items = this.wycieczkiService.getProducts();
   }
 
 }
