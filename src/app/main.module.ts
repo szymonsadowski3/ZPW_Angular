@@ -11,6 +11,7 @@ import {OcenaComponent} from './components/ocena/ocena.component';
 import {RatingModule} from 'ng-starrating';
 import {NewWycieczkaComponent} from './components/new-wycieczka/new-wycieczka.component';
 import { TooltipModule } from 'ng2-tooltip-directive';
+import {KoszykComponent} from './components/koszyk/koszyk.component';
 
 @NgModule({
   providers: [
@@ -23,6 +24,7 @@ import { TooltipModule } from 'ng2-tooltip-directive';
     WycieczkaComponent,
     OcenaComponent,
     NewWycieczkaComponent,
+    KoszykComponent,
   ],
   imports: [
     BrowserModule,
