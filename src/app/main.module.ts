@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 
 import { AplikacjaWycieczkiComponent } from './aplikacja-wycieczki.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -31,7 +30,6 @@ import {KoszykComponent} from './components/koszyk/koszyk.component';
     FormsModule,
     ReactiveFormsModule,
     RatingModule,
-    ReactiveFormsModule,
     TooltipModule
   ],
   bootstrap: [AplikacjaWycieczkiComponent]
