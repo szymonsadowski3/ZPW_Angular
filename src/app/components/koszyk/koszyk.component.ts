@@ -24,6 +24,11 @@ export class KoszykComponent {
     return this.koszykService.getTotal();
   }
 
+  onDeleteProduct(product) {
+    this.koszykService.deleteTrip(product.trip);
+    this.getProducts();
+  }
+
   countChanged(event, product) {
     product.count = parseInt(event.target.value);
     console.dir(this.products);

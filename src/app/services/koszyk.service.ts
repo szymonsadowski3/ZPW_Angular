@@ -56,14 +56,15 @@ export class KoszykService {
 
     if (foundProduct) {
       if (foundProduct.count <= 1) {
-        this.deleteProduct(foundProduct);
+        this.deleteTrip(foundProduct);
       }
 
       foundProduct.count -= 1;
     }
   }
 
-  deleteProduct(product: Wycieczka) {
-    this.produkty = this.produkty.filter(item => item.trip !== product);
+  deleteTrip(product: Wycieczka) {
+    this.produkty = this.produkty.filter(item => item.trip != product);
+    console.dir(this.produkty);
   }
 }
