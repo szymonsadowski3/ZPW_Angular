@@ -5,30 +5,32 @@ import {KoszykService} from "../../services/koszyk.service";
   styleUrls: ['./lista-wycieczek.component.css'],
   selector: 'lista-wycieczek-component',
   template: `
-    <h1 class="mt-4 mb-4">Lista dostępnych wycieczek</h1>
+    <div class="lista-wycieczek">
+      <h1 class="mt-4 mb-4">Lista dostępnych wycieczek</h1>
 
-    <div class="row itemsBlock">
-    <wycieczka-component
-      class="col-lg-4 col-md-6 col-sm-12 col-12"
-      *ngFor="let item of wycieczki"
-      [wycieczka]="item"
-      [isCheapest]="(item==minElement)"
-      [isMostExpensive]="(item==maxElement)"
-      (reservationChanged)="calculateSumOfReservedTrips($event)"
-      (tripRemoved)="removeTrip($event)"
-      (tripAddedToCart)="addTripToCart($event)"
-    ></wycieczka-component>
-    </div>
+      <div class="row itemsBlock">
+        <wycieczka-component
+          class="col-lg-4 col-md-6 col-sm-12 col-12"
+          *ngFor="let item of wycieczki"
+          [wycieczka]="item"
+          [isCheapest]="(item==minElement)"
+          [isMostExpensive]="(item==maxElement)"
+          (reservationChanged)="calculateSumOfReservedTrips($event)"
+          (tripRemoved)="removeTrip($event)"
+          (tripAddedToCart)="addTripToCart($event)"
+        ></wycieczka-component>
+      </div>
 
-    <span 
-      class="total-trips shadow-lg mb-4"
-      [ngClass]="{
+      <span
+        class="total-trips shadow mb-4"
+        [ngClass]="{
         'low-sum': (sum <10),
         'high-sum': (sum >=10)
       }"
-    >
+      >
       Suma zarezerwowanych wycieczek: {{sum}}
     </span>
+    </div>
   `,
 })
 export class ListaWycieczekComponent implements OnInit {

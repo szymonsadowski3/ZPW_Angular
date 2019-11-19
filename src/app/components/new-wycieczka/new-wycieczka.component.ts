@@ -7,25 +7,27 @@ import {WycieczkiSerwisService} from '../../services/wycieczki-serwis.service';
   selector: 'new-wycieczka-component',
   styleUrls: ['./new-wycieczka.component.css'],
   template: `
-    <h3>Dodaj nową wycieczkę</h3>
+    <div class="nowa-wycieczka">
+      <h3>Dodaj nową wycieczkę</h3>
 
-    <form [formGroup]="modelForm" (ngSubmit)="onSubmit(modelForm)">
-      <div class="form-group">
-        <label>nazwa:</label><input name="nazwa" formControlName="nazwa" class="form-control">
-        <label>docelowyKrajWycieczki:</label><input name="docelowyKrajWycieczki" formControlName="docelowyKrajWycieczki"
-                                                    class="form-control">
-        <label>dataRozpoczecia:</label><input name="dataRozpoczecia" formControlName="dataRozpoczecia" class="form-control">
-        <label>dataZakonczenia:</label><input name="dataZakonczenia" formControlName="dataZakonczenia" class="form-control">
-        <label>cenaJednostkowa:</label><input name="cenaJednostkowa" formControlName="cenaJednostkowa" class="form-control">
-        <label>maxIloscMiejsc:</label><input name="maxIloscMiejsc" formControlName="maxIloscMiejsc" class="form-control">
-        <label>opis:</label><input name="opis" formControlName="opis" class="form-control">
-        <label>linkDoZdj:</label><input name="linkDoZdj" formControlName="linkDoZdj" class="form-control">
-        <!--<label>ileZarezerwowano:</label><input name="ileZarezerwowano" formControlName="ileZarezerwowano" class="form-control">-->
-        <!--<label>oceny:</label><input name="oceny" formControlName="oceny" class="form-control">-->
-      </div>
+      <form [formGroup]="modelForm" (ngSubmit)="onSubmit(modelForm)">
+        <div class="form-group">
+          <label>nazwa:</label><input name="nazwa" formControlName="nazwa" class="form-control">
+          <label>docelowyKrajWycieczki:</label><input name="docelowyKrajWycieczki" formControlName="docelowyKrajWycieczki"
+                                                      class="form-control">
+          <label>dataRozpoczecia:</label><input name="dataRozpoczecia" formControlName="dataRozpoczecia" class="form-control">
+          <label>dataZakonczenia:</label><input name="dataZakonczenia" formControlName="dataZakonczenia" class="form-control">
+          <label>cenaJednostkowa:</label><input name="cenaJednostkowa" formControlName="cenaJednostkowa" class="form-control">
+          <label>maxIloscMiejsc:</label><input name="maxIloscMiejsc" formControlName="maxIloscMiejsc" class="form-control">
+          <label>opis:</label><input name="opis" formControlName="opis" class="form-control">
+          <label>linkDoZdj:</label><input name="linkDoZdj" formControlName="linkDoZdj" class="form-control">
+          <!--<label>ileZarezerwowano:</label><input name="ileZarezerwowano" formControlName="ileZarezerwowano" class="form-control">-->
+          <!--<label>oceny:</label><input name="oceny" formControlName="oceny" class="form-control">-->
+        </div>
 
-      <button type="submit" tooltip="Wycieczka dodana!" placement="top" trigger="click">Send</button>
-    </form>
+        <button class="btn btn-primary" type="submit" tooltip="Wycieczka dodana!" placement="top" trigger="click">Send</button>
+      </form>
+    </div>
   `,
 })
 export class NewWycieczkaComponent implements OnInit {
