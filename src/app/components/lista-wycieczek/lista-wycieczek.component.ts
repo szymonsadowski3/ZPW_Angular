@@ -5,7 +5,7 @@ import {KoszykService} from "../../services/koszyk.service";
   styleUrls: ['./lista-wycieczek.component.css'],
   selector: 'lista-wycieczek-component',
   template: `
-    <h1 class="mt-4 mb-4">Wycieczki</h1>
+    <h1 class="mt-4 mb-4">Lista dostępnych wycieczek</h1>
 
 
     <wycieczka-component

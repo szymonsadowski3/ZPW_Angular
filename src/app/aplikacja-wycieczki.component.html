@@ -1,15 +1,16 @@
-<div class="container">
+<div>
   <header-component></header-component>
 
-  <koszyk-component></koszyk-component>
+  <div class="container main-content">
+<!--    <koszyk-component></koszyk-component>-->
+<!---->
+<!--    <new-wycieczka-component></new-wycieczka-component>-->
 
-  <new-wycieczka-component></new-wycieczka-component>
+    <lista-wycieczek-component
+      [wycieczki]="items"
+    ></lista-wycieczek-component>
+  </div>
 
-  <hr>
-
-  <lista-wycieczek-component
-    [wycieczki]="items"
-  ></lista-wycieczek-component>
 </div>
 
 

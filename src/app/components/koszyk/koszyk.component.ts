@@ -35,7 +35,6 @@ export class KoszykComponent {
     if(newCount >= 0) {
       product.count = parseInt(event.target.value);
     } else {
-      console.log("stopping propagation...");
       event.stopPropagation();
     }
   }
