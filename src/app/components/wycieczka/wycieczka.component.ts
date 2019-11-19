@@ -51,7 +51,7 @@ export class WycieczkaComponent {
   }
 
   countRatings() {
-    return this.wycieczka.oceny.reduce(function (acc, curr) {
+    const results = Object.entries(this.wycieczka.oceny.reduce(function (acc, curr) {
       if (typeof acc[curr] == 'undefined') {
         acc[curr] = 1;
       } else {
@@ -59,6 +59,10 @@ export class WycieczkaComponent {
       }
 
       return acc;
-    }, {});
+    }, {}));
+
+    console.dir(results);
+
+    return results;
   }
 }
