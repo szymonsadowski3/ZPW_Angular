@@ -1,9 +1,9 @@
 .cheapest {
-  outline: 4px solid #24ff82;
+  border: 4px solid #75ffc6;
 }
 
 .most-expensive {
-  outline: 4px solid #ff5153;
+  border: 4px solid #ff7a8b;
 }
 
 .plus-button, .minus-button {
@@ -24,15 +24,23 @@
 .remove-button {
   width: 50px;
   height: 50px;
-  background-color: #ff5153;
+  background-color: #ff7e8d;
+  margin-top: .2rem;
+  margin-left: .2rem;
 }
 
 .add-to-cart-button {
   width: 50px;
   height: 50px;
-  background-color: #66ffb2;
+  background-color: #adffc4;
+  margin-top: .2rem;
+  margin-left: .2rem;
 }
 
 .low-available-places h5 {
   color: #ff7b3d;
+}
+
+h5 {
+  text-align: center;
 }

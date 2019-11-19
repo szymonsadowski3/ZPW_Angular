@@ -1,0 +1,75 @@
+<div class="card mb-4 shadow-lg" style="width: 18rem;"
+     [ngClass]="{
+                'low-available-places': (wycieczka.maxIloscMiejsc - wycieczka.ileZarezerwowano) <= 3,
+                'cheapest': isCheapest,
+                'most-expensive': isMostExpensive
+             }"
+>
+  <div>
+    <button
+      class="btn remove-button"
+      (click)="onTripRemoved(wycieczka)"
+    >
+      <i class="fa fa-times"></i>
+    </button>
+    <button
+      class="btn add-to-cart-button"
+      (click)="onTripAddedToCart(wycieczka)"
+    >
+      <i class="fa fa-plus"></i>
+    </button>
+  </div>
+
+
+  <img src="{{wycieczka.linkDoZdj+'?v='+wycieczka.docelowyKrajWycieczki}}" class="rounded-circle card-img"/>
+  <div class="card-body">
+    <h5 class="card-title">{{wycieczka.nazwa | uppercase}}</h5>
+    <p class="card-text">{{wycieczka.opis}}</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Kraj docelowy: {{wycieczka.docelowyKrajWycieczki | uppercase}}</li>
+    <li class="list-group-item">
+      <i class="fas fa-clock"></i> {{wycieczka.dataRozpoczecia}} - {{wycieczka.dataZakonczenia}}
+      <i class="fas fa-clock"></i>
+    </li>
+    <li class="list-group-item">
+      <i class="fas fa-dollar-sign"></i> Cena: {{wycieczka.cenaJednostkowa | currency: 'EUR'}}
+    </li>
+    <li class="list-group-item">
+      <i class="far fa-arrow-alt-circle-down"></i> Max ilość miejsc: {{wycieczka.maxIloscMiejsc}}
+    </li>
+    <li class="list-group-item">
+      <div *ngIf="wycieczka.ileZarezerwowano == wycieczka.maxIloscMiejsc; else availablePlaces">
+        Brak dostępnych miejsc!
+      </div>
+
+      <ng-template #availablePlaces>
+        Ile zarezerwowano: {{wycieczka.ileZarezerwowano}}
+      </ng-template>
+    </li>
+  </ul>
+  <div class="card-body">
+      <button
+        class="btn btn-primary plus-button"
+        [ngClass]="{'hidden-button': wycieczka.ileZarezerwowano == wycieczka.maxIloscMiejsc}"
+        (click)="onClickPlusButton(wycieczka)"
+      >
+      <i class="fa fa-plus"></i>
+    </button>
+
+    <button
+      class="btn btn-warning minus-button"
+      [ngClass]="{'hidden-button': wycieczka.ileZarezerwowano == 0}"
+      (click)="onClickMinusButton(wycieczka)"
+    >
+      <i class="fa fa-minus"></i>
+    </button>
+  </div>
+  <div class="card-body">
+    <ocena-component
+      (ratingAdded)="addRating($event)"
+    ></ocena-component>
+
+    {{countRatings() | json}}
+  </div>
+</div>

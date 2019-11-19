@@ -7,8 +7,9 @@ import {KoszykService} from "../../services/koszyk.service";
   template: `
     <h1 class="mt-4 mb-4">Lista dostępnych wycieczek</h1>
 
-
+    <div class="row itemsBlock">
     <wycieczka-component
+      class="col-lg-4 col-md-6 col-sm-12 col-12"
       *ngFor="let item of wycieczki"
       [wycieczka]="item"
       [isCheapest]="(item==minElement)"
@@ -17,6 +18,7 @@ import {KoszykService} from "../../services/koszyk.service";
       (tripRemoved)="removeTrip($event)"
       (tripAddedToCart)="addTripToCart($event)"
     ></wycieczka-component>
+    </div>
 
     <div>
       <p
