@@ -27,6 +27,12 @@
   background-color: #ff5153;
 }
 
+.add-to-cart-button {
+  width: 50px;
+  height: 50px;
+  background-color: #66ffb2;
+}
+
 .low-available-places h5 {
   color: #ff7b3d;
 }

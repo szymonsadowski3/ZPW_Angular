@@ -36,7 +36,7 @@
       </td>
       <td data-th="Price">{{product.trip.cenaJednostkowa | currency: 'EUR'}}</td>
       <td data-th="Quantity">
-        <input type="number" class="form-control text-center" value="{{product.count}}" (change)="this.countChanged($event, product)">
+        <input type="number" min="0" class="form-control text-center" value="{{product.count}}" (change)="this.countChanged($event, product)">
       </td>
       <td data-th="Subtotal" class="text-center">{{product.trip.cenaJednostkowa*product.count | currency: 'EUR'}}</td>
       <td class="actions" data-th="">

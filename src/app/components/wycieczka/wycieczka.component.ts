@@ -19,6 +19,12 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
       >
         <i class="fa fa-times"></i>
       </button>
+      <button
+        class="btn add-to-cart-button"
+        (click)="onTripAddedToCart(wycieczka)"
+      >
+        <i class="fa fa-plus"></i>
+      </button>
       <img src={{wycieczka.linkDoZdj}} class="rounded-circle card-img"/>
       <div class="card-body">
         <h5 class="card-title">{{wycieczka.nazwa | uppercase}}</h5>
@@ -80,6 +86,7 @@ export class WycieczkaComponent {
 
   @Output() reservationChanged = new EventEmitter<string>();
   @Output() tripRemoved = new EventEmitter<any>();
+  @Output() tripAddedToCart = new EventEmitter<any>();
 
   onClickPlusButton(item) {
     if (item.ileZarezerwowano < item.maxIloscMiejsc) {
@@ -105,6 +112,10 @@ export class WycieczkaComponent {
 
   onTripRemoved(trip) {
     this.tripRemoved.emit(trip);
+  }
+
+  onTripAddedToCart(trip) {
+    this.tripAddedToCart.emit(trip);
   }
 
   addRating(newRating) {

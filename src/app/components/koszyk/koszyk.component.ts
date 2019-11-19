@@ -13,7 +13,6 @@ export class KoszykComponent {
   constructor(koszykService: KoszykService) {
     this.koszykService = koszykService;
     this.getProducts();
-    console.dir(this.products);
   }
 
   getProducts() {
@@ -30,7 +29,14 @@ export class KoszykComponent {
   }
 
   countChanged(event, product) {
-    product.count = parseInt(event.target.value);
-    console.dir(this.products);
+    const newCount = parseInt(event.target.value);
+    console.log(newCount);
+
+    if(newCount >= 0) {
+      product.count = parseInt(event.target.value);
+    } else {
+      console.log("stopping propagation...");
+      event.stopPropagation();
+    }
   }
 }
