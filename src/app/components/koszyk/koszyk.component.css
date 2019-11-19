@@ -32,3 +32,12 @@
   table#cart tfoot td .btn{display:block;}
 
 }
+
+h5 {
+  text-align: center;
+}
+
+.koszyk {
+  max-height: 500px;
+  overflow-y: scroll
+}

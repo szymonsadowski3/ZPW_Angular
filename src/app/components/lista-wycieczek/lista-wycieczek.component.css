@@ -1,7 +1,16 @@
 .low-sum {
-  background-color: #ff5153;
+  background-color: rgb(255,81,83, .7);
+  border-radius: 4rem;
 }
 
 .high-sum {
   background-color: #24ff82;
+  border-radius: 4rem
+}
+
+.total-trips {
+  padding: 1rem;
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 4rem;
 }

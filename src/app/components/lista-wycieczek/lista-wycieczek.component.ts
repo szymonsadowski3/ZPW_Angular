@@ -20,14 +20,15 @@ import {KoszykService} from "../../services/koszyk.service";
     ></wycieczka-component>
     </div>
 
-    <div>
-      <p
-        [ngClass]="{
+    <span 
+      class="total-trips shadow-lg mb-4"
+      [ngClass]="{
         'low-sum': (sum <10),
         'high-sum': (sum >=10)
       }"
-      >Suma zarezerwowanych wycieczek: {{sum}}</p>
-    </div>
+    >
+      Suma zarezerwowanych wycieczek: {{sum}}
+    </span>
   `,
 })
 export class ListaWycieczekComponent implements OnInit {
