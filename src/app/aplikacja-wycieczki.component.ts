@@ -1,6 +1,4 @@
-import {Component, OnInit} from '@angular/core';
-import {WycieczkiSerwisService} from './services/wycieczki-serwis.service';
-import {Wycieczka} from './models/wycieczka.model';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'aplikacja-wycieczki',

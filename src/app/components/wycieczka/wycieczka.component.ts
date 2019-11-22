@@ -61,8 +61,6 @@ export class WycieczkaComponent {
       return acc;
     }, {}));
 
-    console.dir(results);
-
     return results;
   }
 }

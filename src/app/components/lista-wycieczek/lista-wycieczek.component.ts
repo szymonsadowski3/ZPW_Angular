@@ -1,6 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {KoszykService} from "../../services/koszyk.service";
-import {Wycieczka} from "../../models/wycieczka.model";
 import {WycieczkiSerwisService} from "../../services/wycieczki-serwis.service";
 
 @Component({
@@ -33,6 +32,8 @@ import {WycieczkiSerwisService} from "../../services/wycieczki-serwis.service";
       Suma zarezerwowanych wycieczek: {{sum}}
     </span>
     </div>
+
+    <new-wycieczka-component></new-wycieczka-component>
   `,
 })
 export class ListaWycieczekComponent implements OnInit {
