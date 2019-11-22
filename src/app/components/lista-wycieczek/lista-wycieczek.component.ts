@@ -10,16 +10,24 @@ import {WycieczkiSerwisService} from "../../services/wycieczki-serwis.service";
       <h1 class="mt-4 mb-4">Lista dostępnych wycieczek</h1>
 
       <div class="row itemsBlock">
-        <wycieczka-component
-          class="col-lg-4 col-md-6 col-sm-12 col-12"
-          *ngFor="let item of wycieczki"
-          [wycieczka]="item"
-          [isCheapest]="(item==minElement)"
-          [isMostExpensive]="(item==maxElement)"
-          (reservationChanged)="calculateSumOfReservedTrips($event)"
-          (tripRemoved)="removeTrip($event)"
-          (tripAddedToCart)="addTripToCart($event)"
-        ></wycieczka-component>
+        <div class="col-2">
+          Tutaj będzie filtrowanie
+        </div>
+        <div class="col-10">
+          <div class="row">
+
+            <wycieczka-component
+              class="col-lg-4 col-md-6 col-sm-12 col-12"
+              *ngFor="let item of wycieczki"
+              [wycieczka]="item"
+              [isCheapest]="(item==minElement)"
+              [isMostExpensive]="(item==maxElement)"
+              (reservationChanged)="calculateSumOfReservedTrips($event)"
+              (tripRemoved)="removeTrip($event)"
+              (tripAddedToCart)="addTripToCart($event)"
+            ></wycieczka-component>  
+          </div>
+        </div>
       </div>
 
       <span
