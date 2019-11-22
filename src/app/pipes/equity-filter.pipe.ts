@@ -5,13 +5,13 @@ import { Pipe, PipeTransform } from '@angular/core';
   pure: false
 })
 export class EquityFilterPipe implements PipeTransform {
-  // transform(items, filterKey, filterValue) {
-  transform(items, filterFunc) {
-    if (!items || !filterFunc) {
+  transform(items, criteria) {
+    if (!items || !criteria || criteria.length==0) {
       return items;
     }
 
-    // return items.filter(item => item[filterKey] === filterValue);
-    return items.filter(filterFunc);
+    return criteria.reduce(function(prev, curr) {
+      return prev.filter(curr)
+    }, items)
   }
 }

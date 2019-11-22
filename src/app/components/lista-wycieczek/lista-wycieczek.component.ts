@@ -18,6 +18,15 @@ import {FormControl, FormGroup} from "@angular/forms";
               <label>Docelowy kraj wycieczki:</label>
               <input name="docelowyKrajWycieczki" formControlName="docelowyKrajWycieczki" class="form-control" />
               
+              <br>
+
+              <label>Cena minimalna:</label>
+              <input name="priceMin" formControlName="priceMin" class="form-control" type="number" min="0" max="100000" />
+
+              <label>Cena maksymalna:</label>
+              <input name="priceMax" formControlName="priceMax" class="form-control" type="number" min="0" max="100000" />
+              
+              
 <!--              <label>nazwa:</label><input name="nazwa" formControlName="nazwa" class="form-control">-->
 <!--              <label>docelowyKrajWycieczki:</label><input name="docelowyKrajWycieczki" formControlName="docelowyKrajWycieczki"-->
 <!--                                                          class="form-control">-->
@@ -41,7 +50,7 @@ import {FormControl, FormGroup} from "@angular/forms";
 
             <wycieczka-component
               class="col-lg-4 col-md-6 col-sm-12 col-12"
-              *ngFor="let item of wycieczki  | equityfilter: getFilteringPredicate()"
+              *ngFor="let item of wycieczki  | equityfilter: getFilteringCriteria()"
               [wycieczka]="item"
               [isCheapest]="(item==minElement)"
               [isMostExpensive]="(item==maxElement)"
@@ -93,6 +102,8 @@ export class ListaWycieczekComponent implements OnInit {
 
     this.filterForm = new FormGroup({
       docelowyKrajWycieczki: new FormControl(''),
+      priceMin: new FormControl(0),
+      priceMax: new FormControl(100000),
     });
   }
 
@@ -130,14 +141,16 @@ export class ListaWycieczekComponent implements OnInit {
     this.wycieczki = this.wycieczkiService.getProducts();
   }
 
-  getFilteringPredicate() {
+  getFilteringCriteria() {
+    const criteria = [];
+
     const searchedCountry = this.filterForm.get('docelowyKrajWycieczki').value.toLowerCase();
 
     if(searchedCountry != '') {
-      const predicate = ((item) => {return item['docelowyKrajWycieczki'].toLowerCase().includes(searchedCountry)});
-      return predicate;
-    } else {
-      return ((item) => true);
+      const searchedCountryCriteria = ((item) => {return item['docelowyKrajWycieczki'].toLowerCase().includes(searchedCountry)});
+      criteria.push(searchedCountryCriteria);
     }
+
+    return criteria;
   }
 }
