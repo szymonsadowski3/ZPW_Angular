@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {KoszykService} from "../../services/koszyk.service";
 import {WycieczkiSerwisService} from "../../services/wycieczki-serwis.service";
+import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({
   styleUrls: ['./lista-wycieczek.component.css'],
@@ -11,21 +12,43 @@ import {WycieczkiSerwisService} from "../../services/wycieczki-serwis.service";
 
       <div class="row itemsBlock">
         <div class="col-2">
-          Tutaj będzie filtrowanie
+          
+          <form [formGroup]="filterForm" (ngSubmit)="onSubmit(filterForm)">
+            <div class="form-group">
+              <label>Docelowy kraj wycieczki:</label>
+              <input name="docelowyKrajWycieczki" formControlName="docelowyKrajWycieczki" class="form-control" />
+              
+<!--              <label>nazwa:</label><input name="nazwa" formControlName="nazwa" class="form-control">-->
+<!--              <label>docelowyKrajWycieczki:</label><input name="docelowyKrajWycieczki" formControlName="docelowyKrajWycieczki"-->
+<!--                                                          class="form-control">-->
+<!--              <label>dataRozpoczecia:</label><input name="dataRozpoczecia" formControlName="dataRozpoczecia" class="form-control">-->
+<!--              <label>dataZakonczenia:</label><input name="dataZakonczenia" formControlName="dataZakonczenia" class="form-control">-->
+<!--              <label>cenaJednostkowa:</label><input name="cenaJednostkowa" formControlName="cenaJednostkowa" class="form-control">-->
+<!--              <label>maxIloscMiejsc:</label><input name="maxIloscMiejsc" formControlName="maxIloscMiejsc" class="form-control">-->
+<!--              <label>opis:</label><input name="opis" formControlName="opis" class="form-control">-->
+<!--              <label>linkDoZdj:</label><input name="linkDoZdj" formControlName="linkDoZdj" class="form-control">-->
+              <!--<label>ileZarezerwowano:</label><input name="ileZarezerwowano" formControlName="ileZarezerwowano" class="form-control">-->
+              <!--<label>oceny:</label><input name="oceny" formControlName="oceny" class="form-control">-->
+            </div>
+
+            <button class="btn btn-primary" type="submit" tooltip="Wycieczka dodana!" placement="top" trigger="click">Send</button>
+          </form>
+          
+          
         </div>
         <div class="col-10">
           <div class="row">
 
             <wycieczka-component
               class="col-lg-4 col-md-6 col-sm-12 col-12"
-              *ngFor="let item of wycieczki"
+              *ngFor="let item of wycieczki  | equityfilter: getFilteringPredicate()"
               [wycieczka]="item"
               [isCheapest]="(item==minElement)"
               [isMostExpensive]="(item==maxElement)"
               (reservationChanged)="calculateSumOfReservedTrips($event)"
               (tripRemoved)="removeTrip($event)"
               (tripAddedToCart)="addTripToCart($event)"
-            ></wycieczka-component>  
+            ></wycieczka-component>
           </div>
         </div>
       </div>
@@ -45,6 +68,8 @@ import {WycieczkiSerwisService} from "../../services/wycieczki-serwis.service";
   `,
 })
 export class ListaWycieczekComponent implements OnInit {
+  filterForm: FormGroup;
+
   wycieczki;
 
   koszykService: KoszykService;
@@ -65,6 +90,10 @@ export class ListaWycieczekComponent implements OnInit {
     this.getProducts();
     this.findMinElement();
     this.findMaxElement();
+
+    this.filterForm = new FormGroup({
+      docelowyKrajWycieczki: new FormControl(''),
+    });
   }
 
   calculateSumOfReservedTrips(message) {
@@ -99,5 +128,16 @@ export class ListaWycieczekComponent implements OnInit {
 
   getProducts() {
     this.wycieczki = this.wycieczkiService.getProducts();
+  }
+
+  getFilteringPredicate() {
+    const searchedCountry = this.filterForm.get('docelowyKrajWycieczki').value.toLowerCase();
+
+    if(searchedCountry != '') {
+      const predicate = ((item) => {return item['docelowyKrajWycieczki'].toLowerCase().includes(searchedCountry)});
+      return predicate;
+    } else {
+      return ((item) => true);
+    }
   }
 }

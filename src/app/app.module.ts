@@ -13,6 +13,7 @@ import {TooltipModule} from 'ng2-tooltip-directive';
 import {KoszykComponent} from './components/koszyk/koszyk.component';
 
 import { AppRoutingModule } from './app-routing.module';
+import {EquityFilterPipe} from "./pipes/equity-filter.pipe";
 
 
 
@@ -28,6 +29,7 @@ import { AppRoutingModule } from './app-routing.module';
     OcenaComponent,
     NewWycieczkaComponent,
     KoszykComponent,
+    EquityFilterPipe
   ],
   imports: [
     BrowserModule,
