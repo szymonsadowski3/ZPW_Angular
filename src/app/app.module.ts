@@ -12,6 +12,10 @@ import {NewWycieczkaComponent} from './components/new-wycieczka/new-wycieczka.co
 import {TooltipModule} from 'ng2-tooltip-directive';
 import {KoszykComponent} from './components/koszyk/koszyk.component';
 
+import { AppRoutingModule } from './app-routing.module';
+
+
+
 @NgModule({
   providers: [
     { provide: 'Window',  useValue: window }
@@ -30,8 +34,9 @@ import {KoszykComponent} from './components/koszyk/koszyk.component';
     FormsModule,
     ReactiveFormsModule,
     RatingModule,
-    TooltipModule
+    TooltipModule,
+    AppRoutingModule
   ],
   bootstrap: [AplikacjaWycieczkiComponent]
 })
-export class MainModule { }
+export class AppModule { }

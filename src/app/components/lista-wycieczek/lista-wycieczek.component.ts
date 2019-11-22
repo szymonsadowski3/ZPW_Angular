@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {KoszykService} from "../../services/koszyk.service";
+import {Wycieczka} from "../../models/wycieczka.model";
+import {WycieczkiSerwisService} from "../../services/wycieczki-serwis.service";
 
 @Component({
   styleUrls: ['./lista-wycieczek.component.css'],
@@ -34,7 +36,7 @@ import {KoszykService} from "../../services/koszyk.service";
   `,
 })
 export class ListaWycieczekComponent implements OnInit {
-  @Input() wycieczki;
+  wycieczki;
 
   koszykService: KoszykService;
 
@@ -42,11 +44,16 @@ export class ListaWycieczekComponent implements OnInit {
   maxElement: any;
   sum = 0;
 
-  constructor(koszykService: KoszykService) {
+  wycieczkiService: WycieczkiSerwisService;
+
+
+  constructor(koszykService: KoszykService, wycieczkiService: WycieczkiSerwisService) {
     this.koszykService = koszykService;
+    this.wycieczkiService = wycieczkiService;
   }
 
   ngOnInit() {
+    this.getProducts();
     this.findMinElement();
     this.findMaxElement();
   }
@@ -79,5 +86,9 @@ export class ListaWycieczekComponent implements OnInit {
     this.maxElement = this.wycieczki.reduce((prev, current) => {
       return (prev.cenaJednostkowa > current.cenaJednostkowa) ? prev : current
     });
+  }
+
+  getProducts() {
+    this.wycieczki = this.wycieczkiService.getProducts();
   }
 }
