@@ -11,26 +11,19 @@ import {FormControl, FormGroup} from "@angular/forms";
       <h1 class="mt-4 mb-4">Lista dostępnych wycieczek</h1>
 
       <div class="row itemsBlock">
-        <div class="col-2">
+        <div class="col-2 filter-section">
 
           <form
             [formGroup]="filterForm"
           >
-            <!--            (ngSubmit)="onSubmit(filterForm)"-->
             <div class="form-group">
               <label>Docelowy kraj wycieczki:</label>
-<!--              <input name="docelowyKrajWycieczki" formControlName="docelowyKrajWycieczki" class="form-control"/>-->
 
               <angular2-multiselect [data]="this.dropdownList"
                                     formControlName="docelowyKrajWycieczki"
-                                    [settings]="{}"
+                                    [settings]="{text: 'Wybierz'}"
                                     [(ngModel)]="selectedItems"
               >
-<!--                                    -->
-<!--                                    (onSelect)="onItemSelect($event)"-->
-<!--                                    (onDeSelect)="OnItemDeSelect($event)"-->
-<!--                                    (onSelectAll)="onSelectAll($event)"-->
-<!--                                    (onDeSelectAll)="onDeSelectAll($event)" -->
               
               </angular2-multiselect>
               
@@ -49,25 +42,7 @@ import {FormControl, FormGroup} from "@angular/forms";
               <label>Średnia ocena:</label>
               <input name="avgRating" formControlName="avgRating" class="form-control" type="number" min="0" max="5"
                      step="0.1"/>
-
-
-
-              <!--              <label>nazwa:</label><input name="nazwa" formControlName="nazwa" class="form-control">-->
-              <!--              <label>docelowyKrajWycieczki:</label><input name="docelowyKrajWycieczki" formControlName="docelowyKrajWycieczki"-->
-              <!--                                                          class="form-control">-->
-              <!--              <label>dataRozpoczecia:</label><input name="dataRozpoczecia" formControlName="dataRozpoczecia" class="form-control">-->
-              <!--              <label>dataZakonczenia:</label><input name="dataZakonczenia" formControlName="dataZakonczenia" class="form-control">-->
-              <!--              <label>cenaJednostkowa:</label><input name="cenaJednostkowa" formControlName="cenaJednostkowa" class="form-control">-->
-              <!--              <label>maxIloscMiejsc:</label><input name="maxIloscMiejsc" formControlName="maxIloscMiejsc" class="form-control">-->
-              <!--              <label>opis:</label><input name="opis" formControlName="opis" class="form-control">-->
-              <!--              <label>linkDoZdj:</label><input name="linkDoZdj" formControlName="linkDoZdj" class="form-control">-->
-              <!--<label>ileZarezerwowano:</label><input name="ileZarezerwowano" formControlName="ileZarezerwowano" class="form-control">-->
-              <!--<label>oceny:</label><input name="oceny" formControlName="oceny" class="form-control">-->
             </div>
-
-            <button class="btn btn-primary" type="submit" tooltip="Wycieczka dodana!" placement="top" trigger="click">
-              Send
-            </button>
           </form>
 
 
