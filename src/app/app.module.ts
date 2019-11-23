@@ -16,6 +16,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {EquityFilterPipe} from "./pipes/equity-filter.pipe";
 import {AngularMultiSelectModule} from 'angular2-multiselect-dropdown';
 import {Angular2ImageGalleryModule} from "angular2-image-gallery";
+import {AngularDateTimePickerModule} from "angular2-datetimepicker";
 
 
 
@@ -42,7 +43,8 @@ import {Angular2ImageGalleryModule} from "angular2-image-gallery";
     TooltipModule,
     AppRoutingModule,
     AngularMultiSelectModule,
-    Angular2ImageGalleryModule
+    Angular2ImageGalleryModule,
+    AngularDateTimePickerModule
   ],
   bootstrap: [AplikacjaWycieczkiComponent]
 })

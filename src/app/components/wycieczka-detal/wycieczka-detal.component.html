@@ -1,11 +1,7 @@
+<button class="btn btn-primary btn-lg" type="button" routerLink="/wycieczki">Back</button>
+
 <div class="card mb-4 shadow-lg wycieczka-detail">
   <div>
-    <button
-      class="btn remove-button"
-      (click)="this.koszykService.deleteTrip(wycieczka)"
-    >
-      <i class="fa fa-times"></i>
-    </button>
     <button
       class="btn add-to-cart-button"
       tooltip="Wycieczka dodana do koszyka!" placement="top" trigger="click"
@@ -44,6 +40,12 @@
     </li>
   </ul>
   <div class="card-body">
+    <h6>Preferowana data wycieczki</h6>
+    <div class="date-picker-wrapper mb-2">
+      <angular2-date-picker [(ngModel)]="preferreddDate" [settings]="settings"></angular2-date-picker>
+    </div>
+
+
     <button
       class="btn btn-primary plus-button"
       [ngClass]="{'hidden-button': wycieczka.ileZarezerwowano == wycieczka.maxIloscMiejsc}"
@@ -75,13 +77,20 @@
   <div class="card-body">
     <h6>Oceń tą wycieczkę</h6>
 
+    <div class="alert alert-danger" role="alert" *ngIf="!this.didPersonReserveTrip(wycieczka)">
+      You need to have at least one reservation in order to rate this trip!
+    </div>
+
     <ocena-component
       (ratingAdded)="addRating($event)"
+      [readonly]="!this.didPersonReserveTrip(wycieczka)"
     ></ocena-component>
 
     <hr>
 
-    <h6>Zestawienie ocen</h6>
+    <h6
+      *ngIf="countRatings().length > 0"
+    >Zestawienie ocen</h6>
 
 
 
@@ -111,5 +120,16 @@
     </div>
   </div>
 
+  <div class="card-body">
+    <h6>Dodaj swoją opinię:</h6>
 
+    <div class="form-group">
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"
+        [attr.disabled]="this.didPersonReserveTrip(wycieczka) ? null : true"
+      >
+      </textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
 </div>

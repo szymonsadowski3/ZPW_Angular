@@ -54,7 +54,7 @@ h5 {
 }
 
 .wycieczka-detail {
-  margin-top: 8rem;
+  margin-top: 1rem;
 }
 
 .detail-img {
@@ -63,3 +63,6 @@ h5 {
   margin-bottom: 1rem;
 }
 
+.date-picker-wrapper {
+  height: 50px;
+}

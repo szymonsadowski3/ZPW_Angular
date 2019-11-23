@@ -13,6 +13,14 @@ export class WycieczkaDetalComponent implements OnInit {
   koszykService: KoszykService;
   route;
 
+  preferreddDate: Date = new Date();
+  settings = {
+    bigBanner: true,
+    timePicker: false,
+    format: 'dd-MM-yyyy',
+    defaultOpen: false
+  };
+
   wycieczka: any;
   @Output() reservationChanged = new EventEmitter<string>();
   @Output() tripRemoved = new EventEmitter<any>();
@@ -73,5 +81,10 @@ export class WycieczkaDetalComponent implements OnInit {
 
       return acc;
     }, {})): [];
+  }
+
+  didPersonReserveTrip(trip) {
+    // TODO: for now it's only a mock
+    return trip.ileZarezerwowano>0;
   }
 }
