@@ -17,6 +17,7 @@ import {EquityFilterPipe} from "./pipes/equity-filter.pipe";
 import {AngularMultiSelectModule} from 'angular2-multiselect-dropdown';
 import {Angular2ImageGalleryModule} from "angular2-image-gallery";
 import {AngularDateTimePickerModule} from "angular2-datetimepicker";
+import {SignInComponent} from "./components/sign-in/sign-in.component";
 
 
 
@@ -33,7 +34,8 @@ import {AngularDateTimePickerModule} from "angular2-datetimepicker";
     NewWycieczkaComponent,
     KoszykComponent,
     EquityFilterPipe,
-    WycieczkaDetalComponent
+    WycieczkaDetalComponent,
+    SignInComponent
   ],
   imports: [
     BrowserModule,
