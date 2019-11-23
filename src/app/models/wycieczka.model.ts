@@ -1,4 +1,5 @@
 export class Wycieczka {
+  id: number;
   nazwa: string;
   docelowyKrajWycieczki: string;
   dataRozpoczecia: string;

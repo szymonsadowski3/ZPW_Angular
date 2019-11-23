@@ -1,0 +1,70 @@
+<div class="lista-wycieczek">
+  <h1 class="mt-4 mb-4">Lista dostępnych wycieczek</h1>
+
+  <div class="row itemsBlock">
+    <div class="col-2 filter-section">
+
+      <form
+        [formGroup]="filterForm"
+      >
+        <div class="form-group">
+          <label>Docelowy kraj wycieczki:</label>
+
+          <angular2-multiselect [data]="this.dropdownList"
+                                formControlName="docelowyKrajWycieczki"
+                                [settings]="{text: 'Wybierz'}"
+                                [(ngModel)]="selectedItems"
+          >
+
+          </angular2-multiselect>
+
+          <hr/>
+
+          <label>Cena minimalna:</label>
+          <input name="priceMin" formControlName="priceMin" class="form-control" type="number" min="0"
+                 max="100000"/>
+
+          <label>Cena maksymalna:</label>
+          <input name="priceMax" formControlName="priceMax" class="form-control" type="number" min="0"
+                 max="100000"/>
+
+          <hr/>
+
+          <label>Średnia ocena:</label>
+          <input name="avgRating" formControlName="avgRating" class="form-control" type="number" min="0" max="5"
+                 step="0.1"/>
+        </div>
+      </form>
+
+
+    </div>
+    <div class="col-10">
+      <div class="row">
+
+        <wycieczka-component
+          class="col-lg-4 col-md-6 col-sm-12 col-12"
+          *ngFor="let item of wycieczki  | equityfilter: getFilteringCriteria()"
+          [wycieczka]="item"
+          [isCheapest]="(item==minPriceTrip)"
+          [isMostExpensive]="(item==maxPriceTrip)"
+          (reservationChanged)="calculateSumOfReservedTrips($event)"
+          (tripRemoved)="removeTrip($event)"
+          (tripAddedToCart)="addTripToCart($event)"
+          [routerLink]="['/wycieczka', item.id]"
+        ></wycieczka-component>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="total-trips shadow mb-4"
+  [ngClass]="{
+        'low-sum': (sum <10),
+        'high-sum': (sum >=10)
+      }"
+>
+  Suma zarezerwowanych wycieczek: {{sum}}
+</div>
+
+<new-wycieczka-component></new-wycieczka-component>

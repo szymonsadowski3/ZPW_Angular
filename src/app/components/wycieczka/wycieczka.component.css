@@ -52,3 +52,7 @@
 h5 {
   text-align: center;
 }
+
+.wycieczka-card:hover {
+  cursor: pointer;
+}

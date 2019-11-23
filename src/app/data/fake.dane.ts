@@ -2,6 +2,7 @@ import {Wycieczka} from '../models/wycieczka.model';
 
 export let fakeWycieczki: Wycieczka[] = [
   {
+    id: 1,
     nazwa: "Dwutygodniowa wycieczka do Egiptu",
     docelowyKrajWycieczki: "Egipt",
     dataRozpoczecia: "2019-12-12",
@@ -14,6 +15,7 @@ export let fakeWycieczki: Wycieczka[] = [
     oceny: [],
   },
   {
+    id: 2,
     nazwa: "Dwutygodniowa wycieczka do Rosji",
     docelowyKrajWycieczki: "Rosja",
     dataRozpoczecia: "2019-12-12",
@@ -26,6 +28,7 @@ export let fakeWycieczki: Wycieczka[] = [
     oceny: [],
   },
   {
+    id: 3,
     nazwa: "Dwutygodniowa wycieczka do USA",
     docelowyKrajWycieczki: "USA",
     dataRozpoczecia: "2019-12-12",
@@ -38,6 +41,7 @@ export let fakeWycieczki: Wycieczka[] = [
     oceny: [],
   },
   {
+    id: 4,
     nazwa: "Tygodniowa wycieczka do Egiptu",
     docelowyKrajWycieczki: "Egipt",
     dataRozpoczecia: "2019-12-12",
@@ -50,6 +54,7 @@ export let fakeWycieczki: Wycieczka[] = [
     oceny: [],
   },
   {
+    id: 5,
     nazwa: "Tygodniowa wycieczka do Rosji",
     docelowyKrajWycieczki: "Rosja",
     dataRozpoczecia: "2019-12-12",
@@ -62,6 +67,7 @@ export let fakeWycieczki: Wycieczka[] = [
     oceny: [],
   },
   {
+    id: 6,
     nazwa: "Tygodniowa wycieczka do USA",
     docelowyKrajWycieczki: "USA",
     dataRozpoczecia: "2019-12-12",
@@ -75,6 +81,7 @@ export let fakeWycieczki: Wycieczka[] = [
   },
 
   {
+    id: 7,
     nazwa: "Dwudniowa wycieczka do Austrii",
     docelowyKrajWycieczki: "Austria",
     dataRozpoczecia: "2019-12-12",
@@ -87,6 +94,7 @@ export let fakeWycieczki: Wycieczka[] = [
     oceny: [],
   },
   {
+    id: 8,
     nazwa: "Dwudniowa wycieczka do Czech",
     docelowyKrajWycieczki: "Czechy",
     dataRozpoczecia: "2019-12-12",

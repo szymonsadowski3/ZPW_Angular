@@ -1,9 +1,4 @@
-<div class="card mb-4 shadow-lg wycieczka-card" style="width: 18rem;"
-     [ngClass]="{
-                'low-available-places': (wycieczka.maxIloscMiejsc - wycieczka.ileZarezerwowano) <= 3,
-                'cheapest': isCheapest,
-                'most-expensive': isMostExpensive
-             }"
+<div class="card mb-4 shadow-lg" style="width: 18rem;"
 >
   <div>
     <button
@@ -50,11 +45,11 @@
     </li>
   </ul>
   <div class="card-body">
-      <button
-        class="btn btn-primary plus-button"
-        [ngClass]="{'hidden-button': wycieczka.ileZarezerwowano == wycieczka.maxIloscMiejsc}"
-        (click)="onClickPlusButton(wycieczka)"
-      >
+    <button
+      class="btn btn-primary plus-button"
+      [ngClass]="{'hidden-button': wycieczka.ileZarezerwowano == wycieczka.maxIloscMiejsc}"
+      (click)="onClickPlusButton(wycieczka)"
+    >
       <i class="fa fa-plus"></i>
     </button>
 
