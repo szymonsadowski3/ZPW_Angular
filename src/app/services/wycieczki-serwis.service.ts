@@ -1,26 +1,29 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {Wycieczka} from '../models/wycieczka.model';
 import {fakeWycieczki} from '../data/fake.dane';
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 export class WycieczkiSerwisService {
 
-  wycieczki: Wycieczka[];
+  wycieczki;
+  http: HttpClient;
 
-  constructor() {
-    this.wycieczki = fakeWycieczki;
+  constructor(http: HttpClient) {
+    this.http = http;
+    this.fetchProducts();
   }
 
-  getProducts() {
-    return this.wycieczki;
+  fetchProducts() {
+    const apiUrl = "api/data";
+    return this.http.get(apiUrl);
   }
 
   getProduct(id: number) {
-    const foundTrip = this.wycieczki.filter(item => item.id === id);
-
-    return (foundTrip.length>0)? foundTrip[0]: null;
+    const apiUrl = `api/data/${id}`;
+    return this.http.get(apiUrl);
   }
 
   addProduct(product: Wycieczka) {

@@ -30,11 +30,15 @@ export class WycieczkaDetalComponent implements OnInit {
     this.wycieczkiService = wycieczkiService;
     this.koszykService = koszykService;
     this.route = route;
+
+    this.wycieczka = this.getInitialBlankObject();
   }
 
   ngOnInit() {
     const wycieczkaId = parseInt(this.route.snapshot.paramMap.get('id'));
-    this.wycieczka = this.wycieczkiService.getProduct(wycieczkaId);
+    this.wycieczkiService.getProduct(wycieczkaId).subscribe(response => {
+      this.wycieczka = response;
+    });
   }
 
   onClickPlusButton(item) {
@@ -86,5 +90,21 @@ export class WycieczkaDetalComponent implements OnInit {
   didPersonReserveTrip(trip) {
     // TODO: for now it's only a mock
     return trip.ileZarezerwowano>0;
+  }
+
+  getInitialBlankObject() {
+    return {
+      id: 1,
+      nazwa: "",
+      docelowyKrajWycieczki: "",
+      dataRozpoczecia: "",
+      dataZakonczenia: "",
+      cenaJednostkowa: 0,
+      maxIloscMiejsc: 0,
+      opis: "",
+      linkDoZdj: "",
+      ileZarezerwowano: 0,
+      oceny: [],
+    };
   }
 }
