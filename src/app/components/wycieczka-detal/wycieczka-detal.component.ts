@@ -1,15 +1,12 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
-  selector: 'wycieczka-component',
-  styleUrls: ['./wycieczka.component.css'],
-  templateUrl: 'wycieczka.component.html',
+  selector: 'wycieczka-detal-component',
+  styleUrls: ['./wycieczka-detal.component.css'],
+  templateUrl: 'wycieczka-detal.component.html',
 })
-export class WycieczkaComponent {
+export class WycieczkaDetalComponent {
   @Input() wycieczka: any;
-  @Input() isCheapest: boolean;
-  @Input() isMostExpensive: boolean;
-
   @Output() reservationChanged = new EventEmitter<string>();
   @Output() tripRemoved = new EventEmitter<any>();
   @Output() tripAddedToCart = new EventEmitter<any>();
