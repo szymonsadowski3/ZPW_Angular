@@ -17,8 +17,10 @@ export class WycieczkiSerwisService {
     return this.wycieczki;
   }
 
-  getProduct(nazwa: string) {
-    return this.wycieczki.filter(item => item.nazwa === nazwa);
+  getProduct(id: number) {
+    const foundTrip = this.wycieczki.filter(item => item.id === id);
+
+    return (foundTrip.length>0)? foundTrip[0]: null;
   }
 
   addProduct(product: Wycieczka) {

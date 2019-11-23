@@ -1,15 +1,30 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {WycieczkiSerwisService} from "../../services/wycieczki-serwis.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'wycieczka-detal-component',
   styleUrls: ['./wycieczka-detal.component.css'],
   templateUrl: 'wycieczka-detal.component.html',
 })
-export class WycieczkaDetalComponent {
-  @Input() wycieczka: any;
+export class WycieczkaDetalComponent implements OnInit {
+  wycieczkiService: WycieczkiSerwisService;
+  route;
+
+  wycieczka: any;
   @Output() reservationChanged = new EventEmitter<string>();
   @Output() tripRemoved = new EventEmitter<any>();
   @Output() tripAddedToCart = new EventEmitter<any>();
+
+  constructor(wycieczkiService: WycieczkiSerwisService, route:ActivatedRoute) {
+    this.wycieczkiService = wycieczkiService;
+    this.route = route;
+  }
+
+  ngOnInit() {
+    const wycieczkaId = parseInt(this.route.snapshot.paramMap.get('id'));
+    this.wycieczka = this.wycieczkiService.getProduct(wycieczkaId);
+  }
 
   onClickPlusButton(item) {
     if (item.ileZarezerwowano < item.maxIloscMiejsc) {
@@ -46,7 +61,7 @@ export class WycieczkaDetalComponent {
   }
 
   countRatings() {
-    return Object.entries(this.wycieczka.oceny.reduce(function (acc, curr) {
+    return ((this.wycieczka.oceny != undefined) && (this.wycieczka.oceny.length > 0)) ? Object.entries(this.wycieczka.oceny.reduce(function (acc, curr) {
       if (typeof acc[curr] == 'undefined') {
         acc[curr] = 1;
       } else {
@@ -54,6 +69,6 @@ export class WycieczkaDetalComponent {
       }
 
       return acc;
-    }, {}));
+    }, {})): [];
   }
 }
