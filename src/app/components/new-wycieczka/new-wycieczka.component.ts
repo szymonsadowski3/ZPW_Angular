@@ -7,7 +7,7 @@ import {WycieczkiSerwisService} from '../../services/wycieczki-serwis.service';
   selector: 'new-wycieczka-component',
   styleUrls: ['./new-wycieczka.component.css'],
   template: `
-    <div class="nowa-wycieczka">
+    <div class="nowa-wycieczka pt-3">
       <h3>Dodaj nową wycieczkę</h3>
 
       <form [formGroup]="modelForm" (ngSubmit)="onSubmit(modelForm)">

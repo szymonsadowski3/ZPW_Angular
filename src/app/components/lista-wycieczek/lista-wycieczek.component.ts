@@ -63,16 +63,16 @@ import {FormControl, FormGroup} from "@angular/forms";
           </div>
         </div>
       </div>
+    </div>
 
-      <span
-        class="total-trips shadow mb-4"
-        [ngClass]="{
+    <div
+      class="total-trips shadow mb-4"
+      [ngClass]="{
         'low-sum': (sum <10),
         'high-sum': (sum >=10)
       }"
-      >
+    >
       Suma zarezerwowanych wycieczek: {{sum}}
-    </span>
     </div>
 
     <new-wycieczka-component></new-wycieczka-component>
