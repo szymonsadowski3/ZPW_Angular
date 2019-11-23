@@ -12,38 +12,65 @@ import {FormControl, FormGroup} from "@angular/forms";
 
       <div class="row itemsBlock">
         <div class="col-2">
-          
-          <form [formGroup]="filterForm" (ngSubmit)="onSubmit(filterForm)">
+
+          <form
+            [formGroup]="filterForm"
+          >
+            <!--            (ngSubmit)="onSubmit(filterForm)"-->
             <div class="form-group">
               <label>Docelowy kraj wycieczki:</label>
-              <input name="docelowyKrajWycieczki" formControlName="docelowyKrajWycieczki" class="form-control" />
+<!--              <input name="docelowyKrajWycieczki" formControlName="docelowyKrajWycieczki" class="form-control"/>-->
+
+              <angular2-multiselect [data]="this.dropdownList"
+                                    formControlName="docelowyKrajWycieczki"
+                                    [settings]="{}"
+                                    [(ngModel)]="selectedItems"
+              >
+<!--                                    -->
+<!--                                    (onSelect)="onItemSelect($event)"-->
+<!--                                    (onDeSelect)="OnItemDeSelect($event)"-->
+<!--                                    (onSelectAll)="onSelectAll($event)"-->
+<!--                                    (onDeSelectAll)="onDeSelectAll($event)" -->
               
-              <br>
+              </angular2-multiselect>
+              
+              <hr/>
 
               <label>Cena minimalna:</label>
-              <input name="priceMin" formControlName="priceMin" class="form-control" type="number" min="0" max="100000" />
+              <input name="priceMin" formControlName="priceMin" class="form-control" type="number" min="0"
+                     max="100000"/>
 
               <label>Cena maksymalna:</label>
-              <input name="priceMax" formControlName="priceMax" class="form-control" type="number" min="0" max="100000" />
-              
-              
-<!--              <label>nazwa:</label><input name="nazwa" formControlName="nazwa" class="form-control">-->
-<!--              <label>docelowyKrajWycieczki:</label><input name="docelowyKrajWycieczki" formControlName="docelowyKrajWycieczki"-->
-<!--                                                          class="form-control">-->
-<!--              <label>dataRozpoczecia:</label><input name="dataRozpoczecia" formControlName="dataRozpoczecia" class="form-control">-->
-<!--              <label>dataZakonczenia:</label><input name="dataZakonczenia" formControlName="dataZakonczenia" class="form-control">-->
-<!--              <label>cenaJednostkowa:</label><input name="cenaJednostkowa" formControlName="cenaJednostkowa" class="form-control">-->
-<!--              <label>maxIloscMiejsc:</label><input name="maxIloscMiejsc" formControlName="maxIloscMiejsc" class="form-control">-->
-<!--              <label>opis:</label><input name="opis" formControlName="opis" class="form-control">-->
-<!--              <label>linkDoZdj:</label><input name="linkDoZdj" formControlName="linkDoZdj" class="form-control">-->
+              <input name="priceMax" formControlName="priceMax" class="form-control" type="number" min="0"
+                     max="100000"/>
+
+              <hr/>
+
+              <label>Średnia ocena:</label>
+              <input name="avgRating" formControlName="avgRating" class="form-control" type="number" min="0" max="5"
+                     step="0.1"/>
+
+
+
+              <!--              <label>nazwa:</label><input name="nazwa" formControlName="nazwa" class="form-control">-->
+              <!--              <label>docelowyKrajWycieczki:</label><input name="docelowyKrajWycieczki" formControlName="docelowyKrajWycieczki"-->
+              <!--                                                          class="form-control">-->
+              <!--              <label>dataRozpoczecia:</label><input name="dataRozpoczecia" formControlName="dataRozpoczecia" class="form-control">-->
+              <!--              <label>dataZakonczenia:</label><input name="dataZakonczenia" formControlName="dataZakonczenia" class="form-control">-->
+              <!--              <label>cenaJednostkowa:</label><input name="cenaJednostkowa" formControlName="cenaJednostkowa" class="form-control">-->
+              <!--              <label>maxIloscMiejsc:</label><input name="maxIloscMiejsc" formControlName="maxIloscMiejsc" class="form-control">-->
+              <!--              <label>opis:</label><input name="opis" formControlName="opis" class="form-control">-->
+              <!--              <label>linkDoZdj:</label><input name="linkDoZdj" formControlName="linkDoZdj" class="form-control">-->
               <!--<label>ileZarezerwowano:</label><input name="ileZarezerwowano" formControlName="ileZarezerwowano" class="form-control">-->
               <!--<label>oceny:</label><input name="oceny" formControlName="oceny" class="form-control">-->
             </div>
 
-            <button class="btn btn-primary" type="submit" tooltip="Wycieczka dodana!" placement="top" trigger="click">Send</button>
+            <button class="btn btn-primary" type="submit" tooltip="Wycieczka dodana!" placement="top" trigger="click">
+              Send
+            </button>
           </form>
-          
-          
+
+
         </div>
         <div class="col-10">
           <div class="row">
@@ -52,8 +79,8 @@ import {FormControl, FormGroup} from "@angular/forms";
               class="col-lg-4 col-md-6 col-sm-12 col-12"
               *ngFor="let item of wycieczki  | equityfilter: getFilteringCriteria()"
               [wycieczka]="item"
-              [isCheapest]="(item==minElement)"
-              [isMostExpensive]="(item==maxElement)"
+              [isCheapest]="(item==minPriceTrip)"
+              [isMostExpensive]="(item==maxPriceTrip)"
               (reservationChanged)="calculateSumOfReservedTrips($event)"
               (tripRemoved)="removeTrip($event)"
               (tripAddedToCart)="addTripToCart($event)"
@@ -78,13 +105,15 @@ import {FormControl, FormGroup} from "@angular/forms";
 })
 export class ListaWycieczekComponent implements OnInit {
   filterForm: FormGroup;
+  dropdownList = [];
+  selectedItems;
 
   wycieczki;
 
   koszykService: KoszykService;
 
-  minElement: any;
-  maxElement: any;
+  minPriceTrip: any;
+  maxPriceTrip: any;
   sum = 0;
 
   wycieczkiService: WycieczkiSerwisService;
@@ -96,14 +125,29 @@ export class ListaWycieczekComponent implements OnInit {
   }
 
   ngOnInit() {
+    const countries = this.wycieczkiService.getProducts().map(wycieczka => wycieczka.docelowyKrajWycieczki);
+    const uniqCountries = [...new Set(countries)];
+    this.dropdownList = uniqCountries.map((country, index) => {
+      return {
+        id: index,
+        itemName: country
+      }
+    });
+
+    this.selectedItems = [
+      ];
+
+
     this.getProducts();
     this.findMinElement();
     this.findMaxElement();
 
     this.filterForm = new FormGroup({
-      docelowyKrajWycieczki: new FormControl(''),
-      priceMin: new FormControl(0),
-      priceMax: new FormControl(100000),
+      docelowyKrajWycieczki: new FormControl([]),
+      priceMin: new FormControl(this.minPriceTrip.cenaJednostkowa),
+      priceMax: new FormControl(this.maxPriceTrip.cenaJednostkowa),
+      avgRating: new FormControl(4.0),
+      // TODO: show only relevant values
     });
   }
 
@@ -126,13 +170,13 @@ export class ListaWycieczekComponent implements OnInit {
   }
 
   findMinElement() {
-    this.minElement = this.wycieczki.reduce((prev, current) => {
+    this.minPriceTrip = this.wycieczki.reduce((prev, current) => {
       return (prev.cenaJednostkowa < current.cenaJednostkowa) ? prev : current
     });
   }
 
   findMaxElement() {
-    this.maxElement = this.wycieczki.reduce((prev, current) => {
+    this.maxPriceTrip = this.wycieczki.reduce((prev, current) => {
       return (prev.cenaJednostkowa > current.cenaJednostkowa) ? prev : current
     });
   }
@@ -144,11 +188,36 @@ export class ListaWycieczekComponent implements OnInit {
   getFilteringCriteria() {
     const criteria = [];
 
-    const searchedCountry = this.filterForm.get('docelowyKrajWycieczki').value.toLowerCase();
+    const searchedCountries = this.filterForm.get('docelowyKrajWycieczki').value.map(value => value.itemName.toLowerCase());
 
-    if(searchedCountry != '') {
-      const searchedCountryCriteria = ((item) => {return item['docelowyKrajWycieczki'].toLowerCase().includes(searchedCountry)});
+    const priceMin = this.filterForm.get('priceMin').value;
+    const priceMax = this.filterForm.get('priceMax').value;
+    const avgRating = this.filterForm.get('avgRating').value;
+
+    if(searchedCountries && searchedCountries.length>0) {
+      const searchedCountryCriteria = ((item) => {return searchedCountries.includes(item['docelowyKrajWycieczki'].toLowerCase())});
       criteria.push(searchedCountryCriteria);
+    }
+
+    if((priceMin != '') && (priceMax != '')) {
+      const priceMinInt = parseInt(priceMin);
+      const priceMaxInt = parseInt(priceMax);
+
+      const priceCriteria = ((item) => {
+        const isAboveBottom = item.cenaJednostkowa >= priceMinInt;
+        const isBelowTop = item.cenaJednostkowa <= priceMaxInt;
+        return isAboveBottom && isBelowTop;
+      });
+      criteria.push(priceCriteria);
+    }
+
+    if(avgRating != '') {
+      const average = arr => arr.reduce( ( p, c ) => p + c, 0 ) / arr.length;
+
+      const ratingCriteria = ((item) => {
+        return (item.oceny.length == 0) || average(item.oceny) >= avgRating;
+      });
+      criteria.push(ratingCriteria);
     }
 
     return criteria;

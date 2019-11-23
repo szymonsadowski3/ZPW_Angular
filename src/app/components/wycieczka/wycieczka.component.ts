@@ -45,8 +45,6 @@ export class WycieczkaComponent {
   }
 
   addRating(newRating) {
-    console.dir(newRating);
-
     this.wycieczka.oceny.push(newRating);
   }
 

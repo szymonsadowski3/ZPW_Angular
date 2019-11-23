@@ -19,6 +19,7 @@
     "@angular/platform-browser": "~8.2.13",
     "@angular/platform-browser-dynamic": "~8.2.13",
     "@angular/router": "~8.2.13",
+    "angular2-multiselect-dropdown": "^4.6.3",
     "ng": "0.0.0",
     "ng-starrating": "^1.0.7",
     "ng2-tooltip-directive": "^2.8.17",

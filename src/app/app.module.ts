@@ -14,6 +14,7 @@ import {KoszykComponent} from './components/koszyk/koszyk.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import {EquityFilterPipe} from "./pipes/equity-filter.pipe";
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 
 
 
@@ -37,7 +38,8 @@ import {EquityFilterPipe} from "./pipes/equity-filter.pipe";
     ReactiveFormsModule,
     RatingModule,
     TooltipModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AngularMultiSelectModule
   ],
   bootstrap: [AplikacjaWycieczkiComponent]
 })
