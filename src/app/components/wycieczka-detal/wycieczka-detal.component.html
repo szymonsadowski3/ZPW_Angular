@@ -1,5 +1,4 @@
-<div class="card mb-4 shadow-lg" style="width: 18rem;"
->
+<div class="card mb-4 shadow-lg wycieczka-detail">
   <div>
     <button
       class="btn remove-button"
@@ -17,7 +16,7 @@
   </div>
 
 
-  <img src="{{wycieczka.linkDoZdj+'?v='+wycieczka.docelowyKrajWycieczki}}" class="rounded-circle card-img"/>
+  <img src="{{'https://picsum.photos/500/300?v='+wycieczka.docelowyKrajWycieczki}}" height="300px" />
   <div class="card-body">
     <h5 class="card-title">{{wycieczka.nazwa | uppercase}}</h5>
     <p class="card-text">{{wycieczka.opis}}</p>
