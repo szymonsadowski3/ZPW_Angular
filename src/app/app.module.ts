@@ -15,6 +15,8 @@ import {KoszykComponent} from './components/koszyk/koszyk.component';
 import {AppRoutingModule} from './app-routing.module';
 import {EquityFilterPipe} from "./pipes/equity-filter.pipe";
 import {AngularMultiSelectModule} from 'angular2-multiselect-dropdown';
+import {Angular2ImageGalleryModule} from "angular2-image-gallery";
+
 
 
 @NgModule({
@@ -40,6 +42,7 @@ import {AngularMultiSelectModule} from 'angular2-multiselect-dropdown';
     TooltipModule,
     AppRoutingModule,
     AngularMultiSelectModule,
+    Angular2ImageGalleryModule
   ],
   bootstrap: [AplikacjaWycieczkiComponent]
 })

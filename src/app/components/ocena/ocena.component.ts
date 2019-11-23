@@ -4,7 +4,7 @@ import {Component, EventEmitter, Output} from '@angular/core';
   selector: 'ocena-component',
   styleUrls: ['./ocena.component.css'],
   template: `
-    <div style="text-align:center">
+    <div>
       <star-rating value="0" checkedcolor="gold" uncheckedcolor="gray" size="24px" readonly="false" (rate)="onRate($event)">
       </star-rating>
     </div>

@@ -53,6 +53,9 @@ h5 {
   text-align: center;
 }
 
-.wycieczka-card:hover {
+.main-section:hover {
   cursor: pointer;
+  background: rgba(237,237,237,.6);
+  transition: background .5s;
 }
+

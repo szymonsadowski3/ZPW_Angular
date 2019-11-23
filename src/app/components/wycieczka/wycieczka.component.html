@@ -22,11 +22,20 @@
   </div>
 
 
-  <img src="{{wycieczka.linkDoZdj+'?v='+wycieczka.docelowyKrajWycieczki}}" class="rounded-circle card-img"/>
-  <div class="card-body">
-    <h5 class="card-title">{{wycieczka.nazwa | uppercase}}</h5>
-    <p class="card-text">{{wycieczka.opis}}</p>
+  <div class="main-section" [routerLink]="['/wycieczka', wycieczka.id]">
+    <img src="{{wycieczka.linkDoZdj+'?v='+wycieczka.docelowyKrajWycieczki}}" class="rounded-circle card-img"/>
+    <div class="card-body">
+      <h5 class="card-title">{{wycieczka.nazwa | uppercase}}</h5>
+
+
+      <!--    <p class="card-text">{{wycieczka.opis}}</p>-->
+
+    </div>
   </div>
+
+
+
+
   <ul class="list-group list-group-flush">
     <li class="list-group-item">Kraj docelowy: {{wycieczka.docelowyKrajWycieczki | uppercase}}</li>
     <li class="list-group-item">
@@ -66,40 +75,43 @@
       <i class="fa fa-minus"></i>
     </button>
   </div>
-  <div class="card-body">
-    <ocena-component
-      (ratingAdded)="addRating($event)"
-    ></ocena-component>
+  <div class="card-body oceny-section">
 
-    <hr>
+<!--    <ocena-component-->
+<!--      (ratingAdded)="addRating($event)"-->
+<!--    ></ocena-component>-->
 
-    <h6>Zestawienie ocen</h6>
+<!--    <hr>-->
+
+<!--    <h6>Zestawienie ocen</h6>-->
 
 
 
-    <div
-      *ngFor="let item of countRatings()"
-    >
-      <div>
-        <div style="width:10%; line-height:1;">
-          <div style="height:9px; margin:5px 0;">{{item[0]}} <span class="glyphicon glyphicon-star"></span></div>
-        </div>
-        <div style="width:80%;">
-          <div class="row">
-            <div class="col-10">
-              <div class="progress" style="height:9px; margin:8px 0;">
-                <div class="progress-bar progress-bar-primary" role="progressbar" [attr.aria-valuenow]="item[0]" aria-valuemin="0" aria-valuemax="5" [style.width]="item[0]*20+'%'">
-                  <span class="sr-only">80% Complete (danger)</span>
-                </div>
-              </div>
-            </div>
+<!--    <div-->
+<!--      *ngFor="let item of countRatings()"-->
+<!--    >-->
+<!--      <div>-->
+<!--        <div style="width:10%; line-height:1;">-->
+<!--          <div style="height:9px; margin:5px 0;">{{item[0]}} <span class="glyphicon glyphicon-star"></span></div>-->
+<!--        </div>-->
+<!--        <div style="width:80%;">-->
+<!--          <div class="row">-->
+<!--            <div class="col-10">-->
+<!--              <div class="progress" style="height:9px; margin:8px 0;">-->
+<!--                <div class="progress-bar progress-bar-primary" role="progressbar" [attr.aria-valuenow]="item[0]" aria-valuemin="0" aria-valuemax="5" [style.width]="item[0]*20+'%'">-->
+<!--                  <span class="sr-only">80% Complete (danger)</span>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
 
-            <div class="col-2">
-              <span>{{item[1]}}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+<!--            <div class="col-2">-->
+<!--              <span>{{item[1]}}</span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+
   </div>
 </div>

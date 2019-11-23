@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {WycieczkiSerwisService} from "../../services/wycieczki-serwis.service";
 import {ActivatedRoute} from "@angular/router";
+import {KoszykService} from "../../services/koszyk.service";
 
 @Component({
   selector: 'wycieczka-detal-component',
@@ -9,6 +10,7 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class WycieczkaDetalComponent implements OnInit {
   wycieczkiService: WycieczkiSerwisService;
+  koszykService: KoszykService;
   route;
 
   wycieczka: any;
@@ -16,8 +18,9 @@ export class WycieczkaDetalComponent implements OnInit {
   @Output() tripRemoved = new EventEmitter<any>();
   @Output() tripAddedToCart = new EventEmitter<any>();
 
-  constructor(wycieczkiService: WycieczkiSerwisService, route:ActivatedRoute) {
+  constructor(wycieczkiService: WycieczkiSerwisService, koszykService: KoszykService, route:ActivatedRoute) {
     this.wycieczkiService = wycieczkiService;
+    this.koszykService = koszykService;
     this.route = route;
   }
 
