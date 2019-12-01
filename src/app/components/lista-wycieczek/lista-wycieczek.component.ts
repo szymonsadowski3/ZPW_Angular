@@ -3,6 +3,7 @@ import {KoszykService} from "../../services/koszyk.service";
 import {WycieczkiSerwisService} from "../../services/wycieczki-serwis.service";
 import {FormControl, FormGroup} from "@angular/forms";
 import {Wycieczka} from "../../models/wycieczka.model";
+import {FirebaseService} from '../../services/firebase.service';
 
 @Component({
   styleUrls: ['./lista-wycieczek.component.css'],
@@ -23,15 +24,18 @@ export class ListaWycieczekComponent implements OnInit {
   sum = 0;
 
   wycieczkiService: WycieczkiSerwisService;
+  firebaseService: FirebaseService;
 
 
-  constructor(koszykService: KoszykService, wycieczkiService: WycieczkiSerwisService) {
+  constructor(koszykService: KoszykService, wycieczkiService: WycieczkiSerwisService, firebaseService: FirebaseService) {
     this.koszykService = koszykService;
     this.wycieczkiService = wycieczkiService;
+
+    this.firebaseService = firebaseService;
   }
 
   ngOnInit() {
-    this.wycieczkiService.fetchProducts().subscribe((products: Wycieczka[]) => {
+    this.firebaseService.fetchProducts().subscribe((products: Wycieczka[]) => {
       console.dir(products);
       this.wycieczki = products;
 
@@ -41,7 +45,7 @@ export class ListaWycieczekComponent implements OnInit {
         return {
           id: index,
           itemName: country
-        }
+        };
       });
 
       this.findMinElement();
@@ -117,11 +121,11 @@ export class ListaWycieczekComponent implements OnInit {
       criteria.push(priceCriteria);
     }
 
-    if(avgRating != '') {
+    if (avgRating != '') {
       const average = arr => arr.reduce( ( p, c ) => p + c, 0 ) / arr.length;
 
       const ratingCriteria = ((item) => {
-        return (item.oceny.length == 0) || average(item.oceny) >= avgRating;
+        return (!item.oceny || item.oceny.length === 0) || average(item.oceny) >= avgRating;
       });
       criteria.push(ratingCriteria);
     }

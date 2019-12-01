@@ -10,8 +10,8 @@ import {AuthGuard} from './guards/auth.guard';
 const routes: Routes = [
   {path: '', redirectTo: '/wycieczki', pathMatch: 'full'},
   {path: 'wycieczki', component: ListaWycieczekComponent, canActivate: [AuthGuard]},
-  {path: 'koszyk', component: KoszykComponent},
-  {path: 'wycieczka/:id', component: WycieczkaDetalComponent},
+  {path: 'koszyk', component: KoszykComponent, canActivate: [AuthGuard]},
+  {path: 'wycieczka/:id', component: WycieczkaDetalComponent, canActivate: [AuthGuard]},
   {path: 'login', component: SignInComponent},
 ];
 

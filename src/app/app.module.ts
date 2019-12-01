@@ -25,6 +25,7 @@ import {environment} from '../environments/environment';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {NgxSpinnerModule} from 'ngx-spinner';
+import {AngularFireDatabaseModule} from '@angular/fire/database';
 
 // import { AngularFireModule } from "@angular/fire";
 // import { AngularFireAuthModule } from "@angular/fire/auth";
@@ -62,7 +63,8 @@ import {NgxSpinnerModule} from 'ngx-spinner';
     HttpClientInMemoryWebApiModule.forRoot(FakeDanService),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    AngularFireDatabaseModule
   ],
   bootstrap: [AplikacjaWycieczkiComponent]
 })
