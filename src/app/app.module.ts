@@ -21,6 +21,14 @@ import {SignInComponent} from "./components/sign-in/sign-in.component";
 import {HttpClientModule} from "@angular/common/http";
 import {HttpClientInMemoryWebApiModule} from "angular-in-memory-web-api";
 import {FakeDanService} from "./services/fake-dane.service";
+import {environment} from '../environments/environment';
+import {AngularFireModule} from '@angular/fire';
+import {AngularFireAuthModule} from '@angular/fire/auth';
+import {NgxSpinnerModule} from 'ngx-spinner';
+
+// import { AngularFireModule } from "@angular/fire";
+// import { AngularFireAuthModule } from "@angular/fire/auth";
+// import { environment } from '../environments/environment';
 
 
 
@@ -52,6 +60,9 @@ import {FakeDanService} from "./services/fake-dane.service";
     AngularDateTimePickerModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(FakeDanService),
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
+    NgxSpinnerModule
   ],
   bootstrap: [AplikacjaWycieczkiComponent]
 })

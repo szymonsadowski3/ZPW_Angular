@@ -36,3 +36,7 @@
 #mainNav .navbar-nav .nav-item .nav-link.active, #mainNav .navbar-nav .nav-item .nav-link:hover {
   color: #45ADA8;
 }
+
+.logged-user {
+  color: white;
+}
