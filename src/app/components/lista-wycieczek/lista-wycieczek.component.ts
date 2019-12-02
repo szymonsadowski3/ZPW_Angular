@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {KoszykService} from "../../services/koszyk.service";
-import {WycieczkiSerwisService} from "../../services/wycieczki-serwis.service";
-import {FormControl, FormGroup} from "@angular/forms";
-import {Wycieczka} from "../../models/wycieczka.model";
+import {KoszykService} from '../../services/koszyk.service';
+import {WycieczkiSerwisService} from '../../services/wycieczki-serwis.service';
+import {FormControl, FormGroup} from '@angular/forms';
+import {Wycieczka} from '../../models/wycieczka.model';
 import {FirebaseService} from '../../services/firebase.service';
 
 @Component({
@@ -61,8 +61,7 @@ export class ListaWycieczekComponent implements OnInit {
 
     this.filterForm = this.getInitialFormGroup();
 
-    this.selectedItems = [
-      ];
+    this.selectedItems = [];
   }
 
   calculateSumOfReservedTrips(message) {
@@ -104,12 +103,14 @@ export class ListaWycieczekComponent implements OnInit {
     const priceMax = this.filterForm.get('priceMax').value;
     const avgRating = this.filterForm.get('avgRating').value;
 
-    if(searchedCountries && searchedCountries.length>0) {
-      const searchedCountryCriteria = ((item) => {return searchedCountries.includes(item['docelowyKrajWycieczki'].toLowerCase())});
+    if (searchedCountries && searchedCountries.length > 0) {
+      const searchedCountryCriteria = ((item) => {
+        return searchedCountries.includes(item['docelowyKrajWycieczki'].toLowerCase())
+      });
       criteria.push(searchedCountryCriteria);
     }
 
-    if((priceMin != '') && (priceMax != '')) {
+    if ((priceMin != '') && (priceMax != '')) {
       const priceMinInt = parseInt(priceMin);
       const priceMaxInt = parseInt(priceMax);
 
@@ -122,7 +123,7 @@ export class ListaWycieczekComponent implements OnInit {
     }
 
     if (avgRating != '') {
-      const average = arr => arr.reduce( ( p, c ) => p + c, 0 ) / arr.length;
+      const average = arr => arr.reduce((p, c) => p + c, 0) / arr.length;
 
       const ratingCriteria = ((item) => {
         return (!item.oceny || item.oceny.length === 0) || average(item.oceny) >= avgRating;
