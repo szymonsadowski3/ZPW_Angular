@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Wycieczka} from '../../models/wycieczka.model';
 import {WycieczkiSerwisService} from '../../services/wycieczki-serwis.service';
+import {FirebaseService} from '../../services/firebase.service';
 
 @Component({
   selector: 'new-wycieczka-component',
@@ -32,10 +33,8 @@ import {WycieczkiSerwisService} from '../../services/wycieczki-serwis.service';
 })
 export class NewWycieczkaComponent implements OnInit {
   modelForm: FormGroup;
-  wycieczkiService: WycieczkiSerwisService;
 
-  constructor(wycieczkiService: WycieczkiSerwisService) {
-    this.wycieczkiService = wycieczkiService;
+  constructor(private wycieczkiService: WycieczkiSerwisService, private firebaseService: FirebaseService) {
   }
 
   ngOnInit(): void {
@@ -58,6 +57,7 @@ export class NewWycieczkaComponent implements OnInit {
       oceny: [],
     };
 
-    this.wycieczkiService.addProduct(Object.assign(new Wycieczka(), newWycieczka));
+    // this.wycieczkiService.addProduct(Object.assign(new Wycieczka(), newWycieczka));
+    this.firebaseService.addTrip(newWycieczka);
   }
 }

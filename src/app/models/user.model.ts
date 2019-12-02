@@ -3,4 +3,6 @@ export class User {
   emailVerified: boolean;
   phoneNumber: string;
   photoURL: string;
+  creationTime: Date;
+  lastSignInTime: Date;
 }
