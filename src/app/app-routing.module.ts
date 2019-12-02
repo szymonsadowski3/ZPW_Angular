@@ -6,6 +6,7 @@ import {KoszykComponent} from "./components/koszyk/koszyk.component";
 import {WycieczkaDetalComponent} from "./components/wycieczka-detal/wycieczka-detal.component";
 import {SignInComponent} from "./components/sign-in/sign-in.component";
 import {AuthGuard} from './guards/auth.guard';
+import {NewWycieczkaComponent} from './components/new-wycieczka/new-wycieczka.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/wycieczki', pathMatch: 'full'},
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'koszyk', component: KoszykComponent, canActivate: [AuthGuard]},
   {path: 'wycieczka/:id', component: WycieczkaDetalComponent, canActivate: [AuthGuard]},
   {path: 'login', component: SignInComponent},
+  {path: 'add-trip', component: NewWycieczkaComponent},
 ];
 
 @NgModule({

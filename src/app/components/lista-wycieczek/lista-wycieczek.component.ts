@@ -35,7 +35,7 @@ export class ListaWycieczekComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.firebaseService.fetchProducts().subscribe((products: Wycieczka[]) => {
+    this.firebaseService.fetchTrips().subscribe((products: Wycieczka[]) => {
       console.dir(products);
       this.wycieczki = products;
 

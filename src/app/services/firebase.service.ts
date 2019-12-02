@@ -17,7 +17,7 @@ export class FirebaseService {
     console.dir(this.data);
   }
 
-  fetchProducts() {
+  fetchTrips() {
     return this.db.list('/wycieczki').valueChanges();
   }
 
@@ -31,6 +31,12 @@ export class FirebaseService {
 
   deleteProduct(product: Wycieczka) {
     // this.wycieczki = this.wycieczki.filter(item => item !== product);
+  }
+
+  addTrip(trip: any): void {
+    const pushId = this.db.createPushId();
+    console.log(pushId);
+    this.db.object(`/wycieczki/${pushId}`).set(trip);
   }
 
   updatedata(cos: any): void {
