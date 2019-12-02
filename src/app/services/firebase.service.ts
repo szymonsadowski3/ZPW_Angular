@@ -35,15 +35,24 @@ export class FirebaseService {
 
   addTrip(trip: any): void {
     const pushId = this.db.createPushId();
+    trip.id = pushId;
     console.log(pushId);
     this.db.object(`/wycieczki/${pushId}`).set(trip);
   }
 
-  updatedata(cos: any): void {
-    this.db.object('/test/' + cos.$key).update({});
+  addOrder(order: any) {
+    const pushId = this.db.createPushId();
+    order.id = pushId;
+    console.log(pushId);
+    this.db.object(`/orders/${pushId}`).set(order);
+    return pushId;
   }
 
-  deletedata(cos: any): void {
-    this.db.object('/test/' + cos.$key).remove();
+  updateTrip(tripToUpdate: any, key): void {
+    this.db.object(`/wycieczki/${key}`).update(tripToUpdate);
+  }
+
+  deletedata(key): void {
+    this.db.object(`/wycieczki/${key}`).remove();
   }
 }

@@ -26,7 +26,7 @@ export class WycieczkaDetalComponent implements OnInit {
   @Output() tripRemoved = new EventEmitter<any>();
   @Output() tripAddedToCart = new EventEmitter<any>();
 
-  constructor(wycieczkiService: WycieczkiSerwisService, koszykService: KoszykService, route:ActivatedRoute) {
+  constructor(wycieczkiService: WycieczkiSerwisService, koszykService: KoszykService, route: ActivatedRoute) {
     this.wycieczkiService = wycieczkiService;
     this.koszykService = koszykService;
     this.route = route;

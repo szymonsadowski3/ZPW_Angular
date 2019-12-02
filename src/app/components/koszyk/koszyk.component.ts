@@ -38,4 +38,8 @@ export class KoszykComponent {
       event.stopPropagation();
     }
   }
+
+  submitOrder() {
+    this.koszykService.submitOrder();
+  }
 }
