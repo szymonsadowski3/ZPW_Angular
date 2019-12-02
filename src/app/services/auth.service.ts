@@ -30,4 +30,7 @@ export class AuthService {
   logout() {
     return this.fireAuth.auth.signOut();
   }
+  getUser() {
+    return this.user ? this.user.email : '';
+  }
 }

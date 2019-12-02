@@ -1,4 +1,4 @@
-<button class="btn btn-primary btn-lg mb-1 ml-1" type="button" routerLink="/wycieczki">Back</button>
+<button class="btn btn-primary btn-lg mb-1 ml-1 mt-3" type="button" routerLink="/wycieczki">Back</button>
 
 <h5>Koszyk</h5>
 
@@ -62,7 +62,17 @@
       <td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
       <td colspan="2" class="hidden-xs"></td>
       <td class="hidden-xs text-center"><strong>Total: {{this.getTotal() | currency: 'EUR'}}</strong></td>
-      <td><a href="#" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
+      <td>
+        <button
+          class="btn btn-success btn-block"
+          mwlConfirmationPopover
+          [popoverTitle]="'Na pewno chcesz to zrobic?'"
+          [popoverMessage]="popoverMessage"
+          (confirm)="this.submitOrder()"
+        >Checkout <i class="fa fa-angle-right"></i>
+        </button>
+
+      </td>
     </tr>
     </tfoot>
   </table>

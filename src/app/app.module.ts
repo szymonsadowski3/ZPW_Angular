@@ -26,6 +26,8 @@ import {AngularFireModule} from '@angular/fire';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
+import {ConfirmationPopoverModule} from 'angular-confirmation-popover';
+import {AfterOrderComponent} from './components/after-order/after-order.component';
 
 // import { AngularFireModule } from "@angular/fire";
 // import { AngularFireAuthModule } from "@angular/fire/auth";
@@ -47,7 +49,8 @@ import {AngularFireDatabaseModule} from '@angular/fire/database';
     KoszykComponent,
     EquityFilterPipe,
     WycieczkaDetalComponent,
-    SignInComponent
+    SignInComponent,
+    AfterOrderComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +67,10 @@ import {AngularFireDatabaseModule} from '@angular/fire/database';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     NgxSpinnerModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    ConfirmationPopoverModule.forRoot({
+      confirmButtonType: 'danger' // set defaults here
+    })
   ],
   bootstrap: [AplikacjaWycieczkiComponent]
 })

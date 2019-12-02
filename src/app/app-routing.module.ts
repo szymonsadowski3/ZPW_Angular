@@ -7,6 +7,7 @@ import {WycieczkaDetalComponent} from "./components/wycieczka-detal/wycieczka-de
 import {SignInComponent} from "./components/sign-in/sign-in.component";
 import {AuthGuard} from './guards/auth.guard';
 import {NewWycieczkaComponent} from './components/new-wycieczka/new-wycieczka.component';
+import {AfterOrderComponent} from './components/after-order/after-order.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/wycieczki', pathMatch: 'full'},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'wycieczka/:id', component: WycieczkaDetalComponent, canActivate: [AuthGuard]},
   {path: 'login', component: SignInComponent},
   {path: 'add-trip', component: NewWycieczkaComponent},
+  {path: 'after-order/:id', component: AfterOrderComponent},
 ];
 
 @NgModule({

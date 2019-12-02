@@ -1,14 +1,17 @@
 import {Injectable} from '@angular/core';
 import {Wycieczka} from '../models/wycieczka.model';
+import {FirebaseService} from './firebase.service';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {AuthService} from './auth.service';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class KoszykService {
-  ref;
   produkty;
 
-  constructor() {
+  constructor(private firebaseService: FirebaseService, private spinner: NgxSpinnerService, private authService: AuthService, private router: Router) {
     this.produkty = [];
   }
 
@@ -38,5 +41,17 @@ export class KoszykService {
 
   deleteTrip(product: Wycieczka) {
     this.produkty = this.produkty.filter(item => item.trip != product);
+  }
+
+  submitOrder() {
+    const orderToMake = {
+      ...this.produkty,
+      whoOrdered: this.authService.getUser()
+    };
+
+    const orderId = this.firebaseService.addOrder(orderToMake);
+
+    this.router.navigate([`/after-order/${orderId}`]);
+
   }
 }
