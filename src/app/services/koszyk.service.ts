@@ -45,9 +45,12 @@ export class KoszykService {
 
   submitOrder() {
     const orderToMake = {
-      ...this.produkty,
-      whoOrdered: this.authService.getUser()
+      products: this.produkty,
+      whoOrdered: this.authService.getUser(),
+      creationDate: new Date().toISOString()
     };
+
+    console.dir(orderToMake);
 
     const orderId = this.firebaseService.addOrder(orderToMake);
 

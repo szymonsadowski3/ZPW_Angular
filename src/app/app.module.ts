@@ -28,6 +28,7 @@ import {NgxSpinnerModule} from 'ngx-spinner';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
 import {ConfirmationPopoverModule} from 'angular-confirmation-popover';
 import {AfterOrderComponent} from './components/after-order/after-order.component';
+import {ViewMyOrdersComponent} from "./components/view-my-orders/view-my-orders.component";
 
 // import { AngularFireModule } from "@angular/fire";
 // import { AngularFireAuthModule } from "@angular/fire/auth";
@@ -50,7 +51,8 @@ import {AfterOrderComponent} from './components/after-order/after-order.componen
     EquityFilterPipe,
     WycieczkaDetalComponent,
     SignInComponent,
-    AfterOrderComponent
+    AfterOrderComponent,
+    ViewMyOrdersComponent
   ],
   imports: [
     BrowserModule,
