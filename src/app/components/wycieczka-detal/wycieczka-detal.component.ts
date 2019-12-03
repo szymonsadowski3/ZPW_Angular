@@ -2,6 +2,8 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {WycieczkiSerwisService} from "../../services/wycieczki-serwis.service";
 import {ActivatedRoute} from "@angular/router";
 import {KoszykService} from "../../services/koszyk.service";
+import {FirebaseService} from "../../services/firebase.service";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'wycieczka-detal-component',
@@ -9,9 +11,6 @@ import {KoszykService} from "../../services/koszyk.service";
   templateUrl: 'wycieczka-detal.component.html',
 })
 export class WycieczkaDetalComponent implements OnInit {
-  wycieczkiService: WycieczkiSerwisService;
-  koszykService: KoszykService;
-  route;
 
   preferreddDate: Date = new Date();
   settings = {
@@ -21,23 +20,42 @@ export class WycieczkaDetalComponent implements OnInit {
     defaultOpen: false
   };
 
+  didUserReserveTrip = false;
+  wycieczkaId = null;
+
   wycieczka: any;
   @Output() reservationChanged = new EventEmitter<string>();
   @Output() tripRemoved = new EventEmitter<any>();
   @Output() tripAddedToCart = new EventEmitter<any>();
 
-  constructor(wycieczkiService: WycieczkiSerwisService, koszykService: KoszykService, route: ActivatedRoute) {
-    this.wycieczkiService = wycieczkiService;
-    this.koszykService = koszykService;
-    this.route = route;
-
+  constructor(
+    private wycieczkiService: WycieczkiSerwisService,
+    private koszykService: KoszykService,
+    private route: ActivatedRoute,
+    private firebaseService: FirebaseService,
+    private authService: AuthService,
+  ) {
     this.wycieczka = this.getInitialBlankObject();
+  }
+
+  checkIfPersonReserveTrip(trip) {
+    this.firebaseService.fetchOrders().subscribe((orders) => {
+      const filteredOrders = orders.filter((order: any) => {
+        const tripsIds = order.products.map(product => product.trip.id);
+        return ("whoOrdered" in order) && (order.whoOrdered == this.authService.getUser()) && (tripsIds.includes(this.wycieczkaId));
+      });
+
+      this.didUserReserveTrip = filteredOrders.length > 0;
+    });
   }
 
   ngOnInit() {
     const wycieczkaId = parseInt(this.route.snapshot.paramMap.get('id'));
-    this.wycieczkiService.getProduct(wycieczkaId).subscribe(response => {
+    this.wycieczkaId = wycieczkaId;
+    this.firebaseService.getProduct(wycieczkaId).subscribe(response => {
+      console.dir(response);
       this.wycieczka = response;
+      this.checkIfPersonReserveTrip(this.wycieczka);
     });
   }
 
@@ -85,11 +103,6 @@ export class WycieczkaDetalComponent implements OnInit {
 
       return acc;
     }, {})): [];
-  }
-
-  didPersonReserveTrip(trip) {
-    // TODO: for now it's only a mock
-    return trip.ileZarezerwowano>0;
   }
 
   getInitialBlankObject() {

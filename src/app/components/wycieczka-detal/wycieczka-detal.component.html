@@ -77,13 +77,13 @@
   <div class="card-body">
     <h6>Oceń tą wycieczkę</h6>
 
-    <div class="alert alert-danger" role="alert" *ngIf="!this.didPersonReserveTrip(wycieczka)">
+    <div class="alert alert-danger" role="alert" *ngIf="!this.didUserReserveTrip">
       You need to have at least one reservation in order to rate this trip!
     </div>
 
     <ocena-component
       (ratingAdded)="addRating($event)"
-      [readonly]="!this.didPersonReserveTrip(wycieczka)"
+      [readonly]="!this.didUserReserveTrip"
     ></ocena-component>
 
     <hr>
@@ -125,7 +125,7 @@
 
     <div class="form-group">
       <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"
-        [attr.disabled]="this.didPersonReserveTrip(wycieczka) ? null : true"
+        [attr.disabled]="this.didUserReserveTrip ? null : true"
       >
       </textarea>
     </div>
