@@ -48,6 +48,10 @@ export class FirebaseService {
     return pushId;
   }
 
+  fetchOrders() {
+    return this.db.list('/orders').valueChanges();
+  }
+
   updateTrip(tripToUpdate: any, key): void {
     this.db.object(`/wycieczki/${key}`).update(tripToUpdate);
   }

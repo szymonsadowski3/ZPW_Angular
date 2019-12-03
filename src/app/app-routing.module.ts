@@ -8,6 +8,7 @@ import {SignInComponent} from "./components/sign-in/sign-in.component";
 import {AuthGuard} from './guards/auth.guard';
 import {NewWycieczkaComponent} from './components/new-wycieczka/new-wycieczka.component';
 import {AfterOrderComponent} from './components/after-order/after-order.component';
+import {ViewMyOrdersComponent} from "./components/view-my-orders/view-my-orders.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/wycieczki', pathMatch: 'full'},
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path: 'login', component: SignInComponent},
   {path: 'add-trip', component: NewWycieczkaComponent},
   {path: 'after-order/:id', component: AfterOrderComponent},
+  {path: 'view-my-orders', component: ViewMyOrdersComponent},
 ];
 
 @NgModule({
