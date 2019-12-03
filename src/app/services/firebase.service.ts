@@ -1,10 +1,6 @@
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Wycieczka} from '../models/wycieczka.model';
-import {fakeWycieczki} from '../data/fake.dane';
-import {HttpClient} from '@angular/common/http';
-import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireDatabase} from '@angular/fire/database';
-import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +18,7 @@ export class FirebaseService {
   }
 
   getProduct(id: number) {
-    return this.db.list('/wycieczki').valueChanges();
+    return this.db.object(`/wycieczki/${id}/`).valueChanges();
   }
 
   addProduct(product: Wycieczka) {

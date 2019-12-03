@@ -65,7 +65,7 @@ import {ViewMyOrdersComponent} from "./components/view-my-orders/view-my-orders.
     Angular2ImageGalleryModule,
     AngularDateTimePickerModule,
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(FakeDanService),
+    // HttpClientInMemoryWebApiModule.forRoot(FakeDanService),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     NgxSpinnerModule,
