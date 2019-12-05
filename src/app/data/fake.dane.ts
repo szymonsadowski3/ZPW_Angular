@@ -1,5 +1,3 @@
-import {Wycieczka} from '../models/wycieczka.model';
-
 export let fakeWycieczki = [
   {
     nazwa: "Dwutygodniowa wycieczka do Egiptu",

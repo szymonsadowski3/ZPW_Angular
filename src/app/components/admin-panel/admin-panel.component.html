@@ -1,7 +1,54 @@
 <div class="admin-panel">
   <h1>Admin panel</h1>
 
+  <div class="shadow trips-management">
+    <h2 class="mt-2 mb-2">Zarządzanie wycieczkami</h2>
+
+    <table class="table">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Nazwa</th>
+        <th scope="col">Kraj docelowy</th>
+        <th scope="col">Data rozpoczecia</th>
+        <th scope="col">Data zakonczenia</th>
+        <th scope="col">Cena</th>
+        <th scope="col">Akcje</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr
+        *ngFor="let wycieczka of this.wycieczki"
+      >
+        <th scope="row">{{wycieczka.id}}</th>
+        <td>{{wycieczka.nazwa}}</td>
+        <td>{{wycieczka.docelowyKrajWycieczki}}</td>
+        <td>{{wycieczka.dataRozpoczecia}}</td>
+        <td>{{wycieczka.dataZakonczenia}}</td>
+        <td>{{wycieczka.cenaJednostkowa}}</td>
+        <td>
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button
+              class="btn remove-button"
+            >
+              <i class="fa fa-times"></i>
+            </button>
+            <button
+              class="btn update-button"
+            >
+              <i class="fa fa-edit"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+      <tr>
+      </tbody>
+    </table>
+  </div>
+
   <new-wycieczka-component></new-wycieczka-component>
 
+
   <button class="btn btn-primary" (click)="this.addExampleTrips()">Add example trips</button>
+  <button class="btn btn-danger" (click)="this.removeAllTrips()">Remove trips</button>
 </div>

@@ -8,7 +8,7 @@ import {FirebaseService} from '../../services/firebase.service';
   selector: 'new-wycieczka-component',
   styleUrls: ['./new-wycieczka.component.css'],
   template: `
-    <div class="nowa-wycieczka pt-3">
+    <div class="nowa-wycieczka pt-3 shadow">
       <h3>Dodaj nową wycieczkę</h3>
 
       <form [formGroup]="modelForm" (ngSubmit)="onSubmit(modelForm)">
