@@ -12,7 +12,6 @@ export class WycieczkaComponent {
   @Input() isMostExpensive: boolean;
 
   @Output() reservationChanged = new EventEmitter<string>();
-  @Output() tripRemoved = new EventEmitter<any>();
   @Output() tripAddedToCart = new EventEmitter<any>();
 
   constructor(private firebaseService: FirebaseService) {}
@@ -37,10 +36,6 @@ export class WycieczkaComponent {
     }
 
     this.reservationChanged.emit('removed');
-  }
-
-  onTripRemoved(trip) {
-    this.tripRemoved.emit(trip);
   }
 
   onTripAddedToCart(trip) {
