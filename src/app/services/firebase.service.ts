@@ -21,6 +21,10 @@ export class FirebaseService {
     return this.db.list('/wycieczki').valueChanges();
   }
 
+  deleteTrips() {
+    return this.db.list('/wycieczki').remove();
+  }
+
   getTrip(id) {
     return this.db.object(`/wycieczki/${id}/`).valueChanges();
   }
