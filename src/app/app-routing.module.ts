@@ -10,6 +10,7 @@ import {NewWycieczkaComponent} from './components/new-wycieczka/new-wycieczka.co
 import {AfterOrderComponent} from './components/after-order/after-order.component';
 import {ViewMyOrdersComponent} from "./components/view-my-orders/view-my-orders.component";
 import {AdminPanelComponent} from "./components/admin-panel/admin-panel.component";
+import {EditWycieczkaComponent} from "./components/edit-wycieczka/edit-wycieczka.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/wycieczki', pathMatch: 'full'},
@@ -21,6 +22,7 @@ const routes: Routes = [
   {path: 'after-order/:id', component: AfterOrderComponent},
   {path: 'view-my-orders', component: ViewMyOrdersComponent},
   {path: 'admin-panel', component: AdminPanelComponent},
+  {path: 'edit-trip/:id', component: EditWycieczkaComponent},
 ];
 
 @NgModule({

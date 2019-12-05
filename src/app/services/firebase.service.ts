@@ -33,8 +33,8 @@ export class FirebaseService {
     this.data.push(product);
   }
 
-  deleteProduct(product: Wycieczka) {
-    // this.wycieczki = this.wycieczki.filter(item => item !== product);
+  deleteProduct(tripId) {
+    this.db.object(`/wycieczki/${tripId}`).remove();
   }
 
   addTrip(trip: any): void {
@@ -77,5 +77,9 @@ export class FirebaseService {
     console.dir(trip);
 
     this.db.object(`/wycieczki/${trip.id}`).set(trip);
+  }
+
+  editTrip(newWycieczka) {
+    this.db.object(`/wycieczki/${newWycieczka.id}`).update(newWycieczka);
   }
 }

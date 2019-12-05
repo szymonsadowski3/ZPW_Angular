@@ -30,14 +30,20 @@
           <div class="btn-group" role="group" aria-label="Basic example">
             <button
               class="btn remove-button"
+              mwlConfirmationPopover
+              [popoverMessage]="'Na pewno chcesz usunąć tą wycieczkę?'"
+              (confirm)="this.removeTrip(wycieczka)"
             >
               <i class="fa fa-times"></i>
             </button>
+
             <button
               class="btn update-button"
+              [routerLink]="['/edit-trip', wycieczka.id]"
             >
               <i class="fa fa-edit"></i>
             </button>
+
           </div>
         </td>
       </tr>
@@ -49,6 +55,8 @@
   <new-wycieczka-component></new-wycieczka-component>
 
 
-  <button class="btn btn-primary" (click)="this.addExampleTrips()">Add example trips</button>
-  <button class="btn btn-danger" (click)="this.removeAllTrips()">Remove trips</button>
+  <div class="additional-actions mt-3 mb-3">
+    <button class="btn btn-primary" (click)="this.addExampleTrips()">Add example trips</button>
+    <button class="btn btn-danger" (click)="this.removeAllTrips()">Remove trips</button>
+  </div>
 </div>
