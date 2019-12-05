@@ -28,6 +28,7 @@ import {ConfirmationPopoverModule} from 'angular-confirmation-popover';
 import {AfterOrderComponent} from './components/after-order/after-order.component';
 import {ViewMyOrdersComponent} from "./components/view-my-orders/view-my-orders.component";
 import {AdminPanelComponent} from "./components/admin-panel/admin-panel.component";
+import {EditWycieczkaComponent} from "./components/edit-wycieczka/edit-wycieczka.component";
 
 // import { AngularFireModule } from "@angular/fire";
 // import { AngularFireAuthModule } from "@angular/fire/auth";
@@ -52,7 +53,8 @@ import {AdminPanelComponent} from "./components/admin-panel/admin-panel.componen
     SignInComponent,
     AfterOrderComponent,
     ViewMyOrdersComponent,
-    AdminPanelComponent
+    AdminPanelComponent,
+    EditWycieczkaComponent
   ],
   imports: [
     BrowserModule,

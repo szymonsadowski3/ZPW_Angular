@@ -39,4 +39,8 @@ export class AdminPanelComponent implements OnInit {
       this.spinner.hide();
     });
   }
+
+  removeTrip(wycieczka: any) {
+    this.firebaseService.deleteProduct(wycieczka.id);
+  }
 }
