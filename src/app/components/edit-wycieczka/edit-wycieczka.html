@@ -1,4 +1,6 @@
-<div class="nowa-wycieczka pt-3 shadow">
+<div class="edit-wycieczka pt-3 shadow">
+  <button type="button" class="btn btn-outline-primary mb-3" [routerLink]="['/admin-panel']">Wróć do panelu</button>
+
   <h3>Edytujesz wycieczkę: {{this.wycieczkaId}}</h3>
 
   <form [formGroup]="modelForm" (ngSubmit)="onSubmit(modelForm)">
@@ -14,6 +16,6 @@
       <label>linkDoZdj:</label><input name="linkDoZdj" formControlName="linkDoZdj" class="form-control">
     </div>
 
-    <button class="btn btn-primary" type="submit" tooltip="Wycieczka dodana!" placement="top" trigger="click">Dodaj wycieczkę</button>
+    <button class="btn btn-primary" type="submit" tooltip="Wycieczka dodana!" placement="top" trigger="click">Edytuj wycieczkę</button>
   </form>
 </div>
