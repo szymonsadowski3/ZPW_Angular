@@ -4,6 +4,7 @@ import {ActivatedRoute} from "@angular/router";
 import {KoszykService} from "../../services/koszyk.service";
 import {FirebaseService} from "../../services/firebase.service";
 import {AuthService} from "../../services/auth.service";
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'wycieczka-detal-component',
@@ -24,6 +25,9 @@ export class WycieczkaDetalComponent implements OnInit {
   wycieczkaId = null;
 
   wycieczka: any;
+  ratings = [];
+  alreadyRated;
+
   @Output() reservationChanged = new EventEmitter<string>();
   @Output() tripRemoved = new EventEmitter<any>();
   @Output() tripAddedToCart = new EventEmitter<any>();
@@ -34,6 +38,7 @@ export class WycieczkaDetalComponent implements OnInit {
     private route: ActivatedRoute,
     private firebaseService: FirebaseService,
     private authService: AuthService,
+    private spinner: NgxSpinnerService
   ) {
     this.wycieczka = this.getInitialBlankObject();
   }
@@ -50,12 +55,16 @@ export class WycieczkaDetalComponent implements OnInit {
   }
 
   ngOnInit() {
-    const wycieczkaId = parseInt(this.route.snapshot.paramMap.get('id'));
+    const wycieczkaId = this.route.snapshot.paramMap.get('id');
     this.wycieczkaId = wycieczkaId;
-    this.firebaseService.getProduct(wycieczkaId).subscribe(response => {
+    this.spinner.show();
+    this.firebaseService.getTrip(wycieczkaId).subscribe(response => {
       console.dir(response);
       this.wycieczka = response;
       this.checkIfPersonReserveTrip(this.wycieczka);
+      this.countRatings();
+      this.alreadyRated = this.userAlreadyRated();
+      this.spinner.hide();
     });
   }
 
@@ -90,11 +99,28 @@ export class WycieczkaDetalComponent implements OnInit {
   }
 
   addRating(newRating) {
-    this.wycieczka.oceny.push(newRating);
+    this.firebaseService.addRating(this.wycieczka, newRating);
+  }
+
+  userAlreadyRated() {
+    try {
+      const ratedBy = this.wycieczka.oceny.map(ocena => ocena.ratedBy);
+      return ratedBy.includes(this.authService.getUser());
+    }
+    catch(error) {
+      return false;
+    }
   }
 
   countRatings() {
-    return ((this.wycieczka.oceny != undefined) && (this.wycieczka.oceny.length > 0)) ? Object.entries(this.wycieczka.oceny.reduce(function (acc, curr) {
+    if(this.wycieczka.oceny) {
+      console.dir(this.wycieczka.oceny);
+    }
+
+    const oceny = this.wycieczka.oceny.map(ocena => ocena.rating);
+
+
+    this.ratings = ((oceny != undefined) && (oceny.length > 0)) ? Object.entries(oceny.reduce(function (acc, curr) {
       if (typeof acc[curr] == 'undefined') {
         acc[curr] = 1;
       } else {

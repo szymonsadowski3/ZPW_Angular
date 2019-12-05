@@ -19,8 +19,6 @@ import {Angular2ImageGalleryModule} from "angular2-image-gallery";
 import {AngularDateTimePickerModule} from "angular2-datetimepicker";
 import {SignInComponent} from "./components/sign-in/sign-in.component";
 import {HttpClientModule} from "@angular/common/http";
-import {HttpClientInMemoryWebApiModule} from "angular-in-memory-web-api";
-import {FakeDanService} from "./services/fake-dane.service";
 import {environment} from '../environments/environment';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireAuthModule} from '@angular/fire/auth';

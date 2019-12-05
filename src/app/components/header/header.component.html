@@ -36,7 +36,12 @@
             <p class="logged-user">Zalogowany jako: {{this.getUser()}}</p>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
-            <button class="btn" (click)="this.logout()">Wyloguj</button>
+            <div class="dropdown-item">
+              <button class="btn btn-block" routerLink="/view-my-orders">Pokaż zamówienia</button>
+            </div>
+            <div class="dropdown-item">
+              <button class="btn btn-block" (click)="this.logout()">Wyloguj</button>
+            </div>
           </div>
         </li>
 

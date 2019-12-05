@@ -1,135 +1,140 @@
-<button class="btn btn-primary btn-lg" type="button" routerLink="/wycieczki">Back</button>
+<div class="wycieczka-detal-wrapper">
+  <div class="card mb-4 shadow-lg wycieczka-detail">
+    <div>
+      <button
+        class="btn add-to-cart-button"
+        tooltip="Wycieczka dodana do koszyka!" placement="top" trigger="click"
+        (click)="this.koszykService.addProduct(wycieczka)"
+      >
+        <i class="fa fa-plus"></i>
+      </button>
+    </div>
 
-<div class="card mb-4 shadow-lg wycieczka-detail">
-  <div>
-    <button
-      class="btn add-to-cart-button"
-      tooltip="Wycieczka dodana do koszyka!" placement="top" trigger="click"
-      (click)="this.koszykService.addProduct(wycieczka)"
-    >
-      <i class="fa fa-plus"></i>
-    </button>
-  </div>
 
+    <img src="{{'https://picsum.photos/500/300?v='+wycieczka.docelowyKrajWycieczki}}" class="detail-img"/>
+    <div class="card-body">
+      <h5 class="card-title">{{wycieczka.nazwa | uppercase}}</h5>
+      <p class="card-text">{{wycieczka.opis}}</p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Kraj docelowy: {{wycieczka.docelowyKrajWycieczki | uppercase}}</li>
+      <li class="list-group-item">
+        <i class="fas fa-clock"></i> {{wycieczka.dataRozpoczecia}} - {{wycieczka.dataZakonczenia}}
+        <i class="fas fa-clock"></i>
+      </li>
+      <li class="list-group-item">
+        <i class="fas fa-dollar-sign"></i> Cena: {{wycieczka.cenaJednostkowa | currency: 'EUR'}}
+      </li>
+      <li class="list-group-item">
+        <i class="far fa-arrow-alt-circle-down"></i> Max ilość miejsc: {{wycieczka.maxIloscMiejsc}}
+      </li>
+      <li class="list-group-item">
+        <div *ngIf="wycieczka.ileZarezerwowano == wycieczka.maxIloscMiejsc; else availablePlaces">
+          Brak dostępnych miejsc!
+        </div>
 
-  <img src="{{'https://picsum.photos/500/300?v='+wycieczka.docelowyKrajWycieczki}}" class="detail-img"/>
-  <div class="card-body">
-    <h5 class="card-title">{{wycieczka.nazwa | uppercase}}</h5>
-    <p class="card-text">{{wycieczka.opis}}</p>
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">Kraj docelowy: {{wycieczka.docelowyKrajWycieczki | uppercase}}</li>
-    <li class="list-group-item">
-      <i class="fas fa-clock"></i> {{wycieczka.dataRozpoczecia}} - {{wycieczka.dataZakonczenia}}
-      <i class="fas fa-clock"></i>
-    </li>
-    <li class="list-group-item">
-      <i class="fas fa-dollar-sign"></i> Cena: {{wycieczka.cenaJednostkowa | currency: 'EUR'}}
-    </li>
-    <li class="list-group-item">
-      <i class="far fa-arrow-alt-circle-down"></i> Max ilość miejsc: {{wycieczka.maxIloscMiejsc}}
-    </li>
-    <li class="list-group-item">
-      <div *ngIf="wycieczka.ileZarezerwowano == wycieczka.maxIloscMiejsc; else availablePlaces">
-        Brak dostępnych miejsc!
+        <ng-template #availablePlaces>
+          Ile zarezerwowano: {{wycieczka.ileZarezerwowano}}
+        </ng-template>
+      </li>
+    </ul>
+    <div class="card-body">
+      <h6>Preferowana data wycieczki</h6>
+      <div class="date-picker-wrapper mb-2">
+        <angular2-date-picker [(ngModel)]="preferreddDate" [settings]="settings"></angular2-date-picker>
       </div>
 
-      <ng-template #availablePlaces>
-        Ile zarezerwowano: {{wycieczka.ileZarezerwowano}}
-      </ng-template>
-    </li>
-  </ul>
-  <div class="card-body">
-    <h6>Preferowana data wycieczki</h6>
-    <div class="date-picker-wrapper mb-2">
-      <angular2-date-picker [(ngModel)]="preferreddDate" [settings]="settings"></angular2-date-picker>
+
+      <button
+        class="btn btn-primary plus-button"
+        [ngClass]="{'hidden-button': wycieczka.ileZarezerwowano == wycieczka.maxIloscMiejsc}"
+        (click)="onClickPlusButton(wycieczka)"
+      >
+        <i class="fa fa-plus"></i>
+      </button>
+
+      <button
+        class="btn btn-warning minus-button"
+        [ngClass]="{'hidden-button': wycieczka.ileZarezerwowano == 0}"
+        (click)="onClickMinusButton(wycieczka)"
+      >
+        <i class="fa fa-minus"></i>
+      </button>
     </div>
 
+    <div class="card-body">
+      <h6>Galeria zdjęć</h6>
 
-    <button
-      class="btn btn-primary plus-button"
-      [ngClass]="{'hidden-button': wycieczka.ileZarezerwowano == wycieczka.maxIloscMiejsc}"
-      (click)="onClickPlusButton(wycieczka)"
-    >
-      <i class="fa fa-plus"></i>
-    </button>
-
-    <button
-      class="btn btn-warning minus-button"
-      [ngClass]="{'hidden-button': wycieczka.ileZarezerwowano == 0}"
-      (click)="onClickMinusButton(wycieczka)"
-    >
-      <i class="fa fa-minus"></i>
-    </button>
-  </div>
-
-  <div class="card-body">
-    <h6>Galeria zdjęć</h6>
-
-    <gallery
-      [flexBorderSize]="4"
-      [flexImageSize]="11"
-      [maxRowsPerPage]="100"
-    >
-    </gallery>
-  </div>
-
-  <div class="card-body">
-    <h6>Oceń tą wycieczkę</h6>
-
-    <div class="alert alert-danger" role="alert" *ngIf="!this.didUserReserveTrip">
-      You need to have at least one reservation in order to rate this trip!
+      <gallery
+        [flexBorderSize]="4"
+        [flexImageSize]="11"
+        [maxRowsPerPage]="100"
+      >
+      </gallery>
     </div>
 
-    <ocena-component
-      (ratingAdded)="addRating($event)"
-      [readonly]="!this.didUserReserveTrip"
-    ></ocena-component>
+    <div class="card-body">
+      <h6>Oceń tą wycieczkę</h6>
 
-    <hr>
+      <div class="alert alert-danger" role="alert" *ngIf="!this.didUserReserveTrip">
+        You need to have at least one reservation in order to rate this trip!
+      </div>
 
-    <h6
-      *ngIf="countRatings().length > 0"
-    >Zestawienie ocen</h6>
+      <div *ngIf="this.alreadyRated">
+        Nie można ocenić! Już oceniłeś!
+      </div>
+
+      <ocena-component
+        (ratingAdded)="addRating($event)"
+        [readonly]="!this.didUserReserveTrip || (this.alreadyRated)"
+      ></ocena-component>
+
+      <hr>
+
+      <h6
+        *ngIf="this.ratings.length > 0"
+      >Zestawienie ocen</h6>
 
 
 
-    <div
-      *ngFor="let item of countRatings()"
-    >
-      <div>
-        <div style="width:10%; line-height:1;">
-          <div style="height:9px; margin:5px 0;">{{item[0]}} <span class="glyphicon glyphicon-star"></span></div>
-        </div>
-        <div style="width:80%;">
-          <div class="row">
-            <div class="col-10">
-              <div class="progress" style="height:9px; margin:8px 0;">
-                <div class="progress-bar progress-bar-primary" role="progressbar" [attr.aria-valuenow]="item[0]" aria-valuemin="0" aria-valuemax="5" [style.width]="item[0]*20+'%'">
-                  <span class="sr-only">80% Complete (danger)</span>
+      <div
+        *ngFor="let item of this.ratings"
+      >
+        <div>
+          <div style="width:10%; line-height:1;">
+            <div style="height:9px; margin:5px 0;">{{item[0]}} <span class="glyphicon glyphicon-star"></span></div>
+          </div>
+          <div style="width:80%;">
+            <div class="row">
+              <div class="col-10">
+                <div class="progress" style="height:9px; margin:8px 0;">
+                  <div class="progress-bar progress-bar-primary" role="progressbar" [attr.aria-valuenow]="item[0]" aria-valuemin="0" aria-valuemax="5" [style.width]="item[0]*20+'%'">
+                    <span class="sr-only">80% Complete (danger)</span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="col-2">
-              <span>{{item[1]}}</span>
+              <div class="col-2">
+                <span>{{item[1]}}</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="card-body">
-    <h6>Dodaj swoją opinię:</h6>
+    <div class="card-body">
+      <h6>Dodaj swoją opinię:</h6>
 
-    <div class="form-group">
+      <div class="form-group">
       <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"
-        [attr.disabled]="this.didUserReserveTrip ? null : true"
+                [attr.disabled]="this.didUserReserveTrip ? null : true"
       >
       </textarea>
-    </div>
+      </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
   </div>
+
 </div>
