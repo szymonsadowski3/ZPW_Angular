@@ -45,10 +45,9 @@
           class="col-lg-4 col-md-6 col-sm-12 col-12"
           *ngFor="let item of wycieczki  | equityfilter: getFilteringCriteria()"
           [wycieczka]="item"
-          [isCheapest]="(item==minPriceTrip)"
-          [isMostExpensive]="(item==maxPriceTrip)"
+          [isCheapest]="(item.id==minPriceTrip.id)"
+          [isMostExpensive]="(item.id==maxPriceTrip.id)"
           (reservationChanged)="calculateSumOfReservedTrips($event)"
-          (tripRemoved)="removeTrip($event)"
           (tripAddedToCart)="addTripToCart($event)"
         ></wycieczka-component>
       </div>

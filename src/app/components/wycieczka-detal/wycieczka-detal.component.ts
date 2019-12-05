@@ -114,21 +114,21 @@ export class WycieczkaDetalComponent implements OnInit {
 
   countRatings() {
     if(this.wycieczka.oceny) {
-      console.dir(this.wycieczka.oceny);
+      const oceny = this.wycieczka.oceny.map(ocena => ocena.rating);
+
+
+      this.ratings = ((oceny != undefined) && (oceny.length > 0)) ? Object.entries(oceny.reduce(function (acc, curr) {
+        if (typeof acc[curr] == 'undefined') {
+          acc[curr] = 1;
+        } else {
+          acc[curr] += 1;
+        }
+
+        return acc;
+      }, {})): [];
+    } else {
+      return [];
     }
-
-    const oceny = this.wycieczka.oceny.map(ocena => ocena.rating);
-
-
-    this.ratings = ((oceny != undefined) && (oceny.length > 0)) ? Object.entries(oceny.reduce(function (acc, curr) {
-      if (typeof acc[curr] == 'undefined') {
-        acc[curr] = 1;
-      } else {
-        acc[curr] += 1;
-      }
-
-      return acc;
-    }, {})): [];
   }
 
   getInitialBlankObject() {

@@ -30,7 +30,8 @@ export class KoszykService {
   }
 
   addProduct(product: Wycieczka) {
-    let foundProduct = this.produkty.filter(item => item.trip === product);
+    console.dir(product);
+    let foundProduct = this.produkty.filter(item => item.trip.id === product.id);
 
     if (foundProduct.length === 0) {
       this.produkty.push({trip: product, count: 1});

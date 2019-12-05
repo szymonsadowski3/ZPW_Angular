@@ -4,37 +4,37 @@
       <button
         class="btn add-to-cart-button"
         tooltip="Wycieczka dodana do koszyka!" placement="top" trigger="click"
-        (click)="this.koszykService.addProduct(wycieczka)"
+        (click)="this.koszykService.addProduct(this.wycieczka)"
       >
         <i class="fa fa-plus"></i>
       </button>
     </div>
 
 
-    <img src="{{'https://picsum.photos/500/300?v='+wycieczka.docelowyKrajWycieczki}}" class="detail-img"/>
+    <img src="{{'https://picsum.photos/500/300?v='+this.wycieczka.docelowyKrajWycieczki}}" class="detail-img"/>
     <div class="card-body">
-      <h5 class="card-title">{{wycieczka.nazwa | uppercase}}</h5>
-      <p class="card-text">{{wycieczka.opis}}</p>
+      <h5 class="card-title">{{this.wycieczka.nazwa | uppercase}}</h5>
+      <p class="card-text">{{this.wycieczka.opis}}</p>
     </div>
     <ul class="list-group list-group-flush">
-      <li class="list-group-item">Kraj docelowy: {{wycieczka.docelowyKrajWycieczki | uppercase}}</li>
+      <li class="list-group-item">Kraj docelowy: {{this.wycieczka.docelowyKrajWycieczki | uppercase}}</li>
       <li class="list-group-item">
-        <i class="fas fa-clock"></i> {{wycieczka.dataRozpoczecia}} - {{wycieczka.dataZakonczenia}}
+        <i class="fas fa-clock"></i> {{this.wycieczka.dataRozpoczecia}} - {{this.wycieczka.dataZakonczenia}}
         <i class="fas fa-clock"></i>
       </li>
       <li class="list-group-item">
-        <i class="fas fa-dollar-sign"></i> Cena: {{wycieczka.cenaJednostkowa | currency: 'EUR'}}
+        <i class="fas fa-dollar-sign"></i> Cena: {{this.wycieczka.cenaJednostkowa | currency: 'EUR'}}
       </li>
       <li class="list-group-item">
-        <i class="far fa-arrow-alt-circle-down"></i> Max ilość miejsc: {{wycieczka.maxIloscMiejsc}}
+        <i class="far fa-arrow-alt-circle-down"></i> Max ilość miejsc: {{this.wycieczka.maxIloscMiejsc}}
       </li>
       <li class="list-group-item">
-        <div *ngIf="wycieczka.ileZarezerwowano == wycieczka.maxIloscMiejsc; else availablePlaces">
+        <div *ngIf="this.wycieczka.ileZarezerwowano == this.wycieczka.maxIloscMiejsc; else availablePlaces">
           Brak dostępnych miejsc!
         </div>
 
         <ng-template #availablePlaces>
-          Ile zarezerwowano: {{wycieczka.ileZarezerwowano}}
+          Ile zarezerwowano: {{this.wycieczka.ileZarezerwowano}}
         </ng-template>
       </li>
     </ul>
@@ -47,16 +47,16 @@
 
       <button
         class="btn btn-primary plus-button"
-        [ngClass]="{'hidden-button': wycieczka.ileZarezerwowano == wycieczka.maxIloscMiejsc}"
-        (click)="onClickPlusButton(wycieczka)"
+        [ngClass]="{'hidden-button': this.wycieczka.ileZarezerwowano == this.wycieczka.maxIloscMiejsc}"
+        (click)="onClickPlusButton(this.wycieczka)"
       >
         <i class="fa fa-plus"></i>
       </button>
 
       <button
         class="btn btn-warning minus-button"
-        [ngClass]="{'hidden-button': wycieczka.ileZarezerwowano == 0}"
-        (click)="onClickMinusButton(wycieczka)"
+        [ngClass]="{'hidden-button': this.wycieczka.ileZarezerwowano == 0}"
+        (click)="onClickMinusButton(this.wycieczka)"
       >
         <i class="fa fa-minus"></i>
       </button>

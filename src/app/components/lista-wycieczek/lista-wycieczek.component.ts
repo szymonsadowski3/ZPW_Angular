@@ -72,12 +72,6 @@ export class ListaWycieczekComponent implements OnInit {
     }, 0);
   }
 
-  removeTrip(trip) {
-    this.wycieczki = this.wycieczki.filter(item => item !== trip);
-    this.findMinElement();
-    this.findMaxElement();
-  }
-
   addTripToCart(trip) {
     this.koszykService.addProduct(trip);
   }
@@ -86,6 +80,8 @@ export class ListaWycieczekComponent implements OnInit {
     this.minPriceTrip = this.wycieczki.reduce((prev, current) => {
       return (prev.cenaJednostkowa < current.cenaJednostkowa) ? prev : current
     });
+
+    console.dir(this.minPriceTrip);
   }
 
   findMaxElement() {
