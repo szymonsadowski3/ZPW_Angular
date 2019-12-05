@@ -3,6 +3,7 @@
 
   <div
     *ngFor="let item of this.filteredOrders"
+    class="order-summary shadow"
   >
     <h5>order {{item.id}} made on {{item.creationDate | date}}</h5>
 

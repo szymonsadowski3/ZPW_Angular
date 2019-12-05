@@ -45,3 +45,9 @@ h5 {
 .main {
   margin-top: 8rem;
 }
+
+.order-summary {
+  border-radius: 10px;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
