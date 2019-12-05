@@ -36,6 +36,7 @@ export class ViewMyOrdersComponent implements OnInit {
   }
 
   getTotal(produkty) {
+    console.dir(produkty);
     let sum = 0;
 
     for (const product of produkty) {

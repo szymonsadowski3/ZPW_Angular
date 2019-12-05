@@ -41,3 +41,7 @@ h5 {
   max-height: 500px;
   overflow-y: scroll
 }
+
+.koszyk-wrapper {
+  margin-top: 7rem;
+}
