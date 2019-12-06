@@ -4,6 +4,7 @@ import {WycieczkiSerwisService} from '../../services/wycieczki-serwis.service';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Wycieczka} from '../../models/wycieczka.model';
 import {FirebaseService} from '../../services/firebase.service';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   styleUrls: ['./lista-wycieczek.component.css'],
@@ -17,26 +18,23 @@ export class ListaWycieczekComponent implements OnInit {
 
   wycieczki;
 
-  koszykService: KoszykService;
-
   minPriceTrip: any;
   maxPriceTrip: any;
   sum = 0;
 
-  wycieczkiService: WycieczkiSerwisService;
-  firebaseService: FirebaseService;
 
 
-  constructor(koszykService: KoszykService, wycieczkiService: WycieczkiSerwisService, firebaseService: FirebaseService) {
-    this.koszykService = koszykService;
-    this.wycieczkiService = wycieczkiService;
-
-    this.firebaseService = firebaseService;
+  constructor(
+    private koszykService: KoszykService,
+    private wycieczkiService: WycieczkiSerwisService,
+    private firebaseService: FirebaseService,
+    private spinner: NgxSpinnerService
+  ) {
   }
 
   ngOnInit() {
+    this.spinner.show();
     this.firebaseService.fetchTrips().subscribe((products: Wycieczka[]) => {
-      console.dir(products);
       this.wycieczki = products;
 
       const countries = products.map(wycieczka => wycieczka.docelowyKrajWycieczki);
@@ -57,6 +55,8 @@ export class ListaWycieczekComponent implements OnInit {
         priceMax: new FormControl(this.maxPriceTrip.cenaJednostkowa),
         avgRating: new FormControl(4.0),
       });
+
+      this.spinner.hide();
     });
 
     this.filterForm = this.getInitialFormGroup();
