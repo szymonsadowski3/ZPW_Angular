@@ -42,23 +42,6 @@ const Wycieczka = new Schema({
 mongoose.model('Wycieczka', Wycieczka);
 
 const WycieczkaModel = mongoose.model('Wycieczka');
-// const task = new WycieczkaModel({
-//   nazwa: "Dwutygodniowa wycieczka do Egiptu",
-//   docelowyKrajWycieczki: "Egipt",
-//   dataRozpoczecia: "2019-12-12",
-//   dataZakonczenia: "2019-12-26",
-//   cenaJednostkowa: 1000,
-//   maxIloscMiejsc: 10,
-//   opis: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel velit nulla. Nam malesuada efficitur maximus. Vestibulum eu maximus dolor. Cras commodo tortor aliquam lobortis pellentesque.",
-//   linkDoZdj: "https://picsum.photos/100/100",
-//   ileZarezerwowano: 0,
-//   oceny: [],
-// });
-
-// task.save((err) => {
-//   if (err) throw err;
-//   console.log('Zadanie został o zapisane.');
-// });
 
 
 app.get('/wycieczki', function (req, res) {
@@ -101,11 +84,13 @@ app.put('/wycieczki/:wycieczkaId', (req, res) => {
 });
 
 
-app.server.listen(5016, () => {
+app.server.listen(5001, () => {
   console.log(`Started on port ${app.server.address().port}`);
 });
 
-// mongoose.disconnect();
+process.on('exit', function() {
+  mongoose.disconnect();
+});
 
 
 export default app;
