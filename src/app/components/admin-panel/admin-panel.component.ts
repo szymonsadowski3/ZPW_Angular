@@ -34,13 +34,13 @@ export class AdminPanelComponent implements OnInit {
 
   ngOnInit() {
     this.spinner.show();
-    this.firebaseService.fetchTrips().subscribe((products: Wycieczka[]) => {
+    this.firebaseService.getAllTrips().subscribe((products: Wycieczka[]) => {
       this.wycieczki = products;
       this.spinner.hide();
     });
   }
 
   removeTrip(wycieczka: any) {
-    this.firebaseService.deleteProduct(wycieczka.id);
+    this.firebaseService.deleteTrip(wycieczka.id);
   }
 }

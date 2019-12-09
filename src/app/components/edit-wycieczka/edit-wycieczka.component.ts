@@ -49,6 +49,6 @@ export class EditWycieczkaComponent implements OnInit {
       id: this.wycieczkaId
     };
 
-    this.firebaseService.editTrip(newWycieczka);
+    this.firebaseService.updateTrip(newWycieczka);
   }
 }

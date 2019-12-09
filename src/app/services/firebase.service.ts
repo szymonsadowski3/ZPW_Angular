@@ -7,17 +7,13 @@ import {AuthService} from "./auth.service";
   providedIn: 'root'
 })
 export class FirebaseService {
-  data;
-
   constructor(
     private db: AngularFireDatabase,
     private authService: AuthService,
   ) {
-    this.data = this.db.list('/wycieczki');
-    console.dir(this.data);
   }
 
-  fetchTrips() {
+  getAllTrips() {
     return this.db.list('/wycieczki').valueChanges();
   }
 
@@ -29,11 +25,7 @@ export class FirebaseService {
     return this.db.object(`/wycieczki/${id}/`).valueChanges();
   }
 
-  addProduct(product: Wycieczka) {
-    this.data.push(product);
-  }
-
-  deleteProduct(tripId) {
+  deleteTrip(tripId) {
     this.db.object(`/wycieczki/${tripId}`).remove();
   }
 
@@ -52,16 +44,8 @@ export class FirebaseService {
     return pushId;
   }
 
-  fetchOrders() {
+  getAllOrders() {
     return this.db.list('/orders').valueChanges();
-  }
-
-  updateTrip(tripToUpdate): void {
-    this.db.object(`/wycieczki/${tripToUpdate.id}`).update(tripToUpdate);
-  }
-
-  deletedata(key): void {
-    this.db.object(`/wycieczki/${key}`).remove();
   }
 
   addRating(trip, newRating) {
@@ -79,7 +63,7 @@ export class FirebaseService {
     this.db.object(`/wycieczki/${trip.id}`).set(trip);
   }
 
-  editTrip(newWycieczka) {
+  updateTrip(newWycieczka) {
     this.db.object(`/wycieczki/${newWycieczka.id}`).update(newWycieczka);
   }
 }

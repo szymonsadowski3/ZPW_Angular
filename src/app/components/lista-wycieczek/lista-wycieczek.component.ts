@@ -34,7 +34,7 @@ export class ListaWycieczekComponent implements OnInit {
 
   ngOnInit() {
     this.spinner.show();
-    this.firebaseService.fetchTrips().subscribe((products: Wycieczka[]) => {
+    this.firebaseService.getAllTrips().subscribe((products: Wycieczka[]) => {
       this.wycieczki = products;
 
       const countries = products.map(wycieczka => wycieczka.docelowyKrajWycieczki);
