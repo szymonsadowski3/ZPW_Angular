@@ -28,6 +28,9 @@ export class WycieczkaDetalComponent implements OnInit {
   ratings = [];
   alreadyRated;
 
+  map;
+
+
   @Output() reservationChanged = new EventEmitter<string>();
   @Output() tripRemoved = new EventEmitter<any>();
   @Output() tripAddedToCart = new EventEmitter<any>();
@@ -65,6 +68,19 @@ export class WycieczkaDetalComponent implements OnInit {
       this.countRatings();
       this.alreadyRated = this.userAlreadyRated();
       this.spinner.hide();
+    });
+
+    this.map = new ol.Map({
+      target: 'map',
+      layers: [
+        new ol.layer.Tile({
+          source: new ol.source.OSM()
+        })
+      ],
+      view: new ol.View({
+        center: ol.proj.fromLonLat([30.043489, 31.235291]),
+        zoom: 6
+      })
     });
   }
 
