@@ -41,6 +41,6 @@ export class AdminPanelComponent implements OnInit {
   }
 
   removeTrip(wycieczka: any) {
-    this.firebaseService.deleteTrip(wycieczka.id);
+    this.firebaseService.deleteTrip(wycieczka);
   }
 }

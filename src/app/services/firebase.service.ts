@@ -25,8 +25,8 @@ export class FirebaseService {
     return this.db.object(`/wycieczki/${id}/`).valueChanges();
   }
 
-  deleteTrip(tripId) {
-    this.db.object(`/wycieczki/${tripId}`).remove();
+  deleteTrip(trip) {
+    this.db.object(`/wycieczki/${trip.id}`).remove();
   }
 
   addTrip(trip: any): void {

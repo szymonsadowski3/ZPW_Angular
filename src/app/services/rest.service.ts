@@ -32,8 +32,8 @@ export class RestService {
     return this.http.get(`${this.apiBaseUrl}${this.tripsEndpoint}/${id}`);
   }
 
-  deleteTrip(tripId) {
-    return this.http.delete(`${this.apiBaseUrl}${this.tripsEndpoint}/${tripId}`);
+  deleteTrip(trip) {
+    return this.http.delete(`${this.apiBaseUrl}${this.tripsEndpoint}/${trip._id}`);
   }
 
   addTrip(trip: any) {
