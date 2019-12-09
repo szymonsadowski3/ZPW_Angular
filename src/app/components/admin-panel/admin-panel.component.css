@@ -5,3 +5,7 @@
 .trips-management {
   padding: 1rem;
 }
+
+.actions-group .btn:hover {
+  cursor: pointer;
+}
