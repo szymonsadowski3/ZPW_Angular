@@ -87,14 +87,14 @@ app.post('/wycieczki', (req, res) => {
 });
 
 app.delete('/wycieczki/:wycieczkaId', (req, res) => {
-  WycieczkaModel.findById(req.params['wycieczkaId'], (err, task) => {
-    task.remove();
+  WycieczkaModel.remove({_id: req.params['wycieczkaId']}, (err, task) => {
+    res.send("OK");
   });
 });
 
 app.delete('/wycieczki', (req, res) => {
-  WycieczkaModel.findById({}, () => {
-    console.log('Removed all!');
+  WycieczkaModel.remove({}, () => {
+    res.send("OK");
   });
 });
 
