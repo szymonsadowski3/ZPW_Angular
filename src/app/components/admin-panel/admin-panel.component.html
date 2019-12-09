@@ -21,7 +21,7 @@
         *ngFor="let wycieczka of this.wycieczki"
       >
         <th scope="row">{{wycieczka.id}}</th>
-        <td>{{wycieczka.nazwa}}</td>
+        <td><a [routerLink]="['/wycieczka', wycieczka.id]">{{wycieczka.nazwa}}</a></td>
         <td>{{wycieczka.docelowyKrajWycieczki}}</td>
         <td>{{wycieczka.dataRozpoczecia}}</td>
         <td>{{wycieczka.dataZakonczenia}}</td>
