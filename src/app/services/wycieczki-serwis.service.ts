@@ -9,10 +9,8 @@ import {HttpClient} from "@angular/common/http";
 export class WycieczkiSerwisService {
 
   wycieczki;
-  http: HttpClient;
 
-  constructor(http: HttpClient) {
-    this.http = http;
+  constructor(private http: HttpClient) {
     this.fetchProducts();
   }
 

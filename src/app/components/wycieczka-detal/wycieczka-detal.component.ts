@@ -44,7 +44,7 @@ export class WycieczkaDetalComponent implements OnInit {
   }
 
   checkIfPersonReserveTrip(trip) {
-    this.firebaseService.fetchOrders().subscribe((orders) => {
+    this.firebaseService.getAllOrders().subscribe((orders) => {
       const filteredOrders = orders.filter((order: any) => {
         const tripsIds = order.products.map(product => product.trip.id);
         return ("whoOrdered" in order) && (order.whoOrdered == this.authService.getUser()) && (tripsIds.includes(this.wycieczkaId));
