@@ -33,14 +33,13 @@ export class RestService {
   }
 
   deleteTrip(trip) {
-    console.log('deleting trip...');
-    return this.http.delete(`${this.apiBaseUrl}${this.tripsEndpoint}/${trip._id}`).subscribe(resp => {
-      console.log(resp);
-    });
+    return this.http.delete(`${this.apiBaseUrl}${this.tripsEndpoint}/${trip._id}`)
   }
 
   addTrip(trip: any) {
-    return this.http.post(`${this.apiBaseUrl}${this.tripsEndpoint}`, trip);
+    return this.http.post(`${this.apiBaseUrl}${this.tripsEndpoint}`, trip).subscribe(resp => {
+      console.log(resp);
+    });
   }
 
   addRating(trip, newRating) {

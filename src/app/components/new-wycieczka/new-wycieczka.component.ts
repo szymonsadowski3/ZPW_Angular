@@ -3,6 +3,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {Wycieczka} from '../../models/wycieczka.model';
 import {WycieczkiSerwisService} from '../../services/wycieczki-serwis.service';
 import {FirebaseService} from '../../services/firebase.service';
+import {RestService} from "../../services/rest.service";
 
 @Component({
   selector: 'new-wycieczka-component',
@@ -12,7 +13,7 @@ import {FirebaseService} from '../../services/firebase.service';
 export class NewWycieczkaComponent implements OnInit {
   modelForm: FormGroup;
 
-  constructor(private wycieczkiService: WycieczkiSerwisService, private firebaseService: FirebaseService) {
+  constructor(private wycieczkiService: WycieczkiSerwisService, private firebaseService: RestService) {
   }
 
   ngOnInit(): void {

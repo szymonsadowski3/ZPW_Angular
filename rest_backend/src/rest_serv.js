@@ -87,13 +87,13 @@ app.post('/wycieczki', (req, res) => {
 
 app.delete('/wycieczki/:wycieczkaId', (req, res) => {
   WycieczkaModel.remove({_id: req.params['wycieczkaId']}, (err, task) => {
-    res.send("OK");
+    res.send({status: "OK"});
   });
 });
 
 app.delete('/wycieczki', (req, res) => {
   WycieczkaModel.remove({}, () => {
-    res.send("OK");
+    res.send({status: "OK"});
   });
 });
 

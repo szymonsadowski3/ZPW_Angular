@@ -35,7 +35,7 @@ export class AdminPanelComponent implements OnInit {
     this.firebaseService.deleteTrips();
   }
 
-  ngOnInit() {
+  refreshTrips() {
     this.spinner.show();
     this.firebaseService.getAllTrips().subscribe((products: Wycieczka[]) => {
       this.wycieczki = products;
@@ -43,7 +43,18 @@ export class AdminPanelComponent implements OnInit {
     });
   }
 
+  ngOnInit() {
+    this.refreshTrips();
+  }
+
   removeTrip(wycieczka: any) {
-    this.firebaseService.deleteTrip(wycieczka);
+    const observable = this.firebaseService.deleteTrip(wycieczka);
+
+    if(true) { // isRest
+      observable.subscribe(resp => {
+        // console.dir(resp);
+        this.refreshTrips();
+      });
+    }
   }
 }
