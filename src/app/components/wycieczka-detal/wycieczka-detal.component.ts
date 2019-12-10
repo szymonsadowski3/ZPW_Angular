@@ -32,6 +32,9 @@ export class WycieczkaDetalComponent implements OnInit {
 
   map;
 
+  lon = 4.402464;
+  lat = 51.219448;
+
 
   @Output() reservationChanged = new EventEmitter<string>();
   @Output() tripRemoved = new EventEmitter<any>();
@@ -79,19 +82,13 @@ export class WycieczkaDetalComponent implements OnInit {
         anchor: [0.5, 46],
         anchorXUnits: 'fraction',
         anchorYUnits: 'pixels',
-        opacity: 0.75,
-        src: 'http://icons.iconarchive.com/icons/paomedia/small-n-flat/64/map-marker-icon.png'
+        opacity: 1,
+        src: 'http://icons.iconarchive.com/icons/paomedia/small-n-flat/32/map-marker-icon.png'
       }))
     });
 
     var openSeaMapLayer = new ol.layer.Tile({
-      source: new ol.source.OSM({
-        attributions: [
-          'All maps © <a href="http://www.openseamap.org/">OpenSeaMap</a>',
-        ],
-        opaque: false,
-        url: 'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png'
-      })
+      source: new ol.source.OSM()
     });
 
     this.map = new ol.Map({
@@ -107,29 +104,23 @@ export class WycieczkaDetalComponent implements OnInit {
         }),
       ],
       view: new ol.View({
-        center: ol.proj.fromLonLat([38.963745, 35.243320]),
-        zoom: 6
+        center: ol.proj.fromLonLat([this.lon, this.lat]),
+        zoom: 8
       })
     });
 
     function addMarker(lon, lat) {
-      console.log('lon:', lon);
-      console.log('lat:', lat);
-
-      var iconFeatures = [];
-
-      var iconFeature = new ol.Feature({
+      const iconFeature = new ol.Feature({
         geometry: new ol.geom.Point(ol.proj.transform([lon, lat], 'EPSG:4326',
           'EPSG:3857')),
-        name: 'Null Island',
+        name: 'Miejsce wycieczki',
         population: 4000,
-        rainfall: 500
       });
 
       markerSource.addFeature(iconFeature);
     }
 
-    addMarker(38.963745, 35.243320);
+    addMarker(this.lon, this.lat);
   }
 
   onClickPlusButton(item) {
