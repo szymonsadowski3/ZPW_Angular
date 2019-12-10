@@ -4,6 +4,8 @@ import {WycieczkiSerwisService} from '../../services/wycieczki-serwis.service';
 import {FirebaseService} from '../../services/firebase.service';
 import {ActivatedRoute} from "@angular/router";
 import {NgxSpinnerService} from "ngx-spinner";
+import {RestService} from "../../services/rest.service";
+import {IDKEY} from "../../const";
 
 @Component({
   selector: 'edit-wycieczka-component',
@@ -16,10 +18,21 @@ export class EditWycieczkaComponent implements OnInit {
 
   constructor(
     private wycieczkiService: WycieczkiSerwisService,
-    private firebaseService: FirebaseService,
+    private firebaseService: RestService,
     private route: ActivatedRoute,
     private spinner: NgxSpinnerService,
   ) {
+    // INITIAL MODEL FORM
+    this.modelForm = new FormGroup({
+      nazwa: new FormControl(''),
+      docelowyKrajWycieczki: new FormControl(''),
+      dataRozpoczecia: new FormControl(''),
+      dataZakonczenia: new FormControl(''),
+      cenaJednostkowa: new FormControl(''),
+      maxIloscMiejsc: new FormControl(''),
+      opis: new FormControl(''),
+      linkDoZdj: new FormControl(''),
+    });
   }
 
   ngOnInit(): void {
@@ -46,7 +59,7 @@ export class EditWycieczkaComponent implements OnInit {
   onSubmit(form): void {
     const newWycieczka = {
       ...form.value,
-      id: this.wycieczkaId
+      [IDKEY]: this.wycieczkaId
     };
 
     this.firebaseService.updateTrip(newWycieczka);

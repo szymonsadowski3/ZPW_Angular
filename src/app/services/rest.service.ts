@@ -57,11 +57,15 @@ export class RestService {
   }
 
   updateTrip(tripToUpdate) {
-    return this.http.put(`${this.apiBaseUrl}${this.tripsEndpoint}/${tripToUpdate._id}`, tripToUpdate);
+    return this.http.put(`${this.apiBaseUrl}${this.tripsEndpoint}/${tripToUpdate._id}`, tripToUpdate).subscribe(resp => {
+      console.log(resp);
+    });
   }
 
   addOrder(order: any) {
-    return this.http.post(`${this.apiBaseUrl}${this.ordersEndpoint}`, order);
+    return this.http.post(`${this.apiBaseUrl}${this.ordersEndpoint}`, order).subscribe(resp => {
+      console.log(resp);
+    });
   }
 
   getAllOrders() {

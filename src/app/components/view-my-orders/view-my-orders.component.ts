@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {FirebaseService} from "../../services/firebase.service";
 import {NgxSpinnerService} from "ngx-spinner";
-import {IDKEY} from 'src/app/config';
+import {IDKEY} from 'src/app/const';
 
 @Component({
   selector: 'view-my-orders-component',

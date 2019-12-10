@@ -5,7 +5,7 @@ import {KoszykService} from "../../services/koszyk.service";
 import {FirebaseService} from "../../services/firebase.service";
 import {AuthService} from "../../services/auth.service";
 import {NgxSpinnerService} from "ngx-spinner";
-import {IDKEY} from "../../config";
+import {IDKEY} from "../../const";
 
 declare var ol: any;
 

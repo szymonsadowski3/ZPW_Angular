@@ -5,6 +5,8 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {fakeWycieczki} from "../../data/fake.dane";
 import {FirebaseService} from "../../services/firebase.service";
 import {Wycieczka} from "../../models/wycieczka.model";
+import {RestService} from "../../services/rest.service";
+import {IDKEY} from 'src/app/const';
 
 @Component({
   selector: 'admin-panel-component',
@@ -16,11 +18,12 @@ export class AdminPanelComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private spinner: NgxSpinnerService,
-    private firebaseService: FirebaseService,
+    private firebaseService: RestService,
   ) {
   }
 
   wycieczki = [];
+  IDKEY = IDKEY;
 
   addExampleTrips() {
     fakeWycieczki.forEach((wycieczka: any) => {
