@@ -5,6 +5,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {Wycieczka} from '../../models/wycieczka.model';
 import {FirebaseService} from '../../services/firebase.service';
 import {NgxSpinnerService} from "ngx-spinner";
+import {IDKEY} from 'src/app/config';
 
 @Component({
   styleUrls: ['./lista-wycieczek.component.css'],
@@ -22,7 +23,7 @@ export class ListaWycieczekComponent implements OnInit {
   maxPriceTrip: any;
   sum = 0;
 
-
+  IDKEY = IDKEY;
 
   constructor(
     private koszykService: KoszykService,

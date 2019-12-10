@@ -16,7 +16,7 @@
   </div>
 
 
-  <div class="main-section" [routerLink]="['/wycieczka', wycieczka.id]">
+  <div class="main-section" [routerLink]="['/wycieczka', wycieczka[this.IDKEY]]">
     <img src="{{wycieczka.linkDoZdj+'?v='+wycieczka.docelowyKrajWycieczki}}" class="rounded-circle card-img"/>
     <div class="card-body">
       <h5 class="card-title">{{wycieczka.nazwa | uppercase}}</h5>

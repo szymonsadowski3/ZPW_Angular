@@ -5,6 +5,7 @@ import {KoszykService} from "../../services/koszyk.service";
 import {FirebaseService} from "../../services/firebase.service";
 import {AuthService} from "../../services/auth.service";
 import {NgxSpinnerService} from "ngx-spinner";
+import {IDKEY} from "../../config";
 
 declare var ol: any;
 
@@ -54,7 +55,7 @@ export class WycieczkaDetalComponent implements OnInit {
   checkIfPersonReserveTrip(trip) {
     this.firebaseService.getAllOrders().subscribe((orders) => {
       const filteredOrders = orders.filter((order: any) => {
-        const tripsIds = order.products.map(product => product.trip.id);
+        const tripsIds = order.products.map(product => product.trip[IDKEY]);
         return ("whoOrdered" in order) && (order.whoOrdered == this.authService.getUser()) && (tripsIds.includes(this.wycieczkaId));
       });
 

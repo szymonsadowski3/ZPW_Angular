@@ -5,7 +5,7 @@
     *ngFor="let item of this.filteredOrders"
     class="order-summary shadow"
   >
-    <h5>order {{item.id}} made on {{item.creationDate | date}}</h5>
+    <h5>order {{item[this.IDKEY]}} made on {{item.creationDate | date}}</h5>
 
     <div class="container mt-3 koszyk">
       <table id="cart" class="table table-hover table-condensed">
