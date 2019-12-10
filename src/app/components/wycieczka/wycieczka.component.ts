@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FirebaseService} from "../../services/firebase.service";
+import {IDKEY} from 'src/app/config';
 
 @Component({
   selector: 'wycieczka-component',
@@ -13,6 +14,8 @@ export class WycieczkaComponent {
 
   @Output() reservationChanged = new EventEmitter<string>();
   @Output() tripAddedToCart = new EventEmitter<any>();
+
+  IDKEY = IDKEY;
 
   constructor(private firebaseService: FirebaseService) {}
 
