@@ -4,7 +4,7 @@ import {FirebaseService} from './firebase.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {AuthService} from './auth.service';
 import {Router} from '@angular/router';
-import {IDKEY} from "../config";
+import {IDKEY} from "../const";
 
 @Injectable({
   providedIn: 'root'

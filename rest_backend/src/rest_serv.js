@@ -70,8 +70,7 @@ app.get('/wycieczki', function (req, res) {
 });
 
 app.get('/wycieczki/:wycieczkaId', function (req, res) {
-  console.log(req.params['wycieczkaId']);
-  WycieczkaModel.find({'_id': req.params['wycieczkaId']}, (err, tasks) => {
+  WycieczkaModel.findOne({'_id': req.params['wycieczkaId']}, (err, tasks) => {
     res.send(tasks);
   });
 });

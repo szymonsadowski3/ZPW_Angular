@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FirebaseService} from "../../services/firebase.service";
-import {IDKEY} from 'src/app/config';
+import {IDKEY} from 'src/app/const';
 
 @Component({
   selector: 'wycieczka-component',

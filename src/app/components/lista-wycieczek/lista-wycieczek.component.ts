@@ -5,7 +5,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {Wycieczka} from '../../models/wycieczka.model';
 import {FirebaseService} from '../../services/firebase.service';
 import {NgxSpinnerService} from "ngx-spinner";
-import {IDKEY} from 'src/app/config';
+import {IDKEY} from 'src/app/const';
 
 @Component({
   styleUrls: ['./lista-wycieczek.component.css'],

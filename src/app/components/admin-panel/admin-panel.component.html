@@ -20,8 +20,8 @@
       <tr
         *ngFor="let wycieczka of this.wycieczki"
       >
-        <th scope="row">{{wycieczka.id}}</th>
-        <td><a [routerLink]="['/wycieczka', wycieczka.id]">{{wycieczka.nazwa}}</a></td>
+        <th scope="row">{{wycieczka[this.IDKEY]}}</th>
+        <td><a [routerLink]="['/wycieczka', wycieczka[this.IDKEY]]">{{wycieczka.nazwa}}</a></td>
         <td>{{wycieczka.docelowyKrajWycieczki}}</td>
         <td>{{wycieczka.dataRozpoczecia}}</td>
         <td>{{wycieczka.dataZakonczenia}}</td>
@@ -39,7 +39,7 @@
 
             <button
               class="btn update-button"
-              [routerLink]="['/edit-trip', wycieczka.id]"
+              [routerLink]="['/edit-trip', wycieczka[this.IDKEY]]"
             >
               <i class="fa fa-edit"></i>
             </button>
