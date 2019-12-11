@@ -1,5 +1,16 @@
 var cfg = require('./const');
 var loginScreen = require('./LoginScreen');
+var tripsScreen = require('./TripsScreen');
+// at the top of the test spec:
+var fs = require('fs');
+
+// abstract writing screen shot to a file
+function writeScreenShot(data, filename) {
+  var stream = fs.createWriteStream(filename);
+  stream.write(new Buffer(data, 'base64'));
+  stream.end();
+}
+
 
 describe('Wycieczki app', function() {
   it('Should open without crashing', function() {
@@ -21,4 +32,17 @@ describe('Wycieczki app', function() {
       }, 10000);
     });
   });
+
+  it('Should display available trips to the logged-in user', function() {
+    loginScreen.loginProcess().then(() => {
+      browser.sleep(8000).then(
+        () => {
+          tripsScreen.get();
+          expect(tripsScreen.getTrips().count()).toBeGreaterThan(0);
+        }
+      )
+    });
+  });
+
+
 });

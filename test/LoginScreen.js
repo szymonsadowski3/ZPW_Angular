@@ -1,8 +1,8 @@
 var cfg = require('./const');
 
 const LoginScreen = function() {
-  const emailInput = element(by.id('inputEmailForm')).sendKeys('szymonsadowski3@gmail.com');
-  const passwordInput = element(by.id('inputPasswordForm')).sendKeys('bimber12');;
+  const emailInput = element(by.id('inputEmailForm'));
+  const passwordInput = element(by.id('inputPasswordForm'));
 
   this.get = function() {
     browser.get(`${cfg.baseUrl}/login`);

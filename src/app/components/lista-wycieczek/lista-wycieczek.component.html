@@ -42,7 +42,7 @@
       <div class="row">
 
         <wycieczka-component
-          class="col-lg-4 col-md-6 col-sm-12 col-12"
+          class="col-lg-4 col-md-6 col-sm-12 col-12 single-wycieczka"
           *ngFor="let item of wycieczki  | equityfilter: getFilteringCriteria()"
           [wycieczka]="item"
           [isCheapest]="(item[this.IDKEY]==minPriceTrip[this.IDKEY])"
