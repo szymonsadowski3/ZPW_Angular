@@ -1,1 +1,1 @@
-protractor conf.js
+protractor test/conf.js
