@@ -9,12 +9,18 @@ const LoginScreen = function() {
   };
 
   this.fillLogin = function(name) {
-    element(by.id('inputEmailForm')).sendKeys('szymonsadowski3@gmail.com');
-    element(by.id('inputPasswordForm')).sendKeys('bimber12');
+    element(by.id('inputEmailForm')).sendKeys(cfg.userName);
+    element(by.id('inputPasswordForm')).sendKeys(cfg.userPass);
   };
 
   this.submitLogin = function(name) {
     return element(by.id('login-button')).click();
+  };
+
+  this.loginProcess = function() {
+    this.get();
+    this.fillLogin();
+    return this.submitLogin();
   };
 };
 

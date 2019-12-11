@@ -1,10 +1,12 @@
-// const baseUrl = 'http://localhost:5000';
-// const mainPageEndpoint = 'wycieczki';
-//
-// module.exports = {
-//   baseUrl,
-//   mainPageEndpoint
-// };
+const baseUrl = 'http://localhost:5000';
+const mainPageEndpoint = 'wycieczki';
+const userName = 'szymonsadowski3@gmail.com';
+const userPass = 'bimber12';
 
-export const baseUrl = 'http://localhost:5000';
-export const mainPageEndpoint = 'wycieczki';
+module.exports = {
+  baseUrl,
+  mainPageEndpoint,
+  userName,
+  userPass,
+};
+
