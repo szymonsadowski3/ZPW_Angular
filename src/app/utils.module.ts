@@ -1,6 +1,8 @@
+import get from 'lodash/get';
+
 export function checkAdminRole(router_) {
   return roles => {
-    if ((roles.length > 0) && roles[0].role === 'admin') {
+    if (get(roles, '[0].role') === 'admin') {
       return true;
     } else {
       router_.navigate(['/wycieczki']);

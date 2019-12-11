@@ -3,6 +3,7 @@ import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {FirebaseService} from '../../services/firebase.service';
+import get from 'lodash/get';
 
 @Component({
   selector: 'header-component',
@@ -38,8 +39,9 @@ export class HeaderComponent implements OnInit {
   checkIsUserAnAdministrator() {
     setTimeout(() => {
       this.firebaseService.getRole(this.getUser()).subscribe(roles => {
-        this.isAdmin = ((roles.length > 0) && roles[0].role === 'admin');
+        console.log(get(roles, '[0].role'));
+        this.isAdmin = (get(roles, '[0].role') === 'admin');
       });
-    }, 500);
+    }, 1000);
   }
 }
