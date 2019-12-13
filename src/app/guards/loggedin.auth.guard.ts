@@ -15,10 +15,6 @@ export class LoggedInAuthGuard implements CanActivate {
   ) {}
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot):
   Observable<boolean> {
-    this.authService.idToken$.subscribe(token => {
-      console.log(JSON.stringify(token));
-    });
-
     return this.authService.authState$.pipe(map(state => {
         if (state !== null) { return true; }
         this.router.navigate(['/login']);
