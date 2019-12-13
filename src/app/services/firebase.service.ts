@@ -1,16 +1,13 @@
 import {Injectable} from '@angular/core';
-import {Wycieczka} from '../models/wycieczka.model';
 import {AngularFireDatabase} from '@angular/fire/database';
-import {AuthService} from "./auth.service";
+import {AuthService} from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseService {
-  constructor(
-    private db: AngularFireDatabase,
-    private authService: AuthService,
-  ) {
+  constructor(private db: AngularFireDatabase,
+              private authService: AuthService,) {
   }
 
   getAllTrips() {
@@ -26,7 +23,7 @@ export class FirebaseService {
   }
 
   deleteTrip(trip) {
-    this.db.object(`/wycieczki/${trip.id}`).remove();
+    return this.db.object(`/wycieczki/${trip.id}`).remove();
   }
 
   addTrip(trip: any): void {
@@ -65,5 +62,9 @@ export class FirebaseService {
 
   updateTrip(newWycieczka) {
     this.db.object(`/wycieczki/${newWycieczka.id}`).update(newWycieczka);
+  }
+
+  getRole(email) {
+    return this.db.list('/roles', (ref: any) => ref.orderByChild('email').equalTo(email)).valueChanges();
   }
 }

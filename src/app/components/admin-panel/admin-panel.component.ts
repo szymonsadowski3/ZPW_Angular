@@ -6,7 +6,7 @@ import {fakeWycieczki} from "../../data/fake.dane";
 import {FirebaseService} from "../../services/firebase.service";
 import {Wycieczka} from "../../models/wycieczka.model";
 import {RestService} from "../../services/rest.service";
-import {IDKEY} from 'src/app/const';
+import {IDKEY, IS_REST} from 'src/app/const';
 
 @Component({
   selector: 'admin-panel-component',
@@ -50,9 +50,8 @@ export class AdminPanelComponent implements OnInit {
   removeTrip(wycieczka: any) {
     const observable = this.firebaseService.deleteTrip(wycieczka);
 
-    if(true) { // isRest
+    if (IS_REST) {
       observable.subscribe(resp => {
-        // console.dir(resp);
         this.refreshTrips();
       });
     }

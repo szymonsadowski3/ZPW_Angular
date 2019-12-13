@@ -79,7 +79,7 @@ export class WycieczkaDetalComponent implements OnInit {
 
     const markerSource = new ol.source.Vector();
 
-    var markerStyle = new ol.style.Style({
+    const markerStyle = new ol.style.Style({
       image: new ol.style.Icon( ({
         anchor: [0.5, 46],
         anchorXUnits: 'fraction',
@@ -89,17 +89,14 @@ export class WycieczkaDetalComponent implements OnInit {
       }))
     });
 
-    var openSeaMapLayer = new ol.layer.Tile({
+    const mapLayer = new ol.layer.Tile({
       source: new ol.source.OSM()
     });
 
     this.map = new ol.Map({
       target: 'map',
       layers: [
-        // new ol.layer.Tile({
-        //   source: new ol.source.OSM()
-        // }),
-        openSeaMapLayer,
+        mapLayer,
         new ol.layer.Vector({
           source: markerSource,
           style: markerStyle,

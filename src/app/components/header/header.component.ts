@@ -1,19 +1,28 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {FirebaseService} from '../../services/firebase.service';
+import get from 'lodash/get';
 
 @Component({
   selector: 'header-component',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
+  isAdmin = false;
+
   constructor(
     private authService: AuthService,
+    private firebaseService: FirebaseService,
     private router: Router,
     private spinner: NgxSpinnerService
   ) {}
+
+  ngOnInit() {
+    this.checkIsUserAnAdministrator();
+  }
 
   getUser() {
     return this.authService.getUser();
@@ -25,5 +34,14 @@ export class HeaderComponent {
       this.spinner.hide();
       this.router.navigate(['/login']);
     });
+  }
+
+  checkIsUserAnAdministrator() {
+    setTimeout(() => {
+      this.firebaseService.getRole(this.getUser()).subscribe(roles => {
+        console.log(get(roles, '[0].role'));
+        this.isAdmin = (get(roles, '[0].role') === 'admin');
+      });
+    }, 1000);
   }
 }
