@@ -27,7 +27,7 @@ export class ListaWycieczekComponent implements OnInit {
 
   IDKEY = IDKEY;
 
-  options = {
+  priceRangeOptions = {
     floor: 0,
     ceil: 10000
   };
@@ -77,6 +77,8 @@ export class ListaWycieczekComponent implements OnInit {
 
       this.filterPriceMin = this.minPriceTrip.cenaJednostkowa;
       this.filterPriceMax = this.maxPriceTrip.cenaJednostkowa;
+
+      this.priceRangeOptions.ceil = this.filterPriceMax;
 
       this.spinner.hide();
     });

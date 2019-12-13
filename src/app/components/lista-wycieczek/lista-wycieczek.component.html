@@ -35,9 +35,10 @@
           <ng5-slider
             [(value)]="this.filterForm.get('priceMin').value"
             [(highValue)]="this.filterForm.get('priceMax').value"
-            [options]="options"
+            [options]="priceRangeOptions"
             (valueChange)="this.refreshFormGroup()"
             (highValueChange)="this.refreshFormGroup()"
+
           ></ng5-slider>
 
           <hr/>
