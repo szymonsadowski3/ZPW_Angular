@@ -28,11 +28,25 @@
           <input name="priceMax" formControlName="priceMax" class="form-control" type="number" min="0"
                  max="100000"/>
 
+          <hr>
+
+          <label>Przedział cenowy:</label>
+
+          <ng5-slider
+            [(value)]="this.filterForm.get('priceMin').value"
+            [(highValue)]="this.filterForm.get('priceMax').value"
+            [options]="options"
+            (valueChange)="this.refreshFormGroup()"
+            (highValueChange)="this.refreshFormGroup()"
+          ></ng5-slider>
+
           <hr/>
 
           <label>Średnia ocena:</label>
           <input name="avgRating" formControlName="avgRating" class="form-control" type="number" min="0" max="5"
-                 step="0.1"/>
+                 step="1"/>
+
+          <ng5-slider [(value)]="this.filterForm.get('avgRating').value" [options]="this.tickOptions" (valueChange)="this.refreshFormGroup()"></ng5-slider>
         </div>
       </form>
 

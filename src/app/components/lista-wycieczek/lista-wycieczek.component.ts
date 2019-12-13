@@ -27,6 +27,22 @@ export class ListaWycieczekComponent implements OnInit {
 
   IDKEY = IDKEY;
 
+  options = {
+    floor: 0,
+    ceil: 10000
+  };
+
+  tickOptions = {
+    floor: 0,
+    ceil: 5,
+    step: 1,
+    showTicks: true,
+    showTicksValues: true
+  };
+
+  filterPriceMin = 1;
+  filterPriceMax = 1;
+
   constructor(
     private koszykService: KoszykService,
     private wycieczkiService: WycieczkiSerwisService,
@@ -58,6 +74,9 @@ export class ListaWycieczekComponent implements OnInit {
         priceMax: new FormControl(this.maxPriceTrip.cenaJednostkowa),
         avgRating: new FormControl(4.0),
       });
+
+      this.filterPriceMin = this.minPriceTrip.cenaJednostkowa;
+      this.filterPriceMax = this.maxPriceTrip.cenaJednostkowa;
 
       this.spinner.hide();
     });
@@ -142,6 +161,14 @@ export class ListaWycieczekComponent implements OnInit {
       priceMin: new FormControl(0),
       priceMax: new FormControl(0),
       avgRating: new FormControl(4.0),
+    });
+  }
+
+  refreshFormGroup() {
+    this.filterForm.patchValue({
+      priceMin: this.filterForm.get('priceMin').value,
+      priceMax: this.filterForm.get('priceMax').value,
+      avgRating: this.filterForm.get('avgRating').value
     });
   }
 }
