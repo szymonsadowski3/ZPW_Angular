@@ -13,7 +13,7 @@ import {RestService} from "../../services/rest.service";
 export class NewWycieczkaComponent implements OnInit {
   modelForm: FormGroup;
 
-  constructor(private wycieczkiService: WycieczkiSerwisService, private firebaseService: RestService) {
+  constructor(private wycieczkiService: WycieczkiSerwisService, private firebaseService: FirebaseService) {
   }
 
   ngOnInit(): void {
