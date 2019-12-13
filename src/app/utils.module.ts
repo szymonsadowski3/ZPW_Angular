@@ -10,3 +10,5 @@ export function checkAdminRole(router_) {
     }
   };
 }
+
+export const average = arr => arr.reduce((p, c) => p + c, 0) / arr.length;

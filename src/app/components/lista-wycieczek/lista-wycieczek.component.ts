@@ -7,6 +7,7 @@ import {FirebaseService} from '../../services/firebase.service';
 import {NgxSpinnerService} from "ngx-spinner";
 import {IDKEY} from 'src/app/const';
 import {RestService} from '../../services/rest.service';
+import {average} from '../../utils.module';
 
 @Component({
   styleUrls: ['./lista-wycieczek.component.css'],
@@ -103,7 +104,7 @@ export class ListaWycieczekComponent implements OnInit {
 
     if (searchedCountries && searchedCountries.length > 0) {
       const searchedCountryCriteria = ((item) => {
-        return searchedCountries.includes(item['docelowyKrajWycieczki'].toLowerCase())
+        return searchedCountries.includes(item['docelowyKrajWycieczki'].toLowerCase());
       });
       criteria.push(searchedCountryCriteria);
     }
@@ -121,10 +122,13 @@ export class ListaWycieczekComponent implements OnInit {
     }
 
     if (avgRating != '') {
-      const average = arr => arr.reduce((p, c) => p + c, 0) / arr.length;
-
       const ratingCriteria = ((item) => {
-        return (!item.oceny || item.oceny.length === 0) || average(item.oceny) >= avgRating;
+        if (!item.oceny || item.oceny.length === 0) {
+          return true;
+        } else {
+          const ocenyUnwrapped = item.oceny.map(ratingObj => ratingObj.rating);
+          return (!item.oceny || item.oceny.length === 0) || average(ocenyUnwrapped) >= avgRating;
+        }
       });
       criteria.push(ratingCriteria);
     }
