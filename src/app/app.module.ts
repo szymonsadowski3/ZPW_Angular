@@ -29,6 +29,7 @@ import {AfterOrderComponent} from './components/after-order/after-order.componen
 import {ViewMyOrdersComponent} from "./components/view-my-orders/view-my-orders.component";
 import {AdminPanelComponent} from "./components/admin-panel/admin-panel.component";
 import {EditWycieczkaComponent} from "./components/edit-wycieczka/edit-wycieczka.component";
+import { Ng5SliderModule } from 'ng5-slider';
 
 // import { AngularFireModule } from "@angular/fire";
 // import { AngularFireAuthModule } from "@angular/fire/auth";
@@ -67,14 +68,14 @@ import {EditWycieczkaComponent} from "./components/edit-wycieczka/edit-wycieczka
     Angular2ImageGalleryModule,
     AngularDateTimePickerModule,
     HttpClientModule,
-    // HttpClientInMemoryWebApiModule.forRoot(FakeDanService),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     NgxSpinnerModule,
     AngularFireDatabaseModule,
     ConfirmationPopoverModule.forRoot({
       confirmButtonType: 'danger' // set defaults here
-    })
+    }),
+    Ng5SliderModule
   ],
   bootstrap: [AplikacjaWycieczkiComponent]
 })

@@ -12,6 +12,6 @@ export class EquityFilterPipe implements PipeTransform {
 
     return criteria.reduce(function(prev, curr) {
       return prev.filter(curr)
-    }, items)
+    }, items);
   }
 }
