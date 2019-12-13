@@ -8,7 +8,7 @@ import { customClaims } from '@angular/fire/auth-guard';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class LoggedInAuthGuard implements CanActivate {
   constructor(
     private authService: AuthService,
     private router: Router,
