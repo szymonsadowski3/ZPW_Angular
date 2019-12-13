@@ -46,7 +46,7 @@ export class WycieczkaDetalComponent implements OnInit {
     private wycieczkiService: WycieczkiSerwisService,
     private koszykService: KoszykService,
     private route: ActivatedRoute,
-    private firebaseService: RestService,
+    private firebaseService: FirebaseService,
     private authService: AuthService,
     private spinner: NgxSpinnerService
   ) {

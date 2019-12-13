@@ -2,8 +2,9 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 from flask import Flask, jsonify
+from firebase_admin import auth
 
-app = Flask(__name__, template_folder='.')
+app = Flask(__name__)
 
 
 # Use a service account
@@ -25,5 +26,26 @@ def index(email):
     return jsonify(user_roles), 200
 
 
+@app.route('/users/<email>')
+def get_users(email):
+  user = auth.get_user_by_email("szymonsadowski3@gmail.com")
+  print('Successfully fetched user data: {0}'.format(user.uid))
+  return "OK"
+
+
+@app.route('/hello')
+def make_admin():
+  user = auth.get_user_by_email("szymonsadowski3@gmail.com")
+  auth.set_custom_user_claims(user.uid, {'is_admin': True})
+  return "DONE"
+
+
+@app.route('/token/<token>')
+def check_token(token):
+  # Verify the ID token first.
+  claims = auth.verify_id_token(token)
+  return str(claims)
+
+
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5050)
+    app.run(host='0.0.0.0', port=5051, debug=True)
