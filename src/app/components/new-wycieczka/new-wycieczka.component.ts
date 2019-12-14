@@ -3,7 +3,8 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {Wycieczka} from '../../models/wycieczka.model';
 import {WycieczkiSerwisService} from '../../services/wycieczki-serwis.service';
 import {FirebaseService} from '../../services/firebase.service';
-import {RestService} from "../../services/rest.service";
+import {RestService} from '../../services/rest.service';
+import {FileUploadService} from '../../services/file.upload.service';
 
 @Component({
   selector: 'new-wycieczka-component',
@@ -13,7 +14,7 @@ import {RestService} from "../../services/rest.service";
 export class NewWycieczkaComponent implements OnInit {
   modelForm: FormGroup;
 
-  constructor(private wycieczkiService: WycieczkiSerwisService, private firebaseService: FirebaseService) {
+  constructor(private wycieczkiService: WycieczkiSerwisService, private firebaseService: FirebaseService, private fileUploadService: FileUploadService) {
   }
 
   ngOnInit(): void {
@@ -34,9 +35,12 @@ export class NewWycieczkaComponent implements OnInit {
       ...form.value,
       ileZarezerwowano: 0,
       oceny: [],
+      galleryImgs: this.fileUploadService.getFilenames(),
     };
 
-    // this.wycieczkiService.addProduct(Object.assign(new Wycieczka(), newWycieczka));
+    this.fileUploadService.reset();
+
+    console.dir(newWycieczka);
     this.firebaseService.addTrip(newWycieczka);
   }
 }

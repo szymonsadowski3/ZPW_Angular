@@ -5,7 +5,7 @@ import {KoszykService} from "../../services/koszyk.service";
 import {FirebaseService} from "../../services/firebase.service";
 import {AuthService} from "../../services/auth.service";
 import {NgxSpinnerService} from "ngx-spinner";
-import {IDKEY} from "../../const";
+import {GALLERY_SERVE_URL, IDKEY} from '../../const';
 import {RestService} from "../../services/rest.service";
 
 declare var ol: any;
@@ -116,6 +116,17 @@ export class WycieczkaDetalComponent implements OnInit {
       this.checkIfPersonReserveTrip(this.wycieczka);
       this.countRatings();
       this.alreadyRated = this.userAlreadyRated();
+
+      if ('galleryImgs' in this.wycieczka) {
+        this.galleryImages = this.wycieczka.galleryImgs.map(imageName => {
+          return {
+            small: `${GALLERY_SERVE_URL}/${imageName}`,
+            medium: `${GALLERY_SERVE_URL}/${imageName}`,
+            big: `${GALLERY_SERVE_URL}/${imageName}`,
+          };
+        });
+      }
+
       this.spinner.hide();
     });
 
