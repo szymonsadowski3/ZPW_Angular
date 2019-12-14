@@ -50,10 +50,10 @@ export class AdminPanelComponent implements OnInit {
   removeTrip(wycieczka: any) {
     const observable = this.firebaseService.deleteTrip(wycieczka);
 
-    if (IS_REST) {
-      observable.subscribe(resp => {
-        this.refreshTrips();
-      });
-    }
+    // if (IS_REST) {
+    //   observable.subscribe(resp => {
+    //     this.refreshTrips();
+    //   });
+    // }
   }
 }

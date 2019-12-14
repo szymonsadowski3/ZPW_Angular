@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FirebaseService} from "../../services/firebase.service";
 import {IDKEY} from 'src/app/const';
+import {getTripAverageRating} from '../../utils.module';
 
 @Component({
   selector: 'wycieczka-component',
@@ -43,5 +44,9 @@ export class WycieczkaComponent {
 
   onTripAddedToCart(trip) {
     this.tripAddedToCart.emit(trip);
+  }
+
+  getTripAvgRating(item) {
+    return getTripAverageRating(item);
   }
 }

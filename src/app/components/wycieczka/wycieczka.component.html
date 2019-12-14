@@ -20,10 +20,6 @@
     <img src="{{wycieczka.linkDoZdj+'?v='+wycieczka.docelowyKrajWycieczki}}" class="rounded-circle card-img"/>
     <div class="card-body">
       <h5 class="card-title">{{wycieczka.nazwa | uppercase}}</h5>
-
-
-      <!--    <p class="card-text">{{wycieczka.opis}}</p>-->
-
     </div>
   </div>
 
@@ -50,6 +46,9 @@
       <ng-template #availablePlaces>
         Ile zarezerwowano: {{wycieczka.ileZarezerwowano}}
       </ng-template>
+    </li>
+    <li class="list-group-item" *ngIf="(wycieczka && wycieczka.oceny && wycieczka.oceny.length > 0)">
+      <div><i class="fa fa-star"></i> Średnia ocena: {{this.getTripAvgRating(wycieczka)}}</div>
     </li>
   </ul>
   <div class="card-body">
