@@ -34,10 +34,6 @@ import { NgxFileDropModule } from 'ngx-file-drop';
 import {DropFileComponent} from './components/drop-file-component/drop.file.component';
 import {NgxGalleryModule} from 'ngx-gallery';
 
-// import { AngularFireModule } from "@angular/fire";
-// import { AngularFireAuthModule } from "@angular/fire/auth";
-// import { environment } from '../environments/environment';
-
 
 
 @NgModule({
