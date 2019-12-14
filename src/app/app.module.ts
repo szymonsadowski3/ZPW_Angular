@@ -32,6 +32,7 @@ import {EditWycieczkaComponent} from "./components/edit-wycieczka/edit-wycieczka
 import { Ng5SliderModule } from 'ng5-slider';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import {DropFileComponent} from './components/drop-file-component/drop.file.component';
+import {NgxGalleryModule} from 'ngx-gallery';
 
 // import { AngularFireModule } from "@angular/fire";
 // import { AngularFireAuthModule } from "@angular/fire/auth";
@@ -79,7 +80,8 @@ import {DropFileComponent} from './components/drop-file-component/drop.file.comp
       confirmButtonType: 'danger' // set defaults here
     }),
     Ng5SliderModule,
-    NgxFileDropModule
+    NgxFileDropModule,
+    NgxGalleryModule
   ],
   bootstrap: [AplikacjaWycieczkiComponent]
 })

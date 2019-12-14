@@ -65,12 +65,13 @@
     <div class="card-body">
       <h6>Galeria zdjęć</h6>
 
-      <gallery
-        [flexBorderSize]="4"
-        [flexImageSize]="11"
-        [maxRowsPerPage]="100"
-      >
-      </gallery>
+      <!--<gallery-->
+        <!--[flexBorderSize]="4"-->
+        <!--[flexImageSize]="11"-->
+        <!--[maxRowsPerPage]="100"-->
+      <!--&gt;-->
+      <!--</gallery>-->
+      <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
     </div>
 
     <div class="card-body">

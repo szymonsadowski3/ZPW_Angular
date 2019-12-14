@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry} from 'ngx-file-drop';
 import {HttpClient} from '@angular/common/http';
+import {GALLERY_UPLOAD_URL} from '../../const';
 
 @Component({
   selector: 'drop-file',
@@ -34,7 +35,7 @@ export class DropFileComponent {
           reader.readAsArrayBuffer(file);
 
           reader.onload = function() {
-            client.post(`http://localhost:5051/upload/${file.name}`, file).subscribe(results => { // TODO: file upload finish
+            client.post(`${GALLERY_UPLOAD_URL}/${file.name}`, file).subscribe(results => { // TODO: file upload finish
               console.dir(results);
             });
           };
