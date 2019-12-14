@@ -30,6 +30,8 @@ import {ViewMyOrdersComponent} from "./components/view-my-orders/view-my-orders.
 import {AdminPanelComponent} from "./components/admin-panel/admin-panel.component";
 import {EditWycieczkaComponent} from "./components/edit-wycieczka/edit-wycieczka.component";
 import { Ng5SliderModule } from 'ng5-slider';
+import { NgxFileDropModule } from 'ngx-file-drop';
+import {DropFileComponent} from './components/drop-file-component/drop.file.component';
 
 // import { AngularFireModule } from "@angular/fire";
 // import { AngularFireAuthModule } from "@angular/fire/auth";
@@ -55,7 +57,8 @@ import { Ng5SliderModule } from 'ng5-slider';
     AfterOrderComponent,
     ViewMyOrdersComponent,
     AdminPanelComponent,
-    EditWycieczkaComponent
+    EditWycieczkaComponent,
+    DropFileComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +78,8 @@ import { Ng5SliderModule } from 'ng5-slider';
     ConfirmationPopoverModule.forRoot({
       confirmButtonType: 'danger' // set defaults here
     }),
-    Ng5SliderModule
+    Ng5SliderModule,
+    NgxFileDropModule
   ],
   bootstrap: [AplikacjaWycieczkiComponent]
 })

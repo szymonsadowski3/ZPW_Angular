@@ -39,7 +39,6 @@ export class HeaderComponent implements OnInit {
   checkIsUserAnAdministrator() {
     setTimeout(() => {
       this.firebaseService.getRole(this.getUser()).subscribe(roles => {
-        console.log(get(roles, '[0].role'));
         this.isAdmin = (get(roles, '[0].role') === 'admin');
       });
     }, 1000);
