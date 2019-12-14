@@ -30,6 +30,7 @@ export class FirebaseService {
     const pushId = this.db.createPushId();
     trip.id = pushId;
     console.log(pushId);
+    console.log(trip);
     this.db.object(`/wycieczki/${pushId}`).set(trip);
   }
 
