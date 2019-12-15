@@ -33,7 +33,10 @@ import { Ng5SliderModule } from 'ng5-slider';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import {DropFileComponent} from './components/drop-file-component/drop.file.component';
 import {NgxGalleryModule} from 'ngx-gallery';
-import { NotyfModule } from 'ng-notyf';
+import { SocketIoModule } from 'ngx-socket-io';
+import {SOCKET_IO_URL} from './const';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ToastrModule} from 'ngx-toastr';
 
 
 
@@ -79,7 +82,12 @@ import { NotyfModule } from 'ng-notyf';
     Ng5SliderModule,
     NgxFileDropModule,
     NgxGalleryModule,
-    NotyfModule
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot({
+      maxOpened: 1,
+      autoDismiss: true
+    }),
+    SocketIoModule.forRoot({ url: SOCKET_IO_URL, options: {} })
   ],
   bootstrap: [AplikacjaWycieczkiComponent]
 })

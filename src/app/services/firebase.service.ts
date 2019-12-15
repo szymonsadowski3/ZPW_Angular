@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {AngularFireDatabase} from '@angular/fire/database';
 import {AuthService} from './auth.service';
-import {NotyfService} from 'ng-notyf';
 
 @Injectable({
   providedIn: 'root'

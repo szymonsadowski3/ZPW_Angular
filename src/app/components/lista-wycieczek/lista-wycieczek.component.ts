@@ -4,10 +4,14 @@ import {WycieczkiSerwisService} from '../../services/wycieczki-serwis.service';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Wycieczka} from '../../models/wycieczka.model';
 import {FirebaseService} from '../../services/firebase.service';
-import {NgxSpinnerService} from "ngx-spinner";
+import {NgxSpinnerService} from 'ngx-spinner';
 import {IDKEY} from 'src/app/const';
 import {RestService} from '../../services/rest.service';
 import {average, getTripAverageRating} from '../../utils.module';
+import {Socket} from 'ngx-socket-io';
+import forEach from 'lodash/forEach';
+import isEqual from 'lodash/isEqual';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   styleUrls: ['./lista-wycieczek.component.css'],
@@ -43,12 +47,23 @@ export class ListaWycieczekComponent implements OnInit {
   filterPriceMin = 1;
   filterPriceMax = 1;
 
-  constructor(
-    private koszykService: KoszykService,
-    private wycieczkiService: WycieczkiSerwisService,
-    private firebaseService: FirebaseService,
-    private spinner: NgxSpinnerService
-  ) {
+  constructor(private koszykService: KoszykService,
+              private wycieczkiService: WycieczkiSerwisService,
+              private firebaseService: FirebaseService,
+              private spinner: NgxSpinnerService,
+              private socket: Socket,
+              private toastr: ToastrService) {
+    this.socket.on('message', (event) => {
+      let message = "";
+
+      if (!isEqual(event, {})) {
+        forEach(event, (value, key) => {
+          message += `<a href="/wycieczka/${key}">${key}</a>: ${value}%<br>`;
+        });
+
+        this.toastr.success(message, '🔥 Nowe promocje 🔥 Kliknij id aby sprawdzić 🔥' , { positionClass: 'toast-bottom-right', enableHtml: true, disableTimeOut: true});
+      }
+    });
   }
 
   ngOnInit() {

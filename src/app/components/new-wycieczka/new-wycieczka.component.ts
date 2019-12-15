@@ -5,7 +5,6 @@ import {WycieczkiSerwisService} from '../../services/wycieczki-serwis.service';
 import {FirebaseService} from '../../services/firebase.service';
 import {RestService} from '../../services/rest.service';
 import {FileUploadService} from '../../services/file.upload.service';
-import {NotyfService} from 'ng-notyf';
 
 @Component({
   selector: 'new-wycieczka-component',
@@ -15,7 +14,7 @@ import {NotyfService} from 'ng-notyf';
 export class NewWycieczkaComponent implements OnInit {
   modelForm: FormGroup;
 
-  constructor(private wycieczkiService: WycieczkiSerwisService, private firebaseService: FirebaseService, private fileUploadService: FileUploadService, private notyfService: NotyfService) {
+  constructor(private wycieczkiService: WycieczkiSerwisService, private firebaseService: FirebaseService, private fileUploadService: FileUploadService) {
   }
 
   ngOnInit(): void {

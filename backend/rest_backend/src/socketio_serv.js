@@ -1,19 +1,45 @@
-var app = require('http').createServer(handler);
-var io = require('socket.io').listen(app);
+var app = require('express')();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+var cors = require('cors');
+var bodyParser = require('body-parser');
 
-var fs = require('fs');
-var html = fs.readFileSync('index.html', 'utf8');
+server.listen(8080);
 
-function handler (req, res) {
-  res.setHeader('Content-Type', 'text/html');
-  res.setHeader('Content-Length', Buffer.byteLength(html, 'utf8'));
-  res.end(html);
-}
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-function tick () {
-  var now = new Date().toUTCString();
-  io.sockets.send(now);
-}
+var SECOND = 1000;
+var MINUTE = 60*SECOND;
 
-setInterval(tick, 1000);
-app.listen(8080);
+var currentPromotions = {};
+
+app.post('/registerPromotion', function (req, res) {
+  console.log(req.body);
+
+  var tripsWithPromotion = req.body.checkedTripsForPromotion;
+
+  tripsWithPromotion.forEach(function(tripId) {
+    currentPromotions[tripId] = req.body.poziomObnizki;
+  });
+
+  console.log(currentPromotions);
+
+  setTimeout(function() {
+    tripsWithPromotion.forEach(function(tripId) {
+      delete currentPromotions[tripId];
+    });
+  }, req.body.czasTrwania * MINUTE);
+
+  io.sockets.send(currentPromotions);
+  io.emit('broadcast', currentPromotions);
+
+  // io.emit('broadcast', tripsWithPromotion); // emit an event to all connected sockets
+  //
+  res.send({msg: "Done!"});
+});
+
+io.on('connection', function(socket){
+  socket.emit('message', currentPromotions); // emit an event to the socket
+});
