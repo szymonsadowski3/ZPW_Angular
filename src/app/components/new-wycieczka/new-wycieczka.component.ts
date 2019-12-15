@@ -5,6 +5,7 @@ import {WycieczkiSerwisService} from '../../services/wycieczki-serwis.service';
 import {FirebaseService} from '../../services/firebase.service';
 import {RestService} from '../../services/rest.service';
 import {FileUploadService} from '../../services/file.upload.service';
+import {NotyfService} from 'ng-notyf';
 
 @Component({
   selector: 'new-wycieczka-component',
@@ -14,7 +15,7 @@ import {FileUploadService} from '../../services/file.upload.service';
 export class NewWycieczkaComponent implements OnInit {
   modelForm: FormGroup;
 
-  constructor(private wycieczkiService: WycieczkiSerwisService, private firebaseService: FirebaseService, private fileUploadService: FileUploadService) {
+  constructor(private wycieczkiService: WycieczkiSerwisService, private firebaseService: FirebaseService, private fileUploadService: FileUploadService, private notyfService: NotyfService) {
   }
 
   ngOnInit(): void {
@@ -28,6 +29,7 @@ export class NewWycieczkaComponent implements OnInit {
       opis: new FormControl('Lorem Ipsum'),
       linkDoZdj: new FormControl('https://via.placeholder.com/100/09f/fff.png'),
     });
+
   }
 
   onSubmit(form): void {
@@ -40,7 +42,6 @@ export class NewWycieczkaComponent implements OnInit {
 
     this.fileUploadService.reset();
 
-    console.dir(newWycieczka);
     this.firebaseService.addTrip(newWycieczka);
   }
 }

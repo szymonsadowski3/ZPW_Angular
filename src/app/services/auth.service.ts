@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {User} from 'firebase';
 import {Observable} from 'rxjs';
+import 'firebase/auth';
+import * as firebase from 'firebase/app';
 
 export interface Credentials {
   email: string;
@@ -20,14 +22,13 @@ export class AuthService {
   }
 
   login({email, password}: Credentials) {
-    // if (this.fireAuth.user != null) {
-    //   const session = this.fireAuth.auth.Persistence.SESSION;
-    //   return this.fireAuth.auth.setPersistence(session).then(() => {
-    //     return this.fireAuth.auth.signInWithEmailAndPassword(email, password);
-    //   });
-    // } else {
-    return this.fireAuth.auth.signInWithEmailAndPassword(email, password);
-    // }
+    if (this.fireAuth.user != null) {
+      return this.fireAuth.auth.setPersistence(firebase.auth.Auth.Persistence.SESSION).then(() => {
+        return this.fireAuth.auth.signInWithEmailAndPassword(email, password);
+      });
+    } else {
+      return this.fireAuth.auth.signInWithEmailAndPassword(email, password);
+    }
   }
 
   register({email, password}: Credentials) {
