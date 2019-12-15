@@ -8,6 +8,8 @@ import {map} from 'rxjs/operators';
 import {AuthService} from '../services/auth.service';
 import {FirebaseService} from '../services/firebase.service';
 import {checkAdminRole} from '../utils.module';
+import {AngularFireAuth} from '@angular/fire/auth';
+import get from 'lodash/get';
 
 @Injectable({
   providedIn: 'root'
@@ -15,22 +17,25 @@ import {checkAdminRole} from '../utils.module';
 export class AdminAuthGuard implements CanActivate {
   constructor(private authService: AuthService,
               private router: Router,
-              private firebaseService: FirebaseService) {
+              private firebaseService: FirebaseService,
+              private fireAuth: AngularFireAuth) {
   }
 
-  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return this.firebaseService.getRole(this.authService.getUser()).pipe(map(checkAdminRole(this.router)));
+  canActivate(): Promise<boolean> {
+    const router = this.router;
 
-    //   .subscribe(roles => {
-    //   console.log(((roles.length > 0) && roles[0].role === 'admin'));
-    //   if ((roles.length > 0) && roles[0].role === 'admin') {
-    //     return true;
-    //   } else {
-    //     this.router.navigate(['/wycieczki']);
-    //
-    //     return false;
-    //   }
-    // });
+    return new Promise((resolve) => {
+      this.fireAuth.auth.onAuthStateChanged((user) => {
+        this.firebaseService.getRole(user.email).subscribe(roles => {
+          if (get(roles, '[0].role') === 'admin') {
+            resolve(true);
+          } else {
+            router.navigate(['/wycieczki']);
+            resolve(false);
+          }
+        });
+      });
+    });
   }
 
 

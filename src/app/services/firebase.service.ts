@@ -1,13 +1,14 @@
 import {Injectable} from '@angular/core';
 import {AngularFireDatabase} from '@angular/fire/database';
 import {AuthService} from './auth.service';
+import {NotyfService} from 'ng-notyf';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseService {
   constructor(private db: AngularFireDatabase,
-              private authService: AuthService,) {
+              private authService: AuthService) {
   }
 
   getAllTrips() {
@@ -31,7 +32,13 @@ export class FirebaseService {
     trip.id = pushId;
     console.log(pushId);
     console.log(trip);
-    this.db.object(`/wycieczki/${pushId}`).set(trip);
+
+    this.db.object(`/wycieczki/${pushId}`).set(trip).then((what) => {
+      console.dir(what);
+    }).catch((error) => {
+      alert(error.code);
+      console.dir(error);
+    });
   }
 
   addOrder(order: any) {
@@ -66,6 +73,7 @@ export class FirebaseService {
   }
 
   getRole(email) {
+    console.log(email);
     return this.db.list('/roles', (ref: any) => ref.orderByChild('email').equalTo(email)).valueChanges();
   }
 }

@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {FirebaseService} from '../../services/firebase.service';
 import get from 'lodash/get';
+import {AngularFireAuth} from '@angular/fire/auth';
 
 @Component({
   selector: 'header-component',
@@ -15,6 +16,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private fireAuth: AngularFireAuth,
     private firebaseService: FirebaseService,
     private router: Router,
     private spinner: NgxSpinnerService
@@ -37,10 +39,11 @@ export class HeaderComponent implements OnInit {
   }
 
   checkIsUserAnAdministrator() {
-    setTimeout(() => {
-      this.firebaseService.getRole(this.getUser()).subscribe(roles => {
+    this.fireAuth.auth.onAuthStateChanged((user) => {
+      this.firebaseService.getRole(user.email).subscribe(roles => {
+        console.log(get(roles, '[0].role'));
         this.isAdmin = (get(roles, '[0].role') === 'admin');
       });
-    }, 1000);
+    });
   }
 }

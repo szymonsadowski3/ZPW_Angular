@@ -33,6 +33,7 @@ import { Ng5SliderModule } from 'ng5-slider';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import {DropFileComponent} from './components/drop-file-component/drop.file.component';
 import {NgxGalleryModule} from 'ngx-gallery';
+import { NotyfModule } from 'ng-notyf';
 
 
 
@@ -77,7 +78,8 @@ import {NgxGalleryModule} from 'ngx-gallery';
     }),
     Ng5SliderModule,
     NgxFileDropModule,
-    NgxGalleryModule
+    NgxGalleryModule,
+    NotyfModule
   ],
   bootstrap: [AplikacjaWycieczkiComponent]
 })
