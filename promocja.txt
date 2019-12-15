@@ -1,0 +1,12 @@
+Admin zaznacza intersującą go wycieczkę lub wycieczki. Następnie określa poziom
+obniżki (procentowy) oraz definiuje czas trwania promocji. Promocje sa z reguły
+krótkotrwałe np. 5, 10 czy 20 minut. Po zatwierdzeniu promocja powinna od razu
+obowiązywać. Nowi użytkownicy po wejściu na stronę powinni zobaczyć odpowiednie
+informacje przy każdej wycieczce, który podlega promocji. Problemem są użytkownicy
+którzy w czasie zatwierdzania promocji byli już użytkownikami naszej aplikacji.
+Aplikacja jest wykonana w trybie SPA więc nie wymaga przeładowania. Aby również oni
+mogli skorzystać z promocji powinni być o niej powiadamiani. Powiadamianie musi
+wyjść ze strony serwera. W tym celu proponuje wykorzystać technologie WebSocket,
+opisaną w sekcji poniżej. Po zakończeniu czasu promocji na stronie powinna pojawić się
+informacja o zakończeniu promocji oraz powrót do ceny standardowej.
+

@@ -28,18 +28,18 @@ app.post('/registerPromotion', function (req, res) {
 
   setTimeout(function() {
     tripsWithPromotion.forEach(function(tripId) {
+      console.log('Finished promotion: ' + tripId);
       delete currentPromotions[tripId];
     });
-  }, req.body.czasTrwania * MINUTE);
 
-  io.sockets.send(currentPromotions);
-  io.emit('broadcast', currentPromotions);
+    io.sockets.send({finishedPromotions: tripsWithPromotion});
+    io.sockets.send({currentPromotions});
+  }, 7000);
 
-  // io.emit('broadcast', tripsWithPromotion); // emit an event to all connected sockets
-  //
+  io.sockets.send({currentPromotions});
   res.send({msg: "Done!"});
 });
 
 io.on('connection', function(socket){
-  socket.emit('message', currentPromotions); // emit an event to the socket
+  socket.emit('message', {currentPromotions}); // emit an event to the socket
 });
