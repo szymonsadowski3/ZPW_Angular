@@ -34,7 +34,7 @@ app.post('/registerPromotion', function (req, res) {
 
     io.sockets.send({finishedPromotions: tripsWithPromotion});
     io.sockets.send({currentPromotions});
-  }, 7000);
+  }, req.body.czasTrwania * MINUTE);
 
   io.sockets.send({currentPromotions});
   res.send({msg: "Done!"});
