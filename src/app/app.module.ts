@@ -37,6 +37,7 @@ import { SocketIoModule } from 'ngx-socket-io';
 import {SOCKET_IO_URL} from './const';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 
@@ -87,7 +88,8 @@ import {ToastrModule} from 'ngx-toastr';
       // maxOpened: 3,
       // autoDismiss: true
     }),
-    SocketIoModule.forRoot({ url: SOCKET_IO_URL, options: {} })
+    SocketIoModule.forRoot({ url: SOCKET_IO_URL, options: {} }),
+    NgxPaginationModule,
   ],
   bootstrap: [AplikacjaWycieczkiComponent]
 })

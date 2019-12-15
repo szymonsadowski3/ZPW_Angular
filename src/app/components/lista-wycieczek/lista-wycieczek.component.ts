@@ -47,6 +47,8 @@ export class ListaWycieczekComponent implements OnInit {
   filterPriceMin = 1;
   filterPriceMax = 1;
 
+  p: number = 1;
+
   constructor(
     private koszykService: KoszykService,
               private wycieczkiService: WycieczkiSerwisService,
