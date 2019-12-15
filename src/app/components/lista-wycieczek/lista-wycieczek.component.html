@@ -57,7 +57,7 @@
 
         <wycieczka-component
           class="col-lg-4 col-md-6 col-sm-12 col-12 single-wycieczka"
-          *ngFor="let item of wycieczki  | equityfilter: getFilteringCriteria()"
+          *ngFor="let item of wycieczki  | equityfilter: getFilteringCriteria() | paginate: { itemsPerPage: 9, currentPage: p }"
           [wycieczka]="item"
           [isCheapest]="(item[this.IDKEY]==minPriceTrip[this.IDKEY])"
           [isMostExpensive]="(item[this.IDKEY]==maxPriceTrip[this.IDKEY])"
@@ -68,6 +68,8 @@
     </div>
   </div>
 </div>
+
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
 
 <div
   class="total-trips shadow mb-4"
