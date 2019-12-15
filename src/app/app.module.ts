@@ -84,8 +84,8 @@ import {ToastrModule} from 'ngx-toastr';
     NgxGalleryModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot({
-      maxOpened: 1,
-      autoDismiss: true
+      // maxOpened: 3,
+      // autoDismiss: true
     }),
     SocketIoModule.forRoot({ url: SOCKET_IO_URL, options: {} })
   ],

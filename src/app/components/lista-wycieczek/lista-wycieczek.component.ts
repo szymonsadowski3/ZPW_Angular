@@ -47,23 +47,15 @@ export class ListaWycieczekComponent implements OnInit {
   filterPriceMin = 1;
   filterPriceMax = 1;
 
-  constructor(private koszykService: KoszykService,
+  constructor(
+    private koszykService: KoszykService,
               private wycieczkiService: WycieczkiSerwisService,
               private firebaseService: FirebaseService,
               private spinner: NgxSpinnerService,
               private socket: Socket,
-              private toastr: ToastrService) {
-    this.socket.on('message', (event) => {
-      let message = "";
+              private toastr: ToastrService
+  ) {
 
-      if (!isEqual(event, {})) {
-        forEach(event, (value, key) => {
-          message += `<a href="/wycieczka/${key}">${key}</a>: ${value}%<br>`;
-        });
-
-        this.toastr.success(message, '🔥 Nowe promocje 🔥 Kliknij id aby sprawdzić 🔥' , { positionClass: 'toast-bottom-right', enableHtml: true, disableTimeOut: true});
-      }
-    });
   }
 
   ngOnInit() {
