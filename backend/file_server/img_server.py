@@ -24,5 +24,10 @@ def get_file(file_name):
   return send_from_directory('.', file_name)
 
 
+@app.route('/version', methods=['GET'])
+def version():
+  return '1'
+
+
 if __name__ == "__main__":
-  app.run(host='0.0.0.0', port=5052, debug=True)
+  app.run(host='0.0.0.0', port=5052)
