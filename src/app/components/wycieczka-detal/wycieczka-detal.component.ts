@@ -17,7 +17,7 @@ declare var ol: any;
 })
 export class WycieczkaDetalComponent implements OnInit {
 
-  preferreddDate: any = new Date();
+  preferredDate: Date = new Date();
   settings = {
     bigBanner: true,
     timePicker: false,
