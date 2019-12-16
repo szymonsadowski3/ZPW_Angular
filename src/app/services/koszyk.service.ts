@@ -30,13 +30,13 @@ export class KoszykService {
     return sum;
   }
 
-  addProduct(product: Wycieczka) {
+  addProduct(product: Wycieczka, date = new Date()) {
     console.dir(product);
 
     let foundProduct = this.produkty.filter(item => item.trip[IDKEY] === product[IDKEY]);
 
     if (foundProduct.length === 0) {
-      this.produkty.push({trip: product, count: product.ileZarezerwowano}); // TODO: fix ileZarezerwowano
+      this.produkty.push({trip: product, count: product.ileZarezerwowano, date}); // TODO: fix ileZarezerwowano // TODO: implement date
     } else {
       foundProduct[0].count += 1;
     }

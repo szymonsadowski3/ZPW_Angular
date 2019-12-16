@@ -49,6 +49,8 @@ export class ListaWycieczekComponent implements OnInit {
 
   p: number = 1;
 
+  specifiedItemsPerPage = 9;
+
   constructor(
     private koszykService: KoszykService,
               private wycieczkiService: WycieczkiSerwisService,
