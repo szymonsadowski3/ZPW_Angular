@@ -4,7 +4,7 @@
       <button
         class="btn add-to-cart-button"
         tooltip="Wycieczka dodana do koszyka!" placement="bottom" trigger="click"
-        (click)="this.koszykService.addProduct(this.wycieczka)"
+        (click)="this.koszykService.addProduct(this.wycieczka, this.preferredDate)"
       >
         <i class="fa fa-plus"></i>
       </button>
@@ -41,7 +41,7 @@
     <div class="card-body">
       <h6>Preferowana data wycieczki</h6>
       <div class="date-picker-wrapper mb-2">
-        <angular2-date-picker [(ngModel)]="preferreddDate" [settings]="settings"></angular2-date-picker>
+        <angular2-date-picker [(ngModel)]="preferredDate" [settings]="settings"></angular2-date-picker>
       </div>
 
 
