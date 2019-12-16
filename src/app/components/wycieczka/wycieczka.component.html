@@ -48,7 +48,7 @@
       </ng-template>
     </li>
     <li class="list-group-item" *ngIf="(wycieczka && wycieczka.oceny && wycieczka.oceny.length > 0)">
-      <div>⭐ Średnia ocena: {{this.getTripAvgRating(wycieczka)}}</div>
+      <div>⭐ Średnia ocena: {{this.getTripAvgRating(wycieczka) | number}}</div>
     </li>
   </ul>
   <div class="card-body">
