@@ -8,7 +8,7 @@ import {KoszykService} from '../../services/koszyk.service';
 })
 export class KoszykComponent {
   koszykService: KoszykService;
-  products;
+  products = [];
 
   constructor(koszykService: KoszykService) {
     this.koszykService = koszykService;

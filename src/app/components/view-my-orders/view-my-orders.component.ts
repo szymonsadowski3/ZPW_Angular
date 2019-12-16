@@ -39,13 +39,16 @@ export class ViewMyOrdersComponent implements OnInit {
   }
 
   getTotal(produkty) {
-    console.dir(produkty);
-    let sum = 0;
+    if (!produkty) {
+      return 0;
+    } else {
+      let sum = 0;
 
-    for (const product of produkty) {
-      sum += product.trip.cenaJednostkowa * product.count;
+      for (const product of produkty) {
+        sum += product.trip.cenaJednostkowa * product.count;
+      }
+
+      return sum;
     }
-
-    return sum;
   }
 }
