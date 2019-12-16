@@ -58,9 +58,11 @@ h5 {
 }
 
 .detail-img {
-  height: 300px;
+  height: 400px;
   margin-top: 1rem;
   margin-bottom: 1rem;
+  /*object-fit: contain;*/
+  object-fit: fill;
 }
 
 .date-picker-wrapper {

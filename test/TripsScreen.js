@@ -5,6 +5,10 @@ const TripsScreen = function() {
     return element.all(by.css('.single-wycieczka'));
   };
 
+  this.getFirstTrip = function() {
+    return this.getTrips()[0];
+  };
+
   this.get = function() {
     browser.get(`${cfg.baseUrl}/${cfg.mainPageEndpoint}`);
   };
