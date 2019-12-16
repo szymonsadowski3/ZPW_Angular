@@ -100,8 +100,12 @@ export class WycieczkaDetalComponent implements OnInit {
   checkIfPersonReserveTrip(trip) {
     this.firebaseService.getAllOrders().subscribe((orders: any) => {
       const filteredOrders = orders.filter((order: any) => {
-        const tripsIds = order.products.map(product => product.trip[IDKEY]);
-        return ("whoOrdered" in order) && (order.whoOrdered == this.authService.getUser()) && (tripsIds.includes(this.wycieczkaId));
+        if(order) {
+          const tripsIds = order.products.map(product => product.trip[IDKEY]);
+          return ("whoOrdered" in order) && (order.whoOrdered == this.authService.getUser()) && (tripsIds.includes(this.wycieczkaId));
+        } else {
+          return false;
+        }
       });
 
       this.didUserReserveTrip = filteredOrders.length > 0;
@@ -126,7 +130,7 @@ export class WycieczkaDetalComponent implements OnInit {
     });
 
     this.map = new ol.Map({
-      target: 'map',
+      target: 'mapa',
       layers: [
         mapLayer,
         new ol.layer.Vector({
