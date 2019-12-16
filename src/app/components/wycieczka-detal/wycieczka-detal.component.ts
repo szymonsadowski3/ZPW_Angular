@@ -6,8 +6,8 @@ import {FirebaseService} from "../../services/firebase.service";
 import {AuthService} from "../../services/auth.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {GALLERY_SERVE_URL, IDKEY} from '../../const';
-import {RestService} from "../../services/rest.service";
 import {LonLatCoordinatesService} from '../../services/lon.lat.coordinates.service';
+import get from 'lodash/get';
 
 declare var ol: any;
 
@@ -159,7 +159,7 @@ export class WycieczkaDetalComponent implements OnInit {
     this.wycieczkaId = wycieczkaId;
     this.spinner.show();
     this.firebaseService.getTrip(wycieczkaId).subscribe(response => {
-      const lonLat = this.coordinatesService.getCoordinates(response.docelowyKrajWycieczki);
+      const lonLat = this.coordinatesService.getCoordinates(get(response, 'docelowyKrajWycieczki'));
       this.lon = lonLat[0];
       this.lat = lonLat[1];
 
