@@ -18,7 +18,9 @@ describe('Wycieczki app', function() {
   });
 
   it('Should have a title', function() {
+    browser.waitForAngularEnabled(true);
     browser.get(`${cfg.baseUrl}/${cfg.mainPageEndpoint}`);
+    browser.waitForAngularEnabled(false);
 
     expect(browser.getTitle()).toEqual('Wycieczki');
   });
@@ -44,5 +46,14 @@ describe('Wycieczki app', function() {
     });
   });
 
-
+  it('Should allow user to view trip details', function() {
+    loginScreen.loginProcess().then(() => {
+      browser.sleep(8000).then(
+        () => {
+          tripsScreen.get();
+          tripsScreen.getFirstTrip().click();
+        }
+      )
+    });
+  });
 });
