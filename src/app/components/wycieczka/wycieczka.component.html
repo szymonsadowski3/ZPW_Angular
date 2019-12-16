@@ -29,14 +29,14 @@
   <ul class="list-group list-group-flush">
     <li class="list-group-item">Kraj docelowy: {{wycieczka.docelowyKrajWycieczki | uppercase}}</li>
     <li class="list-group-item">
-      <i class="fas fa-clock"></i> {{wycieczka.dataRozpoczecia}} - {{wycieczka.dataZakonczenia}}
-      <i class="fas fa-clock"></i>
+      📅 {{wycieczka.dataRozpoczecia}} - {{wycieczka.dataZakonczenia}}
+      📅
     </li>
     <li class="list-group-item">
-      <i class="fas fa-dollar-sign"></i> Cena: {{wycieczka.cenaJednostkowa | currency: 'EUR'}}
+      💲 Cena: {{wycieczka.cenaJednostkowa | currency: 'EUR'}}
     </li>
     <li class="list-group-item">
-      <i class="far fa-arrow-alt-circle-down"></i> Max ilość miejsc: {{wycieczka.maxIloscMiejsc}}
+      ⚠ Max ilość miejsc: {{wycieczka.maxIloscMiejsc}}
     </li>
     <li class="list-group-item">
       <div *ngIf="wycieczka.ileZarezerwowano == wycieczka.maxIloscMiejsc; else availablePlaces">
@@ -48,7 +48,7 @@
       </ng-template>
     </li>
     <li class="list-group-item" *ngIf="(wycieczka && wycieczka.oceny && wycieczka.oceny.length > 0)">
-      <div><i class="fa fa-star"></i> Średnia ocena: {{this.getTripAvgRating(wycieczka)}}</div>
+      <div>⭐ Średnia ocena: {{this.getTripAvgRating(wycieczka)}}</div>
     </li>
   </ul>
   <div class="card-body">

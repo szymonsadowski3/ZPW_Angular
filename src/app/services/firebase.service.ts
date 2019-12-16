@@ -1,6 +1,9 @@
 import {Injectable} from '@angular/core';
 import {AngularFireDatabase} from '@angular/fire/database';
 import {AuthService} from './auth.service';
+import get from 'lodash/get';
+import forEach from 'lodash/forEach';
+import {IDKEY} from '../const';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +44,10 @@ export class FirebaseService {
   }
 
   addOrder(order: any) {
+    forEach(get(order, 'products'), product => {
+      this.partialUpdate(product.trip[IDKEY], {ileZarezerwowano: product.trip.ileZarezerwowano});
+    });
+
     const pushId = this.db.createPushId();
     order.id = pushId;
     console.log(pushId);
@@ -69,6 +76,10 @@ export class FirebaseService {
 
   updateTrip(newWycieczka) {
     this.db.object(`/wycieczki/${newWycieczka.id}`).update(newWycieczka);
+  }
+
+  partialUpdate(tripId, partialUpdate) {
+    this.db.object(`/wycieczki/${tripId}`).update(partialUpdate);
   }
 
   getRole(email) {

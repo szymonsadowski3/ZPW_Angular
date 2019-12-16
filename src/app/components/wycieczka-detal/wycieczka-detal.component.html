@@ -19,14 +19,14 @@
     <ul class="list-group list-group-flush">
       <li class="list-group-item">Kraj docelowy: {{this.wycieczka.docelowyKrajWycieczki | uppercase}}</li>
       <li class="list-group-item">
-        <i class="fas fa-clock"></i> {{this.wycieczka.dataRozpoczecia}} - {{this.wycieczka.dataZakonczenia}}
-        <i class="fas fa-clock"></i>
+        📅 {{this.wycieczka.dataRozpoczecia}} - {{this.wycieczka.dataZakonczenia}}
+        📅
       </li>
       <li class="list-group-item">
-        <i class="fas fa-dollar-sign"></i> Cena: {{this.wycieczka.cenaJednostkowa | currency: 'EUR'}}
+        💲 Cena: {{this.wycieczka.cenaJednostkowa | currency: 'EUR'}}
       </li>
       <li class="list-group-item">
-        <i class="far fa-arrow-alt-circle-down"></i> Max ilość miejsc: {{this.wycieczka.maxIloscMiejsc}}
+        ⚠ Max ilość miejsc: {{this.wycieczka.maxIloscMiejsc}}
       </li>
       <li class="list-group-item">
         <div *ngIf="this.wycieczka.ileZarezerwowano == this.wycieczka.maxIloscMiejsc; else availablePlaces">
