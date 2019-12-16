@@ -47,7 +47,7 @@ export class ListaWycieczekComponent implements OnInit {
   filterPriceMin = 1;
   filterPriceMax = 1;
 
-  p: number = 1;
+  page: number = 1;
 
   specifiedItemsPerPage = 9;
 
@@ -90,6 +90,8 @@ export class ListaWycieczekComponent implements OnInit {
       this.filterPriceMax = this.maxPriceTrip.cenaJednostkowa;
 
       this.priceRangeOptions.ceil = this.filterPriceMax;
+
+      this.initializeSum();
 
       this.spinner.hide();
     });
@@ -180,5 +182,15 @@ export class ListaWycieczekComponent implements OnInit {
       priceMax: this.filterForm.get('priceMax').value,
       avgRating: this.filterForm.get('avgRating').value
     });
+  }
+
+  private initializeSum() {
+    let sum = 0;
+
+    this.wycieczki.forEach(wycieczka => {
+      sum += wycieczka.ileZarezerwowano;
+    });
+
+    this.sum = sum;
   }
 }

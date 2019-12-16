@@ -7,6 +7,7 @@ import {AuthService} from "../../services/auth.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {GALLERY_SERVE_URL, IDKEY} from '../../const';
 import {RestService} from "../../services/rest.service";
+import {LonLatCoordinatesService} from '../../services/lon.lat.coordinates.service';
 
 declare var ol: any;
 
@@ -90,7 +91,8 @@ export class WycieczkaDetalComponent implements OnInit {
     private route: ActivatedRoute,
     private firebaseService: FirebaseService,
     private authService: AuthService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private coordinatesService: LonLatCoordinatesService,
   ) {
     this.wycieczka = this.getInitialBlankObject();
   }
@@ -106,30 +108,7 @@ export class WycieczkaDetalComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    const wycieczkaId = this.route.snapshot.paramMap.get('id');
-    this.wycieczkaId = wycieczkaId;
-    this.spinner.show();
-    this.firebaseService.getTrip(wycieczkaId).subscribe(response => {
-      console.dir(response);
-      this.wycieczka = response;
-      this.checkIfPersonReserveTrip(this.wycieczka);
-      this.countRatings();
-      this.alreadyRated = this.userAlreadyRated();
-
-      if ('galleryImgs' in this.wycieczka) {
-        this.galleryImages = this.wycieczka.galleryImgs.map(imageName => {
-          return {
-            small: `${GALLERY_SERVE_URL}/${imageName}`,
-            medium: `${GALLERY_SERVE_URL}/${imageName}`,
-            big: `${GALLERY_SERVE_URL}/${imageName}`,
-          };
-        });
-      }
-
-      this.spinner.hide();
-    });
-
+  initializeMap() {
     const markerSource = new ol.source.Vector();
 
     const markerStyle = new ol.style.Style({
@@ -173,6 +152,36 @@ export class WycieczkaDetalComponent implements OnInit {
     }
 
     addMarker(this.lon, this.lat);
+  }
+
+  ngOnInit() {
+    const wycieczkaId = this.route.snapshot.paramMap.get('id');
+    this.wycieczkaId = wycieczkaId;
+    this.spinner.show();
+    this.firebaseService.getTrip(wycieczkaId).subscribe(response => {
+      const lonLat = this.coordinatesService.getCoordinates(response.docelowyKrajWycieczki);
+      this.lon = lonLat[0];
+      this.lat = lonLat[1];
+
+      this.initializeMap();
+
+      this.wycieczka = response;
+      this.checkIfPersonReserveTrip(this.wycieczka);
+      this.countRatings();
+      this.alreadyRated = this.userAlreadyRated();
+
+      if ('galleryImgs' in this.wycieczka) {
+        this.galleryImages = this.wycieczka.galleryImgs.map(imageName => {
+          return {
+            small: `${GALLERY_SERVE_URL}/${imageName}`,
+            medium: `${GALLERY_SERVE_URL}/${imageName}`,
+            big: `${GALLERY_SERVE_URL}/${imageName}`,
+          };
+        });
+      }
+
+      this.spinner.hide();
+    });
   }
 
   onClickPlusButton(item) {
