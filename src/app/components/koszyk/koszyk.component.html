@@ -69,6 +69,7 @@
             mwlConfirmationPopover
             [popoverMessage]="'Na pewno chcesz to zrobic?'"
             (confirm)="this.submitOrder()"
+            *ngIf="products.length > 0"
           >Checkout <i class="fa fa-angle-right"></i>
           </button>
 
