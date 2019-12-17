@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "cyo": "npx cypress open --project test/cypress"
+    "cyp:open": "npx cypress open --project test"
   },
   "private": true,
   "dependencies": {

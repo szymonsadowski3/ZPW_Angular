@@ -40,7 +40,7 @@
         </td>
         <td data-th="Price">{{product.trip.cenaJednostkowa | currency: 'EUR'}}</td>
         <td data-th="Quantity">
-          <input type="number" min="0" class="form-control text-center" value="{{product.count}}"
+          <input type="number" min="0" class="form-control text-center quantity-input" value="{{product.count}}"
                  (change)="this.countChanged($event, product)">
         </td>
         <td data-th="Subtotal"
@@ -65,7 +65,7 @@
         <td class="hidden-xs text-center"><strong>Total: {{this.getTotal() | currency: 'EUR'}}</strong></td>
         <td>
           <button
-            class="btn btn-success btn-block"
+            class="btn btn-success btn-block checkout-button"
             mwlConfirmationPopover
             [popoverMessage]="'Na pewno chcesz to zrobic?'"
             (confirm)="this.submitOrder()"
