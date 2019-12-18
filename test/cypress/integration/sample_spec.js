@@ -34,7 +34,7 @@ class LoginScreen {
 
   adminLoginProcess() {
     this.get();
-    this.fillLogin();
+    this.fillAdminLogin();
     return this.submitLogin();
   }
 }
