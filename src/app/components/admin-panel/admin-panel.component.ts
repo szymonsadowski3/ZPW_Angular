@@ -58,7 +58,9 @@ export class AdminPanelComponent implements OnInit {
   }
 
   removeTrip(wycieczka: any) {
-    const observable = this.firebaseService.deleteTrip(wycieczka);
+    this.firebaseService.deleteTrip(wycieczka).subscribe((res: any) => {
+      console.dir(res);
+    });
   }
 
   addPromotion() {

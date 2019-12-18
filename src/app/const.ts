@@ -17,4 +17,4 @@ export const PROMOTION_API_URL = 'http://ec2-18-184-171-99.eu-central-1.compute.
 export const SOCKET_IO_URL = 'http://ec2-18-184-171-99.eu-central-1.compute.amazonaws.com:8080/';
 
 // export const REST_BASE_URL = 'http://localhost:5001';
-export const REST_BASE_URL = 'http://ec2-18-184-171-99.eu-central-1.compute.amazonaws.com/:5001';
+export const REST_BASE_URL = 'http://ec2-18-184-171-99.eu-central-1.compute.amazonaws.com:5001';

@@ -26,7 +26,7 @@ export class ViewMyOrdersComponent implements OnInit {
 
   ngOnInit() {
     this.spinner.show();
-    this.firebaseService.getAllOrders().subscribe((orders) => {
+    this.firebaseService.getAllOrders().subscribe((orders: any) => {
       this.orders = orders;
       this.getFilteredOrders();
       this.spinner.hide();
