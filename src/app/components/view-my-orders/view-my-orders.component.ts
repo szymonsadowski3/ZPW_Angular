@@ -3,6 +3,7 @@ import {AuthService} from '../../services/auth.service';
 import {FirebaseService} from "../../services/firebase.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {IDKEY} from 'src/app/const';
+import {RestService} from '../../services/rest.service';
 
 @Component({
   selector: 'view-my-orders-component',
@@ -12,7 +13,7 @@ import {IDKEY} from 'src/app/const';
 export class ViewMyOrdersComponent implements OnInit {
   constructor(
     private authService: AuthService,
-    private firebaseService: FirebaseService,
+    private firebaseService: RestService,
     // private router: Router,
     private spinner: NgxSpinnerService
   ) {

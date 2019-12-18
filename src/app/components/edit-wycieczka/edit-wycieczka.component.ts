@@ -18,7 +18,7 @@ export class EditWycieczkaComponent implements OnInit {
 
   constructor(
     private wycieczkiService: WycieczkiSerwisService,
-    private firebaseService: FirebaseService,
+    private firebaseService: RestService,
     private route: ActivatedRoute,
     private spinner: NgxSpinnerService,
   ) {

@@ -5,6 +5,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {AuthService} from './auth.service';
 import {Router} from '@angular/router';
 import {IDKEY} from "../const";
+import {RestService} from './rest.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ import {IDKEY} from "../const";
 export class KoszykService {
   produkty;
 
-  constructor(private firebaseService: FirebaseService, private spinner: NgxSpinnerService, private authService: AuthService, private router: Router) {
+  constructor(private firebaseService: RestService, private spinner: NgxSpinnerService, private authService: AuthService, private router: Router) {
     this.produkty = [];
   }
 

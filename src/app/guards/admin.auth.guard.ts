@@ -9,6 +9,7 @@ import {FirebaseService} from '../services/firebase.service';
 import {checkAdminRole} from '../utils.module';
 import {AngularFireAuth} from '@angular/fire/auth';
 import get from 'lodash/get';
+import {RestService} from '../services/rest.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ import get from 'lodash/get';
 export class AdminAuthGuard implements CanActivate {
   constructor(private authService: AuthService,
               private router: Router,
-              private firebaseService: FirebaseService,
+              private firebaseService: RestService,
               private fireAuth: AngularFireAuth) {
   }
 

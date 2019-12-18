@@ -20,7 +20,7 @@ export class AdminPanelComponent implements OnInit {
   constructor(private authService: AuthService,
               private router: Router,
               private spinner: NgxSpinnerService,
-              private firebaseService: FirebaseService,
+              private firebaseService: RestService,
               private promotionService: PromotionService,) {
   }
 

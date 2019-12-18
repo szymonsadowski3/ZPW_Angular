@@ -13,7 +13,8 @@
     "e2e": "ng e2e",
     "cypress:open": "npx cypress open --project test",
     "file_server:start": "python backend/file_server/img_server.py",
-    "socket_server:start": "node backend/rest_backend/src/socketio_serv"
+    "socket_server:start": "node backend/rest_backend/src/socketio_serv",
+    "rest_server:start": "node -r babel-register src/rest_serv.js"
   },
   "private": true,
   "dependencies": {

@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FirebaseService} from "../../services/firebase.service";
 import {IDKEY} from 'src/app/const';
 import {getTripAverageRating} from '../../utils.module';
+import {RestService} from '../../services/rest.service';
 
 @Component({
   selector: 'wycieczka-component',
@@ -18,7 +19,7 @@ export class WycieczkaComponent {
 
   IDKEY = IDKEY;
 
-  constructor(private firebaseService: FirebaseService) {}
+  constructor(private firebaseService: RestService) {}
 
   onClickPlusButton(item) {
     if (item.ileZarezerwowano < item.maxIloscMiejsc) {

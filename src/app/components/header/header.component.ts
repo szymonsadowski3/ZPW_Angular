@@ -5,6 +5,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {FirebaseService} from '../../services/firebase.service';
 import get from 'lodash/get';
 import {AngularFireAuth} from '@angular/fire/auth';
+import {RestService} from '../../services/rest.service';
 
 @Component({
   selector: 'header-component',
@@ -17,7 +18,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private fireAuth: AngularFireAuth,
-    private firebaseService: FirebaseService,
+    private firebaseService: RestService,
     private router: Router,
     private spinner: NgxSpinnerService
   ) {}

@@ -14,7 +14,7 @@ import {FileUploadService} from '../../services/file.upload.service';
 export class NewWycieczkaComponent implements OnInit {
   modelForm: FormGroup;
 
-  constructor(private wycieczkiService: WycieczkiSerwisService, private firebaseService: FirebaseService, private fileUploadService: FileUploadService) {
+  constructor(private wycieczkiService: WycieczkiSerwisService, private firebaseService: RestService, private fileUploadService: FileUploadService) {
   }
 
   ngOnInit(): void {

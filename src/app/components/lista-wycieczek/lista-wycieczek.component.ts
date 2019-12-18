@@ -54,7 +54,7 @@ export class ListaWycieczekComponent implements OnInit {
   constructor(
     private koszykService: KoszykService,
               private wycieczkiService: WycieczkiSerwisService,
-              private firebaseService: FirebaseService,
+              private firebaseService: RestService,
               private spinner: NgxSpinnerService,
               private socket: Socket,
               private toastr: ToastrService

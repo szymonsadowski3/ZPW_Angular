@@ -2,12 +2,12 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {WycieczkiSerwisService} from "../../services/wycieczki-serwis.service";
 import {ActivatedRoute} from "@angular/router";
 import {KoszykService} from "../../services/koszyk.service";
-import {FirebaseService} from "../../services/firebase.service";
 import {AuthService} from "../../services/auth.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {GALLERY_SERVE_URL, IDKEY} from '../../const';
 import {LonLatCoordinatesService} from '../../services/lon.lat.coordinates.service';
 import get from 'lodash/get';
+import {RestService} from '../../services/rest.service';
 
 declare var ol: any;
 
@@ -89,7 +89,7 @@ export class WycieczkaDetalComponent implements OnInit {
     private wycieczkiService: WycieczkiSerwisService,
     private koszykService: KoszykService,
     private route: ActivatedRoute,
-    private firebaseService: FirebaseService,
+    private firebaseService: RestService,
     private authService: AuthService,
     private spinner: NgxSpinnerService,
     private coordinatesService: LonLatCoordinatesService,

@@ -4,12 +4,14 @@ import {AngularFireDatabase} from '@angular/fire/database';
 import {AuthService} from "./auth.service";
 import {HttpClient} from '@angular/common/http';
 import {fakeWycieczki} from '../data/fake.dane';
+import {REST_BASE_URL} from '../const';
+import {of} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RestService {
-  apiBaseUrl = 'http://localhost:5001';
+  apiBaseUrl = REST_BASE_URL;
   tripsEndpoint = '/wycieczki';
   ordersEndpoint = '/orders';
 
@@ -69,5 +71,9 @@ export class RestService {
 
   getAllOrders() {
     return this.http.get(`${this.apiBaseUrl}${this.ordersEndpoint}`);
+  }
+
+  getRole(whoever) {
+    return of([{role: 'admin'}]);
   }
 }
