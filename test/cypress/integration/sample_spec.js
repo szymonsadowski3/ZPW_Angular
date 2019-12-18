@@ -1,8 +1,10 @@
 const cfg = {
   baseUrl: 'http://localhost:5000',
   mainPageEndpoint: 'wycieczki',
-  userName: 'szymonsadowski3@gmail.com',
+  userName: 'szymonsadowski@gmail.com',
   userPass: 'bimber12',
+  adminName: 'szymonsadowski3@gmail.com',
+  adminPass: 'bimber12',
 };
 
 class LoginScreen {
@@ -15,11 +17,22 @@ class LoginScreen {
     cy.get("#inputPasswordForm").type(cfg.userPass);
   }
 
+  fillAdminLogin(name) {
+    cy.get("#inputEmailForm").type(cfg.adminName);
+    cy.get("#inputPasswordForm").type(cfg.adminPass);
+  }
+
   submitLogin(name) {
     cy.get("#login-button").click();
   }
 
   loginProcess() {
+    this.get();
+    this.fillLogin();
+    return this.submitLogin();
+  }
+
+  adminLoginProcess() {
     this.get();
     this.fillLogin();
     return this.submitLogin();
@@ -48,7 +61,6 @@ class TripsScreen {
     return cy.get('.site-title-bar');
   }
 
-
   get() {
     cy.visit(`${cfg.baseUrl}/${cfg.mainPageEndpoint}`);
   }
@@ -56,6 +68,10 @@ class TripsScreen {
   route() {
     cy.server();
     cy.route(`/${cfg.mainPageEndpoint}`);
+  }
+
+  getAdminPanelButton() {
+    return cy.get('.admin-panel-button');
   }
 }
 const tripsScreen = new TripsScreen();
@@ -127,6 +143,13 @@ class ListOfOrders {
   }
 };
 const listOfOrders = new ListOfOrders();
+
+class AdminPanel {
+  getHeader() {
+    return cy.get('h1');
+  }
+};
+const adminPanel = new AdminPanel();
 
 
 // Common functions
@@ -237,4 +260,16 @@ describe('Wycieczki app', function() {
   //   listOfOrders.getOrderSummaries().its('length').should('be.gt', 0);
   // });
 
+  it('Should not show option to go to admin panel for standard user', function() {
+    loginScreen.loginProcess();
+    tripsScreen.getLoggedUserButton().click();
+    tripsScreen.getAdminPanelButton().should('not.exist');
+  });
+
+  it('Should allow admin to access the admin panel', function() {
+    loginScreen.adminLoginProcess();
+    tripsScreen.getLoggedUserButton().click();
+    tripsScreen.getAdminPanelButton().click();
+    adminPanel.getHeader().should('contain', 'Admin');
+  });
 });
