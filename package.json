@@ -8,7 +8,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "cypress:open": "npx cypress open --project test"
+    "cypress:open": "npx cypress open --project test",
+    "file_server:start": "python backend/file_server/img_server.py",
+    "socket_server:start": "node backend/rest_backend/src/socketio_serv"
   },
   "private": true,
   "dependencies": {
@@ -54,10 +56,11 @@
     "@angular/cli": "~8.3.18",
     "@angular/compiler-cli": "~8.2.13",
     "@angular/language-service": "~8.2.13",
-    "@types/node": "~8.9.4",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
+    "@types/node": "~8.9.4",
     "codelyzer": "^5.0.0",
+    "cypress-file-upload": "^3.5.1",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.1.0",

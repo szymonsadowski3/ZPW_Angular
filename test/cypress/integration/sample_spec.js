@@ -80,6 +80,11 @@ class TripsDetails {
   getAddToCartButton() {
     return cy.get('.add-to-cart-button');
   }
+
+  getImageInGallery() {
+    return cy.get('.ngx-gallery-image');
+    // ngx-gallery-thumbnail
+  }
 }
 const tripsDetails = new TripsDetails();
 
@@ -148,6 +153,22 @@ class AdminPanel {
   getHeader() {
     return cy.get('h1');
   }
+
+  getAddNewTripButton() {
+    return cy.get('.add-new-trip-btn');
+  }
+
+  getNewTripFileInput() {
+    return cy.get('input[type=file]');
+  }
+
+  getLastTripFromTheList() {
+    return cy.get('tbody tr a').last();
+  }
+
+  getDropZone() {
+    return cy.get('.ngx-file-drop__drop-zone');
+  }
 };
 const adminPanel = new AdminPanel();
 
@@ -188,6 +209,13 @@ function submitOrderAndViewListOfOrders() {
   tripsScreen.getLoggedUserButton().click();
   cart.getShowMyOrdersButton().click();
 }
+
+function goToAdminPanel() {
+  loginScreen.adminLoginProcess();
+  cy.wait(1000);
+  tripsScreen.getLoggedUserButton().click();
+  tripsScreen.getAdminPanelButton().click();
+}
 // /Common functions
 
 describe('Wycieczki app', function() {
@@ -212,13 +240,13 @@ describe('Wycieczki app', function() {
   //   tripsScreen.getTrips().its('length').should('be.gt', 0);
   // });
   //
-  // it('Should allow user to view trip details', function() {
-  //   loginScreen.loginProcess();
-  //   tripsScreen.route();
-  //   tripsScreen.getTripsMainSections().first().click();
-  //   cy.location('pathname').should('contain', '/wycieczka');
-  // });
-  //
+  it('Should allow user to view trip details', function() {
+    loginScreen.loginProcess();
+    tripsScreen.route();
+    tripsScreen.getTripsMainSections().first().click();
+    cy.location('pathname').should('contain', '/wycieczka');
+  });
+
 
   // it('Should allow user to add a trip to the cart', function() {
   //   addFirstTripToCart();
@@ -260,16 +288,35 @@ describe('Wycieczki app', function() {
   //   listOfOrders.getOrderSummaries().its('length').should('be.gt', 0);
   // });
 
-  it('Should not show option to go to admin panel for standard user', function() {
-    loginScreen.loginProcess();
-    tripsScreen.getLoggedUserButton().click();
-    tripsScreen.getAdminPanelButton().should('not.exist');
+  // it('Should not show option to go to admin panel for standard user', function() {
+  //   loginScreen.loginProcess();
+  //   tripsScreen.getLoggedUserButton().click();
+  //   tripsScreen.getAdminPanelButton().should('not.exist');
+  // });
+
+  // it('Should allow admin to access the admin panel', function() {
+  //   goToAdminPanel();
+  //   adminPanel.getHeader().should('contain', 'Admin');
+  // });
+
+  it('Should allow admin to define new trip (with custom photos)', function() {
+    goToAdminPanel();
+    const fileName = 'vacation1.jpg';
+
+    cy.fixture(fileName).then(fileContent => {
+      adminPanel.getNewTripFileInput().upload({ fileContent, fileName, mimeType: 'image/jpg' });
+    });
+
+    cy.wait(2000);
+
+    adminPanel.getAddNewTripButton().click();
+
+    adminPanel.getLastTripFromTheList().click();
+
+    cy.wait(1000);
+
+    tripsDetails.getImageInGallery().should('exist');
   });
 
-  it('Should allow admin to access the admin panel', function() {
-    loginScreen.adminLoginProcess();
-    tripsScreen.getLoggedUserButton().click();
-    tripsScreen.getAdminPanelButton().click();
-    adminPanel.getHeader().should('contain', 'Admin');
-  });
+  // TODO: filtering, removing trips, editing trips, adding promotions, viewing promotions
 });
