@@ -44,6 +44,11 @@ class TripsScreen {
     return cy.get('.logged-user-button');
   }
 
+  getSiteTitleBar() {
+    return cy.get('.site-title-bar');
+  }
+
+
   get() {
     cy.visit(`${cfg.baseUrl}/${cfg.mainPageEndpoint}`);
   }
@@ -90,6 +95,10 @@ class Cart {
   getShowMyOrdersButton() {
     return cy.get('.show-my-orders-button');
   }
+
+  getLastRemoveItemFromTheCartButton() {
+    return cy.get('.remove-item-from-cart-button').last();
+  }
 }
 const cart = new Cart();
 
@@ -124,6 +133,12 @@ function addFirstTripToCart() {
   tripsScreen.route();
 
   tripsScreen.getTripsMainSections().first().click();
+  tripsDetails.getAddToCartButton().click();
+}
+
+function addSecondTripToCart() {
+  tripsScreen.getSiteTitleBar().click();
+  tripsScreen.getTripsMainSections().eq(2).click();
   tripsDetails.getAddToCartButton().click();
 }
 
@@ -164,12 +179,24 @@ describe('Wycieczki app', function() {
   //   cy.location('pathname').should('contain', '/wycieczka');
   // });
   //
+
   // it('Should allow user to add a trip to the cart', function() {
   //   addFirstTripToCart();
   //   cart.getOpenCartToggle().click();
   //   cart.getRows().its('length').should('be.gt', 0);
   // });
-  //
+
+  it('Should allow user to remove items from the cart', function() {
+    addFirstTripToCart();
+    cy.wait(500);
+    addSecondTripToCart();
+    cart.getOpenCartToggle().click();
+    cart.getRows().its('length').should('eq', 2);
+    cart.getLastRemoveItemFromTheCartButton().click();
+    cart.getRows().its('length').should('eq', 1);
+  });
+
+
   // it('Should allow user to make a reservation after filling the cart', function() {
   //   addFirstTripToCart();
   //   submitOrder();
@@ -177,13 +204,13 @@ describe('Wycieczki app', function() {
   //   afterOrder.getMessage().should('exist');
   // });
 
-  it('Should allow user to view the list of reservations after making an order', function() {
-    addFirstTripToCart();
-    submitOrder();
-    afterOrder.getGoBackButton().click();
-    tripsScreen.getLoggedUserButton().click();
-    cart.getShowMyOrdersButton().click();
-    listOfOrders.getOrderSummaries().its('length').should('be.gt', 0);
-  });
+  // it('Should allow user to view the list of reservations after making an order', function() {
+  //   addFirstTripToCart();
+  //   submitOrder();
+  //   afterOrder.getGoBackButton().click();
+  //   tripsScreen.getLoggedUserButton().click();
+  //   cart.getShowMyOrdersButton().click();
+  //   listOfOrders.getOrderSummaries().its('length').should('be.gt', 0);
+  // });
 
 });
