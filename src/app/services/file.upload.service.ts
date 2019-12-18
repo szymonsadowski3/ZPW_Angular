@@ -1,10 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Wycieczka} from '../models/wycieczka.model';
-import {FirebaseService} from './firebase.service';
-import {NgxSpinnerService} from 'ngx-spinner';
-import {AuthService} from './auth.service';
-import {Router} from '@angular/router';
-import {GALLERY_UPLOAD_URL, IDKEY} from '../const';
+import {GALLERY_UPLOAD_URL} from '../const';
 import {FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry} from 'ngx-file-drop';
 import {HttpClient} from '@angular/common/http';
 
