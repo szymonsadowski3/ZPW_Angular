@@ -121,6 +121,10 @@ class ListOfOrders {
   getOrderSummaries() {
     return cy.get('.order-summary');
   }
+
+  getLastRowQuantity() {
+    return cy.get('tbody tr .quantity').last();
+  }
 };
 const listOfOrders = new ListOfOrders();
 
@@ -147,6 +151,19 @@ function submitOrder() {
   cart.getQuantityInput().type(1);
   cart.getCheckoutButton().click();
   cart.getCheckoutConfirmButton().click();
+}
+
+function makeOrder() {
+  cart.getGoToCartButton().click();
+  cart.getCheckoutButton().click();
+  cart.getCheckoutConfirmButton().click();
+}
+
+function submitOrderAndViewListOfOrders() {
+  makeOrder();
+  afterOrder.getGoBackButton().click();
+  tripsScreen.getLoggedUserButton().click();
+  cart.getShowMyOrdersButton().click();
 }
 // /Common functions
 
@@ -186,16 +203,26 @@ describe('Wycieczki app', function() {
   //   cart.getRows().its('length').should('be.gt', 0);
   // });
 
-  it('Should allow user to remove items from the cart', function() {
-    addFirstTripToCart();
-    cy.wait(500);
-    addSecondTripToCart();
-    cart.getOpenCartToggle().click();
-    cart.getRows().its('length').should('eq', 2);
-    cart.getLastRemoveItemFromTheCartButton().click();
-    cart.getRows().its('length').should('eq', 1);
-  });
+  // it('Should allow user to remove items from the cart', function() {
+  //   addFirstTripToCart();
+  //   cy.wait(500);
+  //   addSecondTripToCart();
+  //   cart.getOpenCartToggle().click();
+  //   cart.getRows().its('length').should('eq', 2);
+  //   cart.getLastRemoveItemFromTheCartButton().click();
+  //   cart.getRows().its('length').should('eq', 1);
+  // });
 
+  // it('Should allow user to specify quantity of reserved seats on a trip', function() {
+  //   addFirstTripToCart();
+  //   cy.wait(500);
+  //   addSecondTripToCart();
+  //   cart.getOpenCartToggle().click();
+  //   cart.getQuantityInput().clear();
+  //   cart.getQuantityInput().type(2);
+  //   submitOrderAndViewListOfOrders();
+  //   listOfOrders.getLastRowQuantity().should('contain', '2');
+  // });
 
   // it('Should allow user to make a reservation after filling the cart', function() {
   //   addFirstTripToCart();
@@ -206,10 +233,7 @@ describe('Wycieczki app', function() {
 
   // it('Should allow user to view the list of reservations after making an order', function() {
   //   addFirstTripToCart();
-  //   submitOrder();
-  //   afterOrder.getGoBackButton().click();
-  //   tripsScreen.getLoggedUserButton().click();
-  //   cart.getShowMyOrdersButton().click();
+  //   submitOrderAndViewListOfOrders();
   //   listOfOrders.getOrderSummaries().its('length').should('be.gt', 0);
   // });
 
