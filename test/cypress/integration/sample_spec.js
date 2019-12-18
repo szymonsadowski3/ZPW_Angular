@@ -1,73 +1,71 @@
-const baseUrl = 'http://localhost:5000';
-const mainPageEndpoint = 'wycieczki';
-const userName = 'szymonsadowski3@gmail.com';
-const userPass = 'bimber12';
-
 const cfg = {
-  baseUrl,
-  mainPageEndpoint,
-  userName,
-  userPass,
+  baseUrl: 'http://localhost:5000',
+  mainPageEndpoint: 'wycieczki',
+  userName: 'szymonsadowski3@gmail.com',
+  userPass: 'bimber12',
 };
 
 class LoginScreen {
   get() {
     cy.visit(`${cfg.baseUrl}/login`);
-  };
+  }
 
   fillLogin(name) {
     cy.get("#inputEmailForm").type(cfg.userName);
     cy.get("#inputPasswordForm").type(cfg.userPass);
-
-  };
+  }
 
   submitLogin(name) {
     cy.get("#login-button").click();
-  };
+  }
 
   loginProcess() {
     this.get();
     this.fillLogin();
     return this.submitLogin();
-  };
-};
+  }
+}
 const loginScreen = new LoginScreen();
 
 class TripsScreen {
   getTrips() {
     return cy.get('.single-wycieczka');
-  };
+  }
 
   getTripsMainSections() {
     return cy.get('.single-wycieczka .main-section');
-  };
+  }
 
   getFirstTrip() {
     return this.getTrips()[0];
-  };
+  }
+
+  getLoggedUserButton() {
+    return cy.get('.logged-user-button');
+  }
 
   get() {
     cy.visit(`${cfg.baseUrl}/${cfg.mainPageEndpoint}`);
-  };
+  }
 
   route() {
     cy.server();
-    cy.route(`/${mainPageEndpoint}`);
+    cy.route(`/${cfg.mainPageEndpoint}`);
   }
-};
+}
 const tripsScreen = new TripsScreen();
 
 class TripsDetails {
   getAddToCartButton() {
     return cy.get('.add-to-cart-button');
-  };
-};
+  }
+}
 const tripsDetails = new TripsDetails();
 
 class Cart {
   getOpenCartToggle() {
     return cy.get('.open-cart-toggle');
-  };
+  }
 
   getGoToCartButton() {
     return cy.get('.go-to-cart-button');
@@ -75,7 +73,7 @@ class Cart {
 
   getRows() {
     return cy.get('tbody tr');
-  };
+  }
 
   getCheckoutButton() {
     return cy.get('.checkout-button').last();
@@ -88,7 +86,11 @@ class Cart {
   getQuantityInput() {
     return cy.get('.quantity-input').last();
   }
-};
+
+  getShowMyOrdersButton() {
+    return cy.get('.show-my-orders-button');
+  }
+}
 const cart = new Cart();
 
 class AfterOrder {
@@ -96,20 +98,42 @@ class AfterOrder {
       return cy.get('.thank-you-for-order-msg');
     }
 
+    getGoBackButton() {
+      return cy.get('.go-back-to-main-page-btn');
+    }
+
     getEndpoint() {
       return '/after-order';
     }
 };
 const afterOrder = new AfterOrder();
-// Common functions
 
+class ListOfOrders {
+  getOrderSummaries() {
+    return cy.get('.order-summary');
+  }
+};
+const listOfOrders = new ListOfOrders();
+
+
+// Common functions
 function addFirstTripToCart() {
   loginScreen.loginProcess();
-  tripsScreen.get();
+
+  // tripsScreen.get();
+  tripsScreen.route();
+
   tripsScreen.getTripsMainSections().first().click();
   tripsDetails.getAddToCartButton().click();
 }
 
+function submitOrder() {
+  cart.getGoToCartButton().click();
+  cart.getQuantityInput().type(1);
+  cart.getCheckoutButton().click();
+  cart.getCheckoutConfirmButton().click();
+}
+// /Common functions
 
 describe('Wycieczki app', function() {
   // it('Should open without crashing', function () {
@@ -140,21 +164,26 @@ describe('Wycieczki app', function() {
   //   cy.location('pathname').should('contain', '/wycieczka');
   // });
   //
-  it('Should allow user to add a trip to the cart', function() {
-    addFirstTripToCart();
-    cart.getOpenCartToggle().click();
-    cart.getRows().its('length').should('be.gt', 0);
-  });
+  // it('Should allow user to add a trip to the cart', function() {
+  //   addFirstTripToCart();
+  //   cart.getOpenCartToggle().click();
+  //   cart.getRows().its('length').should('be.gt', 0);
+  // });
+  //
+  // it('Should allow user to make a reservation after filling the cart', function() {
+  //   addFirstTripToCart();
+  //   submitOrder();
+  //   cy.location('pathname').should('contain', afterOrder.getEndpoint());
+  //   afterOrder.getMessage().should('exist');
+  // });
 
-  it('Should allow user to make a reservation after filling the cart', function() {
+  it('Should allow user to view the list of reservations after making an order', function() {
     addFirstTripToCart();
-    cart.getGoToCartButton().click();
-    cart.getQuantityInput().type(1);
-    cart.getCheckoutButton().click();
-    cart.getCheckoutConfirmButton().click();
-    cy.location('pathname').should('contain', afterOrder.getEndpoint());
-    afterOrder.getMessage().should('exist');
-    // thank-you-for-order-msg
+    submitOrder();
+    afterOrder.getGoBackButton().click();
+    tripsScreen.getLoggedUserButton().click();
+    cart.getShowMyOrdersButton().click();
+    listOfOrders.getOrderSummaries().its('length').should('be.gt', 0);
   });
 
 });
