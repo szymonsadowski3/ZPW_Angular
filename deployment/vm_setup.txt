@@ -28,5 +28,7 @@ forever start /usr/bin/serve -l 1234 -s /home/ubuntu/biur/biuroPodrozy/
 sudo forever start -c "sudo /usr/bin/python3" /home/ubuntu/backend/img_server.py
 forever start -c /usr/bin/node src/socketio_serv.js
 forever start -c "serve -s" "/home/ubuntu/dist/hello-world"
-
+forever start -c "node -r babel-register" /home/ubuntu/src/rest_serv.js
+forever start /usr/bin/serve -l 12345 -s /home/ubuntu/rest-front
+nohup node -r babel-register /home/ubuntu/src/rest_serv.js &
 
