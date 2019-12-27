@@ -74,6 +74,14 @@ class TripsScreen {
   getAdminPanelButton() {
     return cy.get('.admin-panel-button');
   }
+
+  getFilterDropdown() {
+    return cy.get('.cuppa-dropdown');
+  }
+
+  getFirstFilterOption() {
+    return cy.get('.cuppa-dropdown li').first();
+  }
 }
 const tripsScreen = new TripsScreen();
 
@@ -384,23 +392,29 @@ describe('Wycieczki app', function() {
   //   });
   // });
 
-  it('Should allow admin to update trips', function() {
-    const newTitleForTest = 'Nowy tytuł na potrzeby testu';
-
-    goToAdminPanel();
-    adminPanel.getLastUpdateButton().click();
-    cy.wait(500);
-    adminPanel.getHeader3().should('contain', AdminPanel.updateScreenText);
-    adminPanel.getTitleInput().clear();
-    adminPanel.getTitleInput().type(newTitleForTest);
-    adminPanel.editTripButton().click();
-    adminPanel.getGoBackButton().click();
-    cy.wait(1000);
-    adminPanel.getLastTripFromTheList().should('contain', newTitleForTest);
-  });
+  // it('Should allow admin to update trips', function() {
+  //   const newTitleForTest = 'Nowy tytuł na potrzeby testu';
+  //
+  //   goToAdminPanel();
+  //   adminPanel.getLastUpdateButton().click();
+  //   cy.wait(500);
+  //   adminPanel.getHeader3().should('contain', AdminPanel.updateScreenText);
+  //   adminPanel.getTitleInput().clear();
+  //   adminPanel.getTitleInput().type(newTitleForTest);
+  //   adminPanel.editTripButton().click();
+  //   adminPanel.getGoBackButton().click();
+  //   cy.wait(1000);
+  //   adminPanel.getLastTripFromTheList().should('contain', newTitleForTest);
+  // });
 
   it('Should allow user to filter trips', function() {
-
+    loginScreen.loginProcess();
+    tripsScreen.get();
+    tripsScreen.getTrips().its('length').then((howManyTrips) => {
+      tripsScreen.getFilterDropdown().click();
+      tripsScreen.getFirstFilterOption().click();
+      tripsScreen.getTrips().its('length').should('be.lt', howManyTrips);
+    });
   });
 
   // TODO: filtering, removing trips, editing trips, adding promotions, viewing promotions
