@@ -82,6 +82,10 @@ class TripsScreen {
   getFirstFilterOption() {
     return cy.get('.cuppa-dropdown li').first();
   }
+
+  getToast() {
+    return cy.get('.toast-message').first();
+  }
 }
 const tripsScreen = new TripsScreen();
 
@@ -211,6 +215,22 @@ class AdminPanel {
 
   getGoBackButton() {
     return cy.get('.go-back-btn');
+  }
+
+  getDurationInput() {
+    return cy.get('#czasTrwania');
+  }
+
+  getPromotionValueInput() {
+    return cy.get('#poziomObnizki');
+  }
+
+  getFirstTripCheckbox() {
+    return cy.get('.form-check .form-check-input').first();
+  }
+
+  getAddPromotionButton() {
+    return cy.get('.add-promotion-btn');
   }
 };
 const adminPanel = new AdminPanel();
@@ -407,15 +427,30 @@ describe('Wycieczki app', function() {
   //   adminPanel.getLastTripFromTheList().should('contain', newTitleForTest);
   // });
 
-  it('Should allow user to filter trips', function() {
-    loginScreen.loginProcess();
-    tripsScreen.get();
-    tripsScreen.getTrips().its('length').then((howManyTrips) => {
-      tripsScreen.getFilterDropdown().click();
-      tripsScreen.getFirstFilterOption().click();
-      tripsScreen.getTrips().its('length').should('be.lt', howManyTrips);
-    });
+  it('Should allow admin to declare promotions', function() {
+    goToAdminPanel();
+    adminPanel.getFirstTripCheckbox().click();
+
+    adminPanel.getDurationInput().clear();
+    adminPanel.getDurationInput().type(10);
+
+    adminPanel.getPromotionValueInput().clear();
+    adminPanel.getPromotionValueInput().type(10);
+
+    adminPanel.getAddPromotionButton().click();
+    cy.wait(4000);
+    tripsScreen.getToast().should('contain', '10%');
   });
+
+  // it('Should allow user to filter trips', function() {
+  //   loginScreen.loginProcess();
+  //   tripsScreen.get();
+  //   tripsScreen.getTrips().its('length').then((howManyTrips) => {
+  //     tripsScreen.getFilterDropdown().click();
+  //     tripsScreen.getFirstFilterOption().click();
+  //     tripsScreen.getTrips().its('length').should('be.lt', howManyTrips);
+  //   });
+  // });
 
   // TODO: filtering, removing trips, editing trips, adding promotions, viewing promotions
 });
