@@ -1,5 +1,5 @@
 <div class="edit-wycieczka pt-3 shadow">
-  <button type="button" class="btn btn-outline-primary mb-3" [routerLink]="['/admin-panel']">Wróć do panelu</button>
+  <button type="button" class="btn btn-outline-primary mb-3 go-back-btn" [routerLink]="['/admin-panel']">Wróć do panelu</button>
 
   <h3>Edytujesz wycieczkę: {{this.wycieczkaId}}</h3>
 
@@ -16,6 +16,6 @@
       <label>linkDoZdj:</label><input name="linkDoZdj" formControlName="linkDoZdj" class="form-control">
     </div>
 
-    <button class="btn btn-primary" type="submit" tooltip="Wycieczka zedytowana!" placement="top" trigger="click">Edytuj wycieczkę</button>
+    <button class="btn btn-primary edit-trip-btn" type="submit" tooltip="Wycieczka zedytowana!" placement="top" trigger="click">Edytuj wycieczkę</button>
   </form>
 </div>

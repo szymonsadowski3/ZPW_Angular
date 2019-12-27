@@ -13,7 +13,8 @@ class LoginScreen {
   }
 
   fillLogin(name) {
-    cy.get("#inputEmailForm").type(cfg.userName);
+    // cy.get("#inputEmailForm").type(cfg.userName);
+    cy.get("#inputEmailForm").type(cfg.adminName); // TODO: change back to standard user
     cy.get("#inputPasswordForm").type(cfg.userPass);
   }
 
@@ -150,8 +151,14 @@ class ListOfOrders {
 const listOfOrders = new ListOfOrders();
 
 class AdminPanel {
+  static updateScreenText = 'Edytujesz wycieczkę';
+
   getHeader() {
     return cy.get('h1');
+  }
+
+  getHeader3() {
+    return cy.get('h3');
   }
 
   getAddNewTripButton() {
@@ -174,12 +181,28 @@ class AdminPanel {
     return cy.get('tbody tr .remove-button').last();
   }
 
+  getLastUpdateButton() {
+    return cy.get('tbody tr .update-button').last();
+  }
+
   getDropZone() {
     return cy.get('.ngx-file-drop__drop-zone');
   }
 
   getConfirmButton() {
     return cy.get('div.popover-content.popover-body > div > div:nth-child(2) > button');
+  }
+
+  getTitleInput() {
+    return cy.get('form input').first();
+  }
+
+  editTripButton() {
+    return cy.get('.edit-trip-btn');
+  }
+
+  getGoBackButton() {
+    return cy.get('.go-back-btn');
   }
 };
 const adminPanel = new AdminPanel();
@@ -224,8 +247,9 @@ function submitOrderAndViewListOfOrders() {
 
 function goToAdminPanel() {
   loginScreen.adminLoginProcess();
-  cy.wait(2000);
+  cy.wait(1000);
   tripsScreen.getLoggedUserButton().click();
+  cy.wait(1000);
   tripsScreen.getAdminPanelButton().click();
 }
 // /Common functions
@@ -349,15 +373,30 @@ describe('Wycieczki app', function() {
   //   tripsDetails.getImageInGallery().should('exist');
   // });
 
-  it('Should allow admin to delete trips', function() {
+  // it('Should allow admin to delete trips', function() {
+  //   goToAdminPanel();
+  //   adminPanel.getTrips().its('length').then((howManyTrips) => {
+  //     adminPanel.getLastRemoveButton().click();
+  //     cy.wait(500);
+  //     adminPanel.getConfirmButton().click();
+  //     cy.wait(1000);
+  //     adminPanel.getTrips().its('length').should('eq', howManyTrips-1);
+  //   });
+  // });
+
+  it('Should allow admin to update trips', function() {
+    const newTitleForTest = 'Nowy tytuł na potrzeby testu';
+
     goToAdminPanel();
-    adminPanel.getTrips().its('length').then((howManyTrips) => {
-      adminPanel.getLastRemoveButton().click();
-      cy.wait(500);
-      adminPanel.getConfirmButton().click();
-      cy.wait(1000);
-      adminPanel.getTrips().its('length').should('eq', howManyTrips-1);
-    });
+    adminPanel.getLastUpdateButton().click();
+    cy.wait(500);
+    adminPanel.getHeader3().should('contain', AdminPanel.updateScreenText);
+    adminPanel.getTitleInput().clear();
+    adminPanel.getTitleInput().type(newTitleForTest);
+    adminPanel.editTripButton().click();
+    adminPanel.getGoBackButton().click();
+    cy.wait(1000);
+    adminPanel.getLastTripFromTheList().should('contain', newTitleForTest);
   });
 
   it('Should allow user to filter trips', function() {
