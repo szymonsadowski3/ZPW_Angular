@@ -166,8 +166,20 @@ class AdminPanel {
     return cy.get('tbody tr a').last();
   }
 
+  getTrips() {
+    return cy.get('tbody tr');
+  }
+
+  getLastRemoveButton() {
+    return cy.get('tbody tr .remove-button').last();
+  }
+
   getDropZone() {
     return cy.get('.ngx-file-drop__drop-zone');
+  }
+
+  getConfirmButton() {
+    return cy.get('div.popover-content.popover-body > div > div:nth-child(2) > button');
   }
 };
 const adminPanel = new AdminPanel();
@@ -212,7 +224,7 @@ function submitOrderAndViewListOfOrders() {
 
 function goToAdminPanel() {
   loginScreen.adminLoginProcess();
-  cy.wait(1000);
+  cy.wait(2000);
   tripsScreen.getLoggedUserButton().click();
   tripsScreen.getAdminPanelButton().click();
 }
@@ -299,23 +311,57 @@ describe('Wycieczki app', function() {
   //   adminPanel.getHeader().should('contain', 'Admin');
   // });
 
-  it('Should allow admin to define new trip (with custom photos)', function() {
+  // it('Should allow admin to define new trip (with custom photos)', function() {
+  //   goToAdminPanel();
+  //   const fileName = 'vacation1.jpg';
+  //
+  //   cy.fixture(fileName).then(fileContent => {
+  //     adminPanel.getNewTripFileInput().upload({ fileContent, fileName, mimeType: 'image/jpg' });
+  //   });
+  //
+  //   cy.wait(2000);
+  //
+  //   adminPanel.getAddNewTripButton().click();
+  //
+  //   adminPanel.getLastTripFromTheList().click();
+  //
+  //   cy.wait(1000);
+  //
+  //   tripsDetails.getImageInGallery().should('exist');
+  // });
+
+  // it('Should allow admin to define new trip (with custom photos)', function() {
+  //   goToAdminPanel();
+  //   const fileName = 'vacation1.jpg';
+  //
+  //   cy.fixture(fileName).then(fileContent => {
+  //     adminPanel.getNewTripFileInput().upload({ fileContent, fileName, mimeType: 'image/jpg' });
+  //   });
+  //
+  //   cy.wait(2000);
+  //
+  //   adminPanel.getAddNewTripButton().click();
+  //
+  //   adminPanel.getLastTripFromTheList().click();
+  //
+  //   cy.wait(1000);
+  //
+  //   tripsDetails.getImageInGallery().should('exist');
+  // });
+
+  it('Should allow admin to delete trips', function() {
     goToAdminPanel();
-    const fileName = 'vacation1.jpg';
-
-    cy.fixture(fileName).then(fileContent => {
-      adminPanel.getNewTripFileInput().upload({ fileContent, fileName, mimeType: 'image/jpg' });
+    adminPanel.getTrips().its('length').then((howManyTrips) => {
+      adminPanel.getLastRemoveButton().click();
+      cy.wait(500);
+      adminPanel.getConfirmButton().click();
+      cy.wait(1000);
+      adminPanel.getTrips().its('length').should('eq', howManyTrips-1);
     });
+  });
 
-    cy.wait(2000);
+  it('Should allow user to filter trips', function() {
 
-    adminPanel.getAddNewTripButton().click();
-
-    adminPanel.getLastTripFromTheList().click();
-
-    cy.wait(1000);
-
-    tripsDetails.getImageInGallery().should('exist');
   });
 
   // TODO: filtering, removing trips, editing trips, adding promotions, viewing promotions
