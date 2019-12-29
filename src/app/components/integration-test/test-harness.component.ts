@@ -135,6 +135,35 @@ export class TestHarness {
     }, TIMEOUT_VALUE);
   }
 
+  integrationTestBackendServiceAddTrip(firebaseService: FirebaseService) {
+    const wycieczkaToAdd = {
+      nazwa: "INTEGRATION TEST TRIP",
+      docelowyKrajWycieczki: "Belgia",
+      dataRozpoczecia: "2019-12-12",
+      dataZakonczenia: "2019-12-26",
+      cenaJednostkowa: 1000,
+      maxIloscMiejsc: 10,
+      opis: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel velit nulla. Nam malesuada efficitur maximus. Vestibulum eu maximus dolor. Cras commodo tortor aliquam lobortis pellentesque.",
+      linkDoZdj: "https://images.unsplash.com/photo-1491557345352-5929e343eb89?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
+      ileZarezerwowano: 0,
+      oceny: [],
+    };
+
+    const keysToCheck = [
+      "cenaJednostkowa", "dataRozpoczecia", "dataZakonczenia", "docelowyKrajWycieczki",
+      "ileZarezerwowano", "linkDoZdj", "maxIloscMiejsc", "nazwa", "opis"
+    ];
+
+    firebaseService.getAllTrips().subscribe((products: any) => {
+      const lastTripInTheList = products[products.length - 1];
+      console.dir(lastTripInTheList);
+
+      forEach(keysToCheck, key => {
+        this.assert(lastTripInTheList[key] == wycieczkaToAdd[key], `Model trip to add and recently added trip should have the same value of key ${key} (object comparison)`)
+      });
+    });
+  }
+
   constructor(private authService: AuthService, private firebaseService: FirebaseService) {
     const testsToRun = {
       // '[Authorization Service Integration Test] LOGIN': () => {this.integrationTestAuthServiceLogin(authService);},
@@ -143,7 +172,8 @@ export class TestHarness {
       // '[Authorization Service Integration Test] REGISTER WITH INCORRECT EMAIL': () => {this.integrationTestAuthServiceRegisterIncorrectEmail(authService);},
       // '[Authorization Service Integration Test] REGISTER WITH SHORT PASSWORD': () => {this.integrationTestAuthServiceRegisterShortPassword(authService);},
       // '[Backend Service Integration Test] GET ALL TRIPS': () => {this.integrationTestBackendServiceGetAllTrips(firebaseService);},
-      '[Backend Service Integration Test] DELETE TRIP': () => {this.integrationTestBackendServiceDeleteTrips(firebaseService);},
+      // '[Backend Service Integration Test] DELETE TRIP': () => {this.integrationTestBackendServiceDeleteTrips(firebaseService);},
+      '[Backend Service Integration Test] ADD TRIP': () => {this.integrationTestBackendServiceAddTrip(firebaseService);},
     };
 
     forEach(testsToRun, (testFunc, testName) => {
