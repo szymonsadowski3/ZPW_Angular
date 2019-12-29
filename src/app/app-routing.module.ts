@@ -12,9 +12,11 @@ import {ViewMyOrdersComponent} from "./components/view-my-orders/view-my-orders.
 import {AdminPanelComponent} from "./components/admin-panel/admin-panel.component";
 import {EditWycieczkaComponent} from "./components/edit-wycieczka/edit-wycieczka.component";
 import {AdminAuthGuard} from './guards/admin.auth.guard';
+import {TestHarness} from "./components/integration-test/test-harness.component";
 
 const routes: Routes = [
-  {path: '', redirectTo: '/wycieczki', pathMatch: 'full'},
+  {path: '', redirectTo: '/integration-test', pathMatch: 'full'},
+  // {path: '', redirectTo: '/wycieczki', pathMatch: 'full'},
   {path: 'wycieczki', component: ListaWycieczekComponent, canActivate: [LoggedInAuthGuard]},
   {path: 'koszyk', component: KoszykComponent, canActivate: [LoggedInAuthGuard]},
   {path: 'wycieczka/:id', component: WycieczkaDetalComponent, canActivate: [LoggedInAuthGuard]},
@@ -24,6 +26,7 @@ const routes: Routes = [
   {path: 'view-my-orders', component: ViewMyOrdersComponent, canActivate: [LoggedInAuthGuard]},
   {path: 'admin-panel', component: AdminPanelComponent, canActivate: [AdminAuthGuard]},
   {path: 'edit-trip/:id', component: EditWycieczkaComponent, canActivate: [AdminAuthGuard]},
+  {path: 'integration-test', component: TestHarness},
 ];
 
 @NgModule({

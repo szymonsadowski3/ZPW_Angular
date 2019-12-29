@@ -13,9 +13,6 @@ export class AplikacjaWycieczkiComponent {
   constructor(private socket: Socket,
               private toastr: ToastrService) {
     this.socket.on('message', (event) => {
-      console.dir(event);
-      console.log(isEqual(event.currentPromotions, {}));
-
       if (('currentPromotions' in event) && !isEqual(event.currentPromotions, {})) {
         let message = '';
 
@@ -38,7 +35,6 @@ export class AplikacjaWycieczkiComponent {
         this.toastr.error(message, 'Zakończyły się promocje', {positionClass: 'toast-bottom-right', enableHtml: true, disableTimeOut: true});
       } else if (isEqual(event.currentPromotions, {})) {
         this.toastr.clear();
-        console.log('here');
         this.toastr.success('🔥 Bądź uważny! Nowe promocje pojawią się tutaj 🔥', '🔥 Polowanie na promocje', {
           positionClass: 'toast-bottom-right',
           enableHtml: true,

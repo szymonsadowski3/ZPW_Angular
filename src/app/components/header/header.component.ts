@@ -41,7 +41,6 @@ export class HeaderComponent implements OnInit {
   checkIsUserAnAdministrator() {
     this.fireAuth.auth.onAuthStateChanged((user) => {
       this.firebaseService.getRole(user.email).subscribe(roles => {
-        console.log(get(roles, '[0].role'));
         this.isAdmin = (get(roles, '[0].role') === 'admin');
       });
     });
