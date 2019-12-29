@@ -219,6 +219,43 @@ export class TestHarness {
     }, TIMEOUT_VALUE);
   }
 
+  integrationTestBackendServiceAddRating() {
+    // TODO: impl
+  }
+
+  integrationTestBackendServiceUpdateTrip(firebaseService: FirebaseService) {
+    const TIMEOUT_VALUE = 5000;
+    // const wycieczkaToAdd = {
+    //   nazwa: "INTEGRATION TEST TRIP",
+    //   docelowyKrajWycieczki: "Anglia",
+    //   dataRozpoczecia: "2019-12-12",
+    //   dataZakonczenia: "2019-12-26",
+    //   cenaJednostkowa: 1000,
+    //   maxIloscMiejsc: 10,
+    //   opis: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel velit nulla. Nam malesuada efficitur maximus. Vestibulum eu maximus dolor. Cras commodo tortor aliquam lobortis pellentesque.",
+    //   linkDoZdj: "https://images.unsplash.com/photo-1491557345352-5929e343eb89?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
+    //   ileZarezerwowano: 0,
+    //   oceny: [],
+    // };
+
+    let lastTripInTheList = {};
+
+    setTimeout(() => {
+      firebaseService.getAllTrips().subscribe((products: any) => {
+        lastTripInTheList = products[products.length - 1];
+      });
+
+      lastTripInTheList["nazwa"] = "Edited Trip";
+
+      firebaseService.updateTrip(lastTripInTheList);
+
+      firebaseService.getAllTrips().subscribe((products: any) => {
+        let newLastTripInTheList = products[products.length - 1];
+        this.assert(newLastTripInTheList["nazwa"] == "Edited Trip", 'Edited trip should have updated values')
+      });
+    }, TIMEOUT_VALUE);
+  }
+
   constructor(private authService: AuthService, private firebaseService: FirebaseService) {
     const testsToRun = {
       // '[Authorization Service Integration Test] LOGIN': () => {this.integrationTestAuthServiceLogin(authService);},
@@ -229,7 +266,9 @@ export class TestHarness {
       // '[Backend Service Integration Test] GET ALL TRIPS': () => {this.integrationTestBackendServiceGetAllTrips(firebaseService);},
       // '[Backend Service Integration Test] DELETE TRIP': () => {this.integrationTestBackendServiceDeleteTrips(firebaseService);},
       // '[Backend Service Integration Test] ADD TRIP': () => {this.integrationTestBackendServiceAddTrip(firebaseService);},
-      '[Backend Service Integration Test] ADD ORDER': () => {this.integrationTestBackendServiceAddOrder(firebaseService);},
+      // '[Backend Service Integration Test] ADD ORDER': () => {this.integrationTestBackendServiceAddOrder(firebaseService);},
+      // '[Backend Service Integration Test] ADD RATING': () => {this.integrationTestBackendServiceAddRating(firebaseService);},
+      '[Backend Service Integration Test] UPDATE TRIP': () => {this.integrationTestBackendServiceUpdateTrip(firebaseService);},
     };
 
     forEach(testsToRun, (testFunc, testName) => {

@@ -75,7 +75,7 @@ export class FirebaseService {
   }
 
   updateTrip(newWycieczka) {
-    this.db.object(`/wycieczki/${newWycieczka.id}`).update(newWycieczka);
+    return this.db.object(`/wycieczki/${newWycieczka.id}`).update(newWycieczka);
   }
 
   partialUpdate(tripId, partialUpdate) {
