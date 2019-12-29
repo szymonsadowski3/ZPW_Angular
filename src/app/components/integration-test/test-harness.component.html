@@ -1,5 +1,15 @@
 <div
   *ngFor="let item of testResults"
 >
-  {{item.status}}: {{item.msg}}
+  <h3 *ngIf="item.type == 'test'">
+    {{item.name}}
+  </h3>
+  <div *ngIf="item.type == 'assert'"
+       [ngClass]="{
+                'alert alert-success': (item.status=='PASS'),
+                'alert alert-danger': (item.status=='FAIL')
+             }"
+  >
+    {{item.status}}: {{item.msg}}
+  </div>
 </div>

@@ -13,10 +13,10 @@ export class TestHarness {
   assert(predicate, message) {
     try {
       chai.assert(predicate, message);
-      this.testResults.push({status: 'PASS', msg: message});
+      this.testResults.push({type: 'assert', status: 'PASS', msg: message});
     } catch(error) {
       console.error(error);
-      this.testResults.push({status: 'FAIL', msg: JSON.stringify(error)});
+      this.testResults.push({type: 'assert', status: 'FAIL', msg: JSON.stringify(error)});
     }
   }
 
@@ -33,6 +33,7 @@ export class TestHarness {
     };
 
     forEach(testsToRun, (testFunc, testName) => {
+      this.testResults.push({type: 'test', name: testName});
       console.log(`Running test ${testName}`);
       testFunc();
     });
