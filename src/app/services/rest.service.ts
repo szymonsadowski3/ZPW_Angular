@@ -1,9 +1,6 @@
 import {Injectable} from '@angular/core';
-import {Wycieczka} from '../models/wycieczka.model';
-import {AngularFireDatabase} from '@angular/fire/database';
 import {AuthService} from "./auth.service";
 import {HttpClient} from '@angular/common/http';
-import {fakeWycieczki} from '../data/fake.dane';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +11,6 @@ export class RestService {
   ordersEndpoint = '/orders';
 
   constructor(
-    private db: AngularFireDatabase,
     private authService: AuthService,
     private http: HttpClient
   ) {

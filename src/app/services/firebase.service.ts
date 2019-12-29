@@ -83,7 +83,6 @@ export class FirebaseService {
   }
 
   getRole(email) {
-    console.log(email);
     return this.db.list('/roles', (ref: any) => ref.orderByChild('email').equalTo(email)).valueChanges();
   }
 }
