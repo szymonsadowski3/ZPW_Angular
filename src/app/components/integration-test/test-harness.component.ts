@@ -3,6 +3,8 @@ import chai from 'chai';
 import {AuthService} from "../../services/auth.service";
 import forEach from 'lodash/forEach';
 import includes from 'lodash/includes';
+import {FirebaseService} from "../../services/firebase.service";
+import {Wycieczka} from "../../models/wycieczka.model";
 
 @Component({
   selector: 'test-harness',
@@ -96,13 +98,52 @@ export class TestHarness {
     });
   }
 
-  constructor(private authService: AuthService) {
+  integrationTestBackendServiceGetAllTrips(firebaseService: FirebaseService) {
+    const expectedKeys = [
+      "cenaJednostkowa", "dataRozpoczecia", "dataZakonczenia", "docelowyKrajWycieczki", "id",
+      "ileZarezerwowano", "linkDoZdj", "maxIloscMiejsc", "nazwa", "opis"
+    ];
+
+    firebaseService.getAllTrips().subscribe((products: any) => {
+      this.assert( Array.isArray(products), "Should return all trips in type of array");
+
+      forEach(expectedKeys, key => {
+        this.assert(key in products[0], `${key} is present in response type`);
+      });
+      console.dir(products);
+    });
+  }
+
+  integrationTestBackendServiceDeleteTrips(firebaseService: FirebaseService) {
+    const TIMEOUT_VALUE = 5000;
+    let products = [];
+
+    firebaseService.getAllTrips().subscribe((resproducts: any) => {
+      console.dir(resproducts);
+      products = resproducts;
+    });
+
+    setTimeout(() => {
+      console.dir(products);
+
+      const lengthBeforeDeleting = products.length;
+      firebaseService.deleteTrip(products[0]);
+      firebaseService.getAllTrips().subscribe((products: any) => {
+        const lengthAfterDeleting = products.length;
+        this.assert(lengthBeforeDeleting - 1 == lengthAfterDeleting, `Should allow to permanently delete some trip`);
+      });
+    }, TIMEOUT_VALUE);
+  }
+
+  constructor(private authService: AuthService, private firebaseService: FirebaseService) {
     const testsToRun = {
       // '[Authorization Service Integration Test] LOGIN': () => {this.integrationTestAuthServiceLogin(authService);},
       // '[Authorization Service Integration Test] REGISTER': () => {this.integrationTestAuthServiceRegister(authService);},
       // '[Authorization Service Integration Test] REGISTER WITH ALREADY IN-USE EMAIL': () => {this.integrationTestAuthServiceRegisterAlreadyUsed(authService);},
       // '[Authorization Service Integration Test] REGISTER WITH INCORRECT EMAIL': () => {this.integrationTestAuthServiceRegisterIncorrectEmail(authService);},
-      '[Authorization Service Integration Test] REGISTER WITH SHORT PASSWORD': () => {this.integrationTestAuthServiceRegisterShortPassword(authService);},
+      // '[Authorization Service Integration Test] REGISTER WITH SHORT PASSWORD': () => {this.integrationTestAuthServiceRegisterShortPassword(authService);},
+      // '[Backend Service Integration Test] GET ALL TRIPS': () => {this.integrationTestBackendServiceGetAllTrips(firebaseService);},
+      '[Backend Service Integration Test] DELETE TRIP': () => {this.integrationTestBackendServiceDeleteTrips(firebaseService);},
     };
 
     forEach(testsToRun, (testFunc, testName) => {
