@@ -21,26 +21,26 @@ export class TestHarness {
   // }
 
   assert(predicate, message) {
-    // try {
+    try {
       chai.assert(predicate, message);
       this.testResults.push({type: 'assert', status: 'PASS', msg: message});
-    // } catch(error) {
-    //   console.error(error);
-    //   this.testResults.push({type: 'assert', status: 'FAIL', msg: JSON.stringify(error)});
-    // }
+    } catch(error) {
+      console.error(error);
+      this.testResults.push({type: 'assert', status: 'FAIL', msg: JSON.stringify(error)});
+    }
   }
 
   integrationTestAuthServiceLogin(authService: AuthService) {
     const credentials = {email: 'szymonsadowski3@gmail.com', password: 'bimber12'};
     authService.login(credentials).then(() => {
-      this.assert(authService.getUser() === credentials.email, 'should allow user to log in and store username after successful login');
+      this.assert(authService.getUser() === credentials.email, 'should allow to log in and store username after successful login');
     });
   }
 
   integrationTestAuthServiceRegister(authService: AuthService) {
     const credentials = {email: 'test@test.testbr', password: 'Test123456'};
     authService.register(credentials).then(() => {
-      this.assert(authService.getUser() === credentials.email, 'should allow user to register');
+      this.assert(authService.getUser() === credentials.email, 'should allow to register');
     });
   }
 
@@ -51,7 +51,42 @@ export class TestHarness {
     function checkFn(evt) {
       const expectedMsg = 'The email address is already in use by another account.';
       if(includes(evt.message, expectedMsg)) {
-        testResults.push({type: 'assert', status: 'PASS', msg: "Should prevent user from registering on already used e-mail"});
+        testResults.push({type: 'assert', status: 'PASS', msg: "Should prevent from registering on already used e-mail"});
+      }
+    }
+
+    window.addEventListener('error', checkFn); // TODO: maybe extract this to assertError function
+    authService.register(credentials).then(() => {
+      window.removeEventListener('error', checkFn);
+    });
+  }
+
+  integrationTestAuthServiceRegisterIncorrectEmail(authService: AuthService) {
+    const credentials = {email: 'incorrectEmail', password: 'bimber12'};
+    const testResults = this.testResults;
+
+    function checkFn(evt) {
+      //alert(JSON.stringify(evt));
+      const expectedMsg = 'The email address is badly formatted.';
+      if(includes(evt.message, expectedMsg)) {
+        testResults.push({type: 'assert', status: 'PASS', msg: "Should prevent from registering with incorrect email"});
+      }
+    }
+
+    window.addEventListener('error', checkFn);
+    authService.register(credentials).then(() => {
+      window.removeEventListener('error', checkFn);
+    });
+  }
+
+  integrationTestAuthServiceRegisterShortPassword(authService: AuthService) {
+    const credentials = {email: 'szymonsadowski3@gmail.com', password: 'pas'};
+    const testResults = this.testResults;
+
+    function checkFn(evt) {
+      const expectedMsg = 'Password should be at least 6 characters';
+      if(includes(evt.message, expectedMsg)) {
+        testResults.push({type: 'assert', status: 'PASS', msg: "Should prevent from registering with short password"});
       }
     }
 
@@ -62,12 +97,12 @@ export class TestHarness {
   }
 
   constructor(private authService: AuthService) {
-    // this.setupErrorReporting();
-
     const testsToRun = {
       // '[Authorization Service Integration Test] LOGIN': () => {this.integrationTestAuthServiceLogin(authService);},
       // '[Authorization Service Integration Test] REGISTER': () => {this.integrationTestAuthServiceRegister(authService);},
-      '[Authorization Service Integration Test] REGISTER WITH ALREADY IN-USE EMAIL': () => {this.integrationTestAuthServiceRegisterAlreadyUsed(authService);},
+      // '[Authorization Service Integration Test] REGISTER WITH ALREADY IN-USE EMAIL': () => {this.integrationTestAuthServiceRegisterAlreadyUsed(authService);},
+      // '[Authorization Service Integration Test] REGISTER WITH INCORRECT EMAIL': () => {this.integrationTestAuthServiceRegisterIncorrectEmail(authService);},
+      '[Authorization Service Integration Test] REGISTER WITH SHORT PASSWORD': () => {this.integrationTestAuthServiceRegisterShortPassword(authService);},
     };
 
     forEach(testsToRun, (testFunc, testName) => {
