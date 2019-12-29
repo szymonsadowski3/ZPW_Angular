@@ -1,8 +1,13 @@
 const cfg = {
   baseUrl: 'http://localhost:5000',
   mainPageEndpoint: 'wycieczki',
+
   userName: 'szymonsadowski@gmail.com',
   userPass: 'bimber12',
+
+  incorrectUserName: 'notExistingUser@gmail.com',
+  incorrectUserPass: 'someRandomPassword',
+
   adminName: 'szymonsadowski3@gmail.com',
   adminPass: 'bimber12',
 };
@@ -12,13 +17,18 @@ class LoginScreen {
     cy.visit(`${cfg.baseUrl}/login`);
   }
 
-  fillLogin(name) {
-    // cy.get("#inputEmailForm").type(cfg.userName);
-    cy.get("#inputEmailForm").type(cfg.adminName); // TODO: change back to standard user
+  fillLogin() {
+    cy.get("#inputEmailForm").type(cfg.userName);
+    // cy.get("#inputEmailForm").type(cfg.adminName); // TODO: change back to standard user
     cy.get("#inputPasswordForm").type(cfg.userPass);
   }
 
-  fillAdminLogin(name) {
+  fillIncorrectLogin() {
+    cy.get("#inputEmailForm").type(cfg.incorrectUserName);
+    cy.get("#inputPasswordForm").type(cfg.incorrectUserPass);
+  }
+
+  fillAdminLogin() {
     cy.get("#inputEmailForm").type(cfg.adminName);
     cy.get("#inputPasswordForm").type(cfg.adminPass);
   }
@@ -34,6 +44,12 @@ class LoginScreen {
   }
 
   adminLoginProcess() {
+    this.get();
+    this.fillAdminLogin();
+    return this.submitLogin();
+  }
+
+  incorrectCredentialsLoginProcess() {
     this.get();
     this.fillAdminLogin();
     return this.submitLogin();
@@ -293,6 +309,15 @@ describe('Wycieczki app', function() {
   //   cy.title().should('eq', 'Wycieczki');
   // });
   //
+
+  it('Should not allow to log-in with incorrect credentials and indicate it on the screen', function() {
+    const incorrectCredentialsMessage = 'There is no user record corresponding to this identifier. The user may have been deleted.';
+    loginScreen.incorrectCredentialsLoginProcess();
+    cy.on('window:alert', (str) => {
+      expect(str).to.equal(incorrectCredentialsMessage)
+    })
+  });
+
   // it('Should allow user to log-in and redirect him to main page', function() {
   //   loginScreen.loginProcess();
   //   cy.location('pathname').should('eq', '/wycieczki');
