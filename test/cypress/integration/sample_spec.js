@@ -54,6 +54,65 @@ class LoginScreen {
     this.fillAdminLogin();
     return this.submitLogin();
   }
+
+  switchToRegister() {
+    cy.get('.register-tab').click();
+  }
+
+  getRegisterEmailInput() {
+    return cy.get('#input2EmailForm');
+  }
+
+  getRegisterPasswordInput() {
+    return cy.get('#input2PasswordForm');
+  }
+
+  getRegisterConfirmPasswordInput() {
+    return cy.get('#input2Password2Form');
+  }
+
+  getRegisterButton() {
+    return cy.get('.register-btn');
+  }
+
+  fillWithIncorrectEmail() {
+    this.getRegisterEmailInput().type('incorrect email');
+    this.getRegisterPasswordInput().type('pass');
+    this.getRegisterConfirmPasswordInput().type('pass');
+  }
+
+  fillWithShortPassword() {
+    this.getRegisterEmailInput().type('test@test.pl');
+    this.getRegisterPasswordInput().type('pass');
+    this.getRegisterConfirmPasswordInput().type('pass');
+  }
+
+  fillWithExisitngAccount() {
+    this.getRegisterEmailInput().type(cfg.userName);
+    this.getRegisterPasswordInput().type(cfg.userPass);
+    this.getRegisterConfirmPasswordInput().type(cfg.userPass);
+  }
+
+  tryRegisterWithIncorrectEmail() {
+    this.get();
+    this.switchToRegister();
+    this.fillWithIncorrectEmail();
+    this.getRegisterButton().click();
+  }
+
+  tryRegisterWithShortPassword() {
+    this.get();
+    this.switchToRegister();
+    this.fillWithShortPassword();
+    this.getRegisterButton().click();
+  }
+
+  tryRegisterWithExistingAccount() {
+    this.get();
+    this.switchToRegister();
+    this.fillWithExisitngAccount();
+    this.getRegisterButton().click();
+  }
 }
 const loginScreen = new LoginScreen();
 
@@ -309,14 +368,44 @@ describe('Wycieczki app', function() {
   //   cy.title().should('eq', 'Wycieczki');
   // });
   //
+  //
+  // it('Should not allow to log-in with incorrect credentials and indicate it on the screen', function() {
+  //   const incorrectCredentialsMessage = 'There is no user record corresponding to this identifier. The user may have been deleted.';
+  //   loginScreen.incorrectCredentialsLoginProcess();
+  //   cy.on('window:alert', (str) => {
+  //     expect(str).to.equal(incorrectCredentialsMessage)
+  //   })
+  // });
+  //
 
-  it('Should not allow to log-in with incorrect credentials and indicate it on the screen', function() {
-    const incorrectCredentialsMessage = 'There is no user record corresponding to this identifier. The user may have been deleted.';
-    loginScreen.incorrectCredentialsLoginProcess();
+  // it('Should not allow to register with incorrect e-mail', function() {
+  //   const errorMsg = 'The email address is badly formatted.';
+  //   loginScreen.tryRegisterWithIncorrectEmail();
+  //   cy.on('window:alert', (str) => {
+  //     expect(str).to.equal(errorMsg)
+  //   })
+  // });
+
+  // it('Should not allow to register with password less than 6 characters', function() {
+  //   const errorMsg = 'Password should be at least 6 characters';
+  //   loginScreen.tryRegisterWithShortPassword();
+  //   cy.on('window:alert', (str) => {
+  //     expect(str).to.equal(errorMsg)
+  //   })
+  // });
+
+  it('Should not allow to register with already used account', function() {
+    const errorMsg = 'The email address is already in use by another account.';
+    loginScreen.tryRegisterWithShortPassword();
     cy.on('window:alert', (str) => {
-      expect(str).to.equal(incorrectCredentialsMessage)
+      expect(str).to.equal(errorMsg)
     })
   });
+
+  // it('Should allow user to log-in and redirect him to main page', function() {
+  //   loginScreen.loginProcess();
+  //   cy.location('pathname').should('eq', '/wycieczki');
+  // });
 
   // it('Should allow user to log-in and redirect him to main page', function() {
   //   loginScreen.loginProcess();
@@ -329,20 +418,19 @@ describe('Wycieczki app', function() {
   //   tripsScreen.getTrips().its('length').should('be.gt', 0);
   // });
   //
-  it('Should allow user to view trip details', function() {
-    loginScreen.loginProcess();
-    tripsScreen.route();
-    tripsScreen.getTripsMainSections().first().click();
-    cy.location('pathname').should('contain', '/wycieczka');
-  });
-
-
+  // it('Should allow user to view trip details', function() {
+  //   loginScreen.loginProcess();
+  //   tripsScreen.route();
+  //   tripsScreen.getTripsMainSections().first().click();
+  //   cy.location('pathname').should('contain', '/wycieczka');
+  // });
+  //
   // it('Should allow user to add a trip to the cart', function() {
   //   addFirstTripToCart();
   //   cart.getOpenCartToggle().click();
   //   cart.getRows().its('length').should('be.gt', 0);
   // });
-
+  //
   // it('Should allow user to remove items from the cart', function() {
   //   addFirstTripToCart();
   //   cy.wait(500);
@@ -352,7 +440,7 @@ describe('Wycieczki app', function() {
   //   cart.getLastRemoveItemFromTheCartButton().click();
   //   cart.getRows().its('length').should('eq', 1);
   // });
-
+  //
   // it('Should allow user to specify quantity of reserved seats on a trip', function() {
   //   addFirstTripToCart();
   //   cy.wait(500);
@@ -363,31 +451,31 @@ describe('Wycieczki app', function() {
   //   submitOrderAndViewListOfOrders();
   //   listOfOrders.getLastRowQuantity().should('contain', '2');
   // });
-
+  //
   // it('Should allow user to make a reservation after filling the cart', function() {
   //   addFirstTripToCart();
   //   submitOrder();
   //   cy.location('pathname').should('contain', afterOrder.getEndpoint());
   //   afterOrder.getMessage().should('exist');
   // });
-
+  //
   // it('Should allow user to view the list of reservations after making an order', function() {
   //   addFirstTripToCart();
   //   submitOrderAndViewListOfOrders();
   //   listOfOrders.getOrderSummaries().its('length').should('be.gt', 0);
   // });
-
+  //
   // it('Should not show option to go to admin panel for standard user', function() {
   //   loginScreen.loginProcess();
   //   tripsScreen.getLoggedUserButton().click();
   //   tripsScreen.getAdminPanelButton().should('not.exist');
   // });
-
+  //
   // it('Should allow admin to access the admin panel', function() {
   //   goToAdminPanel();
   //   adminPanel.getHeader().should('contain', 'Admin');
   // });
-
+  //
   // it('Should allow admin to define new trip (with custom photos)', function() {
   //   goToAdminPanel();
   //   const fileName = 'vacation1.jpg';
@@ -406,7 +494,7 @@ describe('Wycieczki app', function() {
   //
   //   tripsDetails.getImageInGallery().should('exist');
   // });
-
+  //
   // it('Should allow admin to define new trip (with custom photos)', function() {
   //   goToAdminPanel();
   //   const fileName = 'vacation1.jpg';
@@ -425,7 +513,7 @@ describe('Wycieczki app', function() {
   //
   //   tripsDetails.getImageInGallery().should('exist');
   // });
-
+  //
   // it('Should allow admin to delete trips', function() {
   //   goToAdminPanel();
   //   adminPanel.getTrips().its('length').then((howManyTrips) => {
@@ -436,7 +524,7 @@ describe('Wycieczki app', function() {
   //     adminPanel.getTrips().its('length').should('eq', howManyTrips-1);
   //   });
   // });
-
+  //
   // it('Should allow admin to update trips', function() {
   //   const newTitleForTest = 'Nowy tytuł na potrzeby testu';
   //
@@ -451,22 +539,22 @@ describe('Wycieczki app', function() {
   //   cy.wait(1000);
   //   adminPanel.getLastTripFromTheList().should('contain', newTitleForTest);
   // });
-
-  it('Should allow admin to declare promotions', function() {
-    goToAdminPanel();
-    adminPanel.getFirstTripCheckbox().click();
-
-    adminPanel.getDurationInput().clear();
-    adminPanel.getDurationInput().type(10);
-
-    adminPanel.getPromotionValueInput().clear();
-    adminPanel.getPromotionValueInput().type(10);
-
-    adminPanel.getAddPromotionButton().click();
-    cy.wait(4000);
-    tripsScreen.getToast().should('contain', '10%');
-  });
-
+  //
+  // it('Should allow admin to declare promotions', function() {
+  //   goToAdminPanel();
+  //   adminPanel.getFirstTripCheckbox().click();
+  //
+  //   adminPanel.getDurationInput().clear();
+  //   adminPanel.getDurationInput().type(10);
+  //
+  //   adminPanel.getPromotionValueInput().clear();
+  //   adminPanel.getPromotionValueInput().type(10);
+  //
+  //   adminPanel.getAddPromotionButton().click();
+  //   cy.wait(4000);
+  //   tripsScreen.getToast().should('contain', '10%');
+  // });
+  //
   // it('Should allow user to filter trips', function() {
   //   loginScreen.loginProcess();
   //   tripsScreen.get();
@@ -476,6 +564,4 @@ describe('Wycieczki app', function() {
   //     tripsScreen.getTrips().its('length').should('be.lt', howManyTrips);
   //   });
   // });
-
-  // TODO: filtering, removing trips, editing trips, adding promotions, viewing promotions
 });
