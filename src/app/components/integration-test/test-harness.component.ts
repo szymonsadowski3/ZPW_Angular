@@ -32,6 +32,16 @@ export class TestHarness {
     }
   }
 
+  assertDeepEqual(obj1, obj2, msg) {
+    try {
+      chai.expect(obj1).to.eql(obj2);
+      this.testResults.push({type: 'assert', status: 'PASS', msg: msg});
+    } catch(error) {
+      console.error(error);
+      this.testResults.push({type: 'assert', status: 'FAIL', msg: JSON.stringify(error)});
+    }
+  }
+
   integrationTestAuthServiceLogin(authService: AuthService) {
     const credentials = {email: 'szymonsadowski3@gmail.com', password: 'bimber12'};
     authService.login(credentials).then(() => {
@@ -136,9 +146,10 @@ export class TestHarness {
   }
 
   integrationTestBackendServiceAddTrip(firebaseService: FirebaseService) {
+    const TIMEOUT_VALUE = 5000;
     const wycieczkaToAdd = {
       nazwa: "INTEGRATION TEST TRIP",
-      docelowyKrajWycieczki: "Belgia",
+      docelowyKrajWycieczki: "Anglia",
       dataRozpoczecia: "2019-12-12",
       dataZakonczenia: "2019-12-26",
       cenaJednostkowa: 1000,
@@ -154,14 +165,58 @@ export class TestHarness {
       "ileZarezerwowano", "linkDoZdj", "maxIloscMiejsc", "nazwa", "opis"
     ];
 
-    firebaseService.getAllTrips().subscribe((products: any) => {
-      const lastTripInTheList = products[products.length - 1];
-      console.dir(lastTripInTheList);
+    firebaseService.addTrip(wycieczkaToAdd);
 
-      forEach(keysToCheck, key => {
-        this.assert(lastTripInTheList[key] == wycieczkaToAdd[key], `Model trip to add and recently added trip should have the same value of key ${key} (object comparison)`)
+    setTimeout(() => {
+      firebaseService.getAllTrips().subscribe((products: any) => {
+        const lastTripInTheList = products[products.length - 1];
+        console.dir(lastTripInTheList);
+
+        forEach(keysToCheck, key => {
+          this.assert(lastTripInTheList[key] == wycieczkaToAdd[key], `Model trip to add and trip retrieved from backend after adding should have the same value of key ${key} (object comparison)`)
+        });
       });
-    });
+    }, TIMEOUT_VALUE);
+  }
+
+  integrationTestBackendServiceAddOrder(firebaseService: FirebaseService) {
+    const TIMEOUT_VALUE = 5000;
+    const orderToAdd = {
+      "creationDate" : "2019-12-16T16:42:48.611Z",
+      "products" : [ {
+        "count" : 6,
+        "trip" : {
+          "cenaJednostkowa" : 1100,
+          "dataRozpoczecia" : "2019-12-12",
+          "dataZakonczenia" : "2019-12-19",
+          "docelowyKrajWycieczki" : "Egipt",
+          "id" : "-LvKdYohBbapD0STG32-",
+          "ileZarezerwowano" : 6,
+          "linkDoZdj" : "https://picsum.photos/100/100",
+          "maxIloscMiejsc" : 7,
+          "nazwa" : "Tygodniowa wycieczka do Egiptu",
+          "oceny" : [ {
+            "ratedBy" : "szymonsadowski3@gmail.com",
+            "rating" : 5
+          }, ],
+          "opis" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel velit nulla. Nam malesuada efficitur maximus. Vestibulum eu maximus dolor. Cras commodo tortor aliquam lobortis pellentesque."
+        }
+      } ],
+      "whoOrdered" : "test@test.test"
+    };
+
+    const keysToCheck = ["whoOrdered"];
+
+    firebaseService.addOrder(orderToAdd);
+
+    setTimeout(() => {
+      firebaseService.getAllOrders().subscribe((orders: any) => {
+        const lastOrderInTheList = orders[orders.length - 1];
+        orderToAdd['id'] = lastOrderInTheList.id;
+
+        this.assertDeepEqual(orderToAdd, lastOrderInTheList, "Model order to add and order retrieved from backend after adding should be deeply equal");
+      });
+    }, TIMEOUT_VALUE);
   }
 
   constructor(private authService: AuthService, private firebaseService: FirebaseService) {
@@ -173,7 +228,8 @@ export class TestHarness {
       // '[Authorization Service Integration Test] REGISTER WITH SHORT PASSWORD': () => {this.integrationTestAuthServiceRegisterShortPassword(authService);},
       // '[Backend Service Integration Test] GET ALL TRIPS': () => {this.integrationTestBackendServiceGetAllTrips(firebaseService);},
       // '[Backend Service Integration Test] DELETE TRIP': () => {this.integrationTestBackendServiceDeleteTrips(firebaseService);},
-      '[Backend Service Integration Test] ADD TRIP': () => {this.integrationTestBackendServiceAddTrip(firebaseService);},
+      // '[Backend Service Integration Test] ADD TRIP': () => {this.integrationTestBackendServiceAddTrip(firebaseService);},
+      '[Backend Service Integration Test] ADD ORDER': () => {this.integrationTestBackendServiceAddOrder(firebaseService);},
     };
 
     forEach(testsToRun, (testFunc, testName) => {
