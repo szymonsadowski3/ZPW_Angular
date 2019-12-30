@@ -3,6 +3,7 @@ import chai from 'chai';
 import {AuthService} from "../../services/auth.service";
 import forEach from 'lodash/forEach';
 import includes from 'lodash/includes';
+import get from 'lodash/get';
 import {FirebaseService} from "../../services/firebase.service";
 import {Wycieczka} from "../../models/wycieczka.model";
 
@@ -21,6 +22,18 @@ export class TestHarness {
   //     evt.preventDefault();
   //   });
   // }
+  sleep(milliseconds) {
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++) {
+      if ((new Date().getTime() - start) > milliseconds){
+        break;
+      }
+    }
+  }
+
+  getShortRandomString() {
+    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);;
+  }
 
   assert(predicate, message) {
     try {
@@ -50,7 +63,7 @@ export class TestHarness {
   }
 
   integrationTestAuthServiceRegister(authService: AuthService) {
-    const credentials = {email: 'test@test.testbr', password: 'Test123456'};
+    const credentials = {email: `${this.getShortRandomString()}@test.test`, password: 'Test123456'};
     authService.register(credentials).then(() => {
       this.assert(authService.getUser() === credentials.email, 'should allow to register');
     });
@@ -219,7 +232,7 @@ export class TestHarness {
     }, TIMEOUT_VALUE);
   }
 
-  integrationTestBackendServiceAddRating() {
+  integrationTestBackendServiceAddRating(firebaseService: FirebaseService) {
     // TODO: impl
   }
 
@@ -256,6 +269,23 @@ export class TestHarness {
     }, TIMEOUT_VALUE);
   }
 
+  integrationTestBackendServiceGetRoleCheckAdmin(firebaseService: FirebaseService) {
+    firebaseService.getRole("szymonsadowski3@gmail.com").subscribe(roles => {
+      const isAdmin = (get(roles, '[0].role') === 'admin');
+      this.assert(isAdmin, 'Check if backend service correctly returns admin role');
+    });
+  }
+
+  integrationTestBackendServiceGetRoleCheckStandardUser(firebaseService: FirebaseService) {
+    firebaseService.getRole("test@test.test").subscribe(roles => {
+      console.dir(roles);
+      const isAdmin = (get(roles, '[0].role') === 'user');
+      this.assert(isAdmin, 'Check if backend service correctly returns standard user role');
+    });
+  }
+
+  // TODO: dump json from backend to have snapshot document for plan of tests
+
   constructor(private authService: AuthService, private firebaseService: FirebaseService) {
     const testsToRun = {
       // '[Authorization Service Integration Test] LOGIN': () => {this.integrationTestAuthServiceLogin(authService);},
@@ -268,18 +298,65 @@ export class TestHarness {
       // '[Backend Service Integration Test] ADD TRIP': () => {this.integrationTestBackendServiceAddTrip(firebaseService);},
       // '[Backend Service Integration Test] ADD ORDER': () => {this.integrationTestBackendServiceAddOrder(firebaseService);},
       // '[Backend Service Integration Test] ADD RATING': () => {this.integrationTestBackendServiceAddRating(firebaseService);},
-      '[Backend Service Integration Test] UPDATE TRIP': () => {this.integrationTestBackendServiceUpdateTrip(firebaseService);},
+      // '[Backend Service Integration Test] UPDATE TRIP': () => {this.integrationTestBackendServiceUpdateTrip(firebaseService);},
+      // '[Backend Service Integration Test] GET ROLE CHECK ADMIN': () => {this.integrationTestBackendServiceGetRoleCheckAdmin(firebaseService);},
+      // '[Backend Service Integration Test] GET ROLE CHECK STANDARD USER': () => {this.integrationTestBackendServiceGetRoleCheckStandardUser(firebaseService);},
     };
 
-    forEach(testsToRun, (testFunc, testName) => {
-      this.testResults.push({type: 'test', name: testName});
-      console.log(`Running test ${testName}`);
-      try {
-        testFunc();
-      } catch(error) {
-        this.testResults.push({type: 'assert', status: 'FAIL', msg: JSON.stringify(error)});
-      }
-    });
+    // const serial = funcs =>
+    //   funcs.reduce((promise, func) =>
+    //     promise.then(result => func().then(Array.prototype.concat.bind(result))), Promise.resolve([]));
+    //
+    //
+    // const testFunctions = [];
+    // const testNames = [];
+    //
+    // const testRes = this.testResults;
+    //
+    // forEach(testsToRun, (testFunc, testName) => {
+    //   testFunctions.push(() => {
+    //     return new Promise(function(resolve, reject) {
+    //       testRes.push({type: 'test', name: testName});
+    //       testFunc();
+    //       resolve('OK');
+    //     });
+    //   });
+    //   testNames.push(testName);
+    // });
+    //
+    // serial(testFunctions);
+    //
+
+    // const testFunctions = [];
+    // const testNames = [];
+    //
+    // forEach(testsToRun, (testFunc, testName) => {
+    //   testFunctions.push(testFunc);
+    //   testNames.push(testName);
+    // });
+    //
+    // let iterator = -1;
+    // setInterval(() => {
+    //   this.testResults.push({type: 'test', name: testNames[iterator]});
+    //   console.log(`Running test ${testNames[iterator]}`);
+    //   iterator += 1;
+    //   try {
+    //     testFunctions[iterator]();
+    //   } catch(error) {
+    //     this.testResults.push({type: 'assert', status: 'FAIL', msg: JSON.stringify(error)});
+    //   }
+    // }, 10000);
+
+    // forEach(testsToRun, (testFunc, testName) => {
+    //   this.testResults.push({type: 'test', name: testName});
+    //   console.log(`Running test ${testName}`);
+    //   try {
+    //     testFunc();
+    //     // this.sleep(2000);
+    //   } catch(error) {
+    //     this.testResults.push({type: 'assert', status: 'FAIL', msg: JSON.stringify(error)});
+    //   }
+    // });
 
     // testsToRun.forEach(test => {
     //   console.log('running test...');
