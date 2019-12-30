@@ -18,8 +18,8 @@ export class TestHarness {
 
   callNext() {
     if(this.testFunctions.length > 0) {
-      this.testFunctions[0]();
       this.testFunctions.shift();
+      this.testFunctions[0]();
     }
   }
 
@@ -68,7 +68,6 @@ export class TestHarness {
     const credentials = {email: 'szymonsadowski3@gmail.com', password: 'bimber12'};
     authService.login(credentials).then(() => {
       this.assert(authService.getUser() === credentials.email, 'should allow to log in and store username after successful login');
-      this.callNext();
     });
   }
 
@@ -76,12 +75,10 @@ export class TestHarness {
     const credentials = {email: `${this.getShortRandomString()}@test.test`, password: 'Test123456'};
     authService.register(credentials).then(() => {
       this.assert(authService.getUser() === credentials.email, 'should allow to register');
-      this.callNext();
     });
   }
 
   integrationTestAuthServiceRegisterAlreadyUsed(authService: AuthService) {
-    const component = this;
     const credentials = {email: 'szymonsadowski3@gmail.com', password: 'bimber12'};
     const testResults = this.testResults;
 
@@ -89,7 +86,6 @@ export class TestHarness {
       const expectedMsg = 'The email address is already in use by another account.';
       if(includes(evt.message, expectedMsg)) {
         testResults.push({type: 'assert', status: 'PASS', msg: "Should prevent from registering on already used e-mail"});
-        component.callNext();
       }
     }
 
@@ -100,7 +96,6 @@ export class TestHarness {
   }
 
   integrationTestAuthServiceRegisterIncorrectEmail(authService: AuthService) {
-    const component = this;
     const credentials = {email: 'incorrectEmail', password: 'bimber12'};
     const testResults = this.testResults;
 
@@ -109,7 +104,6 @@ export class TestHarness {
       const expectedMsg = 'The email address is badly formatted.';
       if(includes(evt.message, expectedMsg)) {
         testResults.push({type: 'assert', status: 'PASS', msg: "Should prevent from registering with incorrect email"});
-        component.callNext();
       }
     }
 
@@ -120,7 +114,6 @@ export class TestHarness {
   }
 
   integrationTestAuthServiceRegisterShortPassword(authService: AuthService) {
-    const component = this;
     const credentials = {email: 'szymonsadowski3@gmail.com', password: 'pas'};
     const testResults = this.testResults;
 
@@ -128,7 +121,6 @@ export class TestHarness {
       const expectedMsg = 'Password should be at least 6 characters';
       if(includes(evt.message, expectedMsg)) {
         testResults.push({type: 'assert', status: 'PASS', msg: "Should prevent from registering with short password"});
-        component.callNext();
       }
     }
 
@@ -150,7 +142,7 @@ export class TestHarness {
       forEach(expectedKeys, key => {
         this.assert(key in products[0], `${key} is present in response type`);
       });
-      this.callNext();
+      console.dir(products);
     });
   }
 
@@ -164,12 +156,13 @@ export class TestHarness {
     });
 
     setTimeout(() => {
+      console.dir(products);
+
       const lengthBeforeDeleting = products.length;
       firebaseService.deleteTrip(products[0]);
       firebaseService.getAllTrips().subscribe((products: any) => {
         const lengthAfterDeleting = products.length;
         this.assert(lengthBeforeDeleting - 1 == lengthAfterDeleting, `Should allow to permanently delete some trip`);
-        this.callNext();
       });
     }, TIMEOUT_VALUE);
   }
@@ -204,8 +197,6 @@ export class TestHarness {
         forEach(keysToCheck, key => {
           this.assert(lastTripInTheList[key] == wycieczkaToAdd[key], `Model trip to add and trip retrieved from backend after adding should have the same value of key ${key} (object comparison)`)
         });
-
-        this.callNext();
       });
     }, TIMEOUT_VALUE);
   }
@@ -246,7 +237,6 @@ export class TestHarness {
         orderToAdd['id'] = lastOrderInTheList.id;
 
         this.assertDeepEqual(orderToAdd, lastOrderInTheList, "Model order to add and order retrieved from backend after adding should be deeply equal");
-        this.callNext();
       });
     }, TIMEOUT_VALUE);
   }
@@ -284,7 +274,6 @@ export class TestHarness {
       firebaseService.getAllTrips().subscribe((products: any) => {
         let newLastTripInTheList = products[products.length - 1];
         this.assert(newLastTripInTheList["nazwa"] == "Edited Trip", 'Edited trip should have updated values')
-        this.callNext();
       });
     }, TIMEOUT_VALUE);
   }
@@ -293,7 +282,6 @@ export class TestHarness {
     firebaseService.getRole("szymonsadowski3@gmail.com").subscribe(roles => {
       const isAdmin = (get(roles, '[0].role') === 'admin');
       this.assert(isAdmin, 'Check if backend service correctly returns admin role');
-      this.callNext();
     });
   }
 
@@ -302,7 +290,6 @@ export class TestHarness {
       console.dir(roles);
       const isAdmin = (get(roles, '[0].role') === 'user');
       this.assert(isAdmin, 'Check if backend service correctly returns standard user role');
-      this.callNext();
     });
   }
 
@@ -310,18 +297,18 @@ export class TestHarness {
 
   constructor(private authService: AuthService, private firebaseService: FirebaseService) {
     const testsToRun = {
-      '[Authorization Service Integration Test] LOGIN': () => {this.integrationTestAuthServiceLogin(authService);},
-      '[Authorization Service Integration Test] REGISTER': () => {this.integrationTestAuthServiceRegister(authService);},
-      '[Authorization Service Integration Test] REGISTER WITH ALREADY IN-USE EMAIL': () => {this.integrationTestAuthServiceRegisterAlreadyUsed(authService);},
-      '[Authorization Service Integration Test] REGISTER WITH INCORRECT EMAIL': () => {this.integrationTestAuthServiceRegisterIncorrectEmail(authService);},
-      '[Authorization Service Integration Test] REGISTER WITH SHORT PASSWORD': () => {this.integrationTestAuthServiceRegisterShortPassword(authService);},
-      '[Backend Service Integration Test] GET ALL TRIPS': () => {this.integrationTestBackendServiceGetAllTrips(firebaseService);},
-      '[Backend Service Integration Test] DELETE TRIP': () => {this.integrationTestBackendServiceDeleteTrips(firebaseService);},
-      '[Backend Service Integration Test] ADD TRIP': () => {this.integrationTestBackendServiceAddTrip(firebaseService);},
-      '[Backend Service Integration Test] ADD ORDER': () => {this.integrationTestBackendServiceAddOrder(firebaseService);},
+      // '[Authorization Service Integration Test] LOGIN': () => {this.integrationTestAuthServiceLogin(authService);},
+      // '[Authorization Service Integration Test] REGISTER': () => {this.integrationTestAuthServiceRegister(authService);},
+      // '[Authorization Service Integration Test] REGISTER WITH ALREADY IN-USE EMAIL': () => {this.integrationTestAuthServiceRegisterAlreadyUsed(authService);},
+      // '[Authorization Service Integration Test] REGISTER WITH INCORRECT EMAIL': () => {this.integrationTestAuthServiceRegisterIncorrectEmail(authService);},
+      // '[Authorization Service Integration Test] REGISTER WITH SHORT PASSWORD': () => {this.integrationTestAuthServiceRegisterShortPassword(authService);},
+      // '[Backend Service Integration Test] GET ALL TRIPS': () => {this.integrationTestBackendServiceGetAllTrips(firebaseService);},
+      // '[Backend Service Integration Test] DELETE TRIP': () => {this.integrationTestBackendServiceDeleteTrips(firebaseService);},
+      // '[Backend Service Integration Test] ADD TRIP': () => {this.integrationTestBackendServiceAddTrip(firebaseService);},
+      // '[Backend Service Integration Test] ADD ORDER': () => {this.integrationTestBackendServiceAddOrder(firebaseService);},
       // '[Backend Service Integration Test] ADD RATING': () => {this.integrationTestBackendServiceAddRating(firebaseService);},
-      '[Backend Service Integration Test] UPDATE TRIP': () => {this.integrationTestBackendServiceUpdateTrip(firebaseService);},
-      '[Backend Service Integration Test] GET ROLE CHECK ADMIN': () => {this.integrationTestBackendServiceGetRoleCheckAdmin(firebaseService);},
+      // '[Backend Service Integration Test] UPDATE TRIP': () => {this.integrationTestBackendServiceUpdateTrip(firebaseService);},
+      // '[Backend Service Integration Test] GET ROLE CHECK ADMIN': () => {this.integrationTestBackendServiceGetRoleCheckAdmin(firebaseService);},
       '[Backend Service Integration Test] GET ROLE CHECK STANDARD USER': () => {this.integrationTestBackendServiceGetRoleCheckStandardUser(firebaseService);},
     };
 
@@ -349,21 +336,29 @@ export class TestHarness {
     // serial(testFunctions);
     //
 
-    const testFunctions = [];
+    // const testFunctions = [];
+    //
+    // forEach(testsToRun, (testFunc, testName) => {
+    //   const tf = () => {
+    //     this.testResults.push({type: 'test', name: testName});
+    //     testFunc();
+    //   };
+    //   testFunctions.push(tf);
+    // });
+    //
+    // for(let i=0; i<testFunctions.length; i++) {
+    //   setTimeout(() => {
+    //     try {
+    //       testFunctions[i]();
+    //     } catch (error) {
+    //       this.testResults.push({type: 'assert', status: 'FAIL', msg: JSON.stringify(error)});
+    //     }
+    //   }, i*20000);
+    // }
 
-    forEach(testsToRun, (testFunc, testName) => {
-      const tf = () => {
-        this.testResults.push({type: 'test', name: testName});
-        testFunc();
-      };
-      testFunctions.push(tf);
-    });
+    // this.testFunctions = testFunctions;
 
-    console.dir(testFunctions);
-
-    this.testFunctions = testFunctions;
-
-    this.callNext();
+    // this.callNext();
 
     // setInterval(() => {
     //   console.log(`Running test ${testNames[this.iterator]}`);
@@ -387,16 +382,16 @@ export class TestHarness {
     //   }
     // }, 10000);
 
-    // forEach(testsToRun, (testFunc, testName) => {
-    //   this.testResults.push({type: 'test', name: testName});
-    //   console.log(`Running test ${testName}`);
-    //   try {
-    //     testFunc();
-    //     // this.sleep(2000);
-    //   } catch(error) {
-    //     this.testResults.push({type: 'assert', status: 'FAIL', msg: JSON.stringify(error)});
-    //   }
-    // });
+    forEach(testsToRun, (testFunc, testName) => {
+      this.testResults.push({type: 'test', name: testName});
+      console.log(`Running test ${testName}`);
+      try {
+        testFunc();
+        // this.sleep(2000);
+      } catch(error) {
+        this.testResults.push({type: 'assert', status: 'FAIL', msg: JSON.stringify(error)});
+      }
+    });
 
     // testsToRun.forEach(test => {
     //   console.log('running test...');

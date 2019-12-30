@@ -1,15 +1,18 @@
-<div
-  *ngFor="let item of testResults"
->
-  <h3 *ngIf="item.type == 'test'">
-    {{item.name}}
-  </h3>
-  <div *ngIf="item.type == 'assert'"
-       [ngClass]="{
+<div class="container mt-5 pt-5 mb-5 pb-5">
+  <div
+    *ngFor="let item of testResults"
+  >
+    <h3 *ngIf="item.type == 'test'">
+      {{item.name}}
+    </h3>
+    <div *ngIf="item.type == 'assert'"
+         [ngClass]="{
                 'alert alert-success': (item.status=='PASS'),
                 'alert alert-danger': (item.status=='FAIL')
              }"
-  >
-    {{item.status}}: {{item.msg}}
+    >
+      {{item.status}}: {{item.msg}}
+    </div>
   </div>
 </div>
+
